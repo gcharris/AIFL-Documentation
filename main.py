@@ -60,8 +60,30 @@ def aifl_process_and_generate(input_data):
         # AIFL symbol for error handling
         return f"ΦΗ7δ ⇒ Error: {str(e)}"
 
+def test_data_encryption():
+    """
+    Test function for Data Encryption symbol (ΔΕ1)
+    """
+    test_data = "Sensitive information for encryption"
+    encrypted_data = encrypt_data(test_data)
+    decrypted_data = base64.b64decode(encrypted_data).decode()
+    
+    if decrypted_data == test_data:
+        print(f"ΣΑ1 ⇒ Data Encryption (ΔΕ1) test passed. Original: '{test_data}', Encrypted: '{encrypted_data}'")
+        return True
+    else:
+        print(f"ΦΗ7δ ⇒ Data Encryption (ΔΕ1) test failed. Decryption mismatch.")
+        return False
+
 if __name__ == "__main__":
-    input_data = "Explain the concept of AIFL in the context of AI development, including data encryption"
-    result = aifl_process_and_generate(input_data)
-    print(f"Input: {input_data}")
-    print(f"AIFL-processed output: {result}")
+    # Test data encryption
+    encryption_test_result = test_data_encryption()
+    
+    if encryption_test_result:
+        # Proceed with the main process if encryption test passes
+        input_data = "Explain the concept of AIFL in the context of AI development, including data encryption"
+        result = aifl_process_and_generate(input_data)
+        print(f"Input: {input_data}")
+        print(f"AIFL-processed output: {result}")
+    else:
+        print("ΦΗ7δ ⇒ Encryption test failed. Aborting main process.")
