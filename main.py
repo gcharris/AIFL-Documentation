@@ -17,8 +17,11 @@ def demonstrate_advanced_aifl():
 
     for expr in advanced_expressions:
         logger.info(f"Parsing advanced AIFL expression: {expr}")
-        result = parser.parse(expr)
-        logger.info(f"Parsed result: {result}")
+        try:
+            result = parser.parse(expr)
+            logger.info(f"Parsed result: {result}")
+        except ValueError as e:
+            logger.error(f"Error parsing expression: {e}")
         logger.info("---")
 
 if __name__ == "__main__":

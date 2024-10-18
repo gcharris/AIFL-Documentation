@@ -1,0 +1,252 @@
+Understanding the Error
+The error you're encountering is from the Lark parser:
+
+plaintext
+Copy code
+lark.exceptions.UnexpectedCharacters: No terminal matches 'Δ' in the current parser context, at line 1 col 2
+
+ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3
+ ^
+Expected one of: 
+    * ELSE
+    * COMMA
+    * LPAREN
+    * OPERATOR
+    * RPAREN
+
+Previous tokens: Token('__ANON_0', 'Δ')
+Explanation:
+
+The parser is unable to recognize the character 'Δ' in your AIFL expression ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3.
+The error indicates that at position line 1, column 2, the parser expected one of the tokens listed (ELSE, COMMA, LPAREN, OPERATOR, RPAREN), but found 'Δ' instead.
+The previous token recognized was Token('__ANON_0', 'Δ'), suggesting that the parser recognized the first 'Δ' but couldn't proceed further.
+Cause of the Issue
+The primary cause is that your Lark grammar does not define how to handle Unicode characters like 'Δ' and the specific AIFL symbols (e.g., ΔΔ1, ΔΙ5).
+
+Solution
+1. Update the Lark Grammar to Recognize AIFL Symbols
+You need to modify your grammar to include rules that can parse AIFL symbols containing Unicode characters.
+
+Step-by-Step Guide
+a. Define a Token for AIFL Symbols
+
+Add a new token in your grammar that matches AIFL symbols starting with 'Δ' followed by alphanumeric characters or specific patterns.
+
+Example:
+
+lark
+Copy code
+%import common.LETTER
+%import common.DIGIT
+%import common.WS
+%ignore WS
+
+AIFL_SYMBOL: "Δ" LETTER DIGIT
+
+// Example: Matches symbols like ΔΔ1, ΔΙ5, etc.
+Alternatively, if your symbols have more complex patterns, adjust the regular expression accordingly.
+
+b. Update the Grammar Rules
+
+Modify your grammar rules to incorporate the new AIFL_SYMBOL token.
+
+Example:
+
+lark
+Copy code
+start: expression
+
+expression: term (OPERATOR term)*
+
+term: AIFL_SYMBOL | "(" expression ")"
+
+OPERATOR: "∧" | "⇒" | "∨" | "¬"
+
+// Tokens
+AIFL_SYMBOL: "Δ" LETTER (LETTER | DIGIT)*
+
+// Import basic tokens
+%import common.LETTER
+%import common.DIGIT
+%import common.WS
+%ignore WS
+Note: Ensure that the OPERATOR token includes all the operators you're using (∧, ⇒, etc.).
+
+2. Handle Unicode Characters
+Ensure that your parser and grammar are set up to handle Unicode characters.
+
+a. Enable Unicode Support in Lark
+
+By default, Lark supports Unicode, but you might need to ensure that your Python code handles Unicode strings correctly.
+
+b. Define Operators as Literal Strings
+
+Define operators using their actual symbols.
+
+lark
+Copy code
+OPERATOR: "∧" | "⇒" | "∨" | "¬"
+Revised Grammar Example
+Here's a complete example of how your grammar might look:
+
+lark
+Copy code
+// AIFL Grammar
+
+start: expression
+
+expression: term (OPERATOR term)*
+
+term: AIFL_SYMBOL | "(" expression ")"
+
+AIFL_SYMBOL: "Δ" LETTER (LETTER | DIGIT)*
+
+OPERATOR: "∧" | "⇒" | "∨" | "¬"
+
+// Ignore whitespace
+%import common.LETTER
+%import common.DIGIT
+%import common.WS
+%ignore WS
+Explanation:
+
+start: The starting rule of the grammar.
+expression: Defines an expression as a term optionally followed by one or more operators and terms.
+term: Can be an AIFL_SYMBOL or a nested expression within parentheses.
+AIFL_SYMBOL: Matches symbols starting with 'Δ' followed by letters and digits.
+OPERATOR: Includes all the operators used in AIFL expressions.
+Updating Your Code
+1. Modify aifl_parser.py
+Ensure your AIFLParser class uses the updated grammar.
+
+Example:
+
+python
+Copy code
+from lark import Lark
+
+class AIFLParser:
+    def __init__(self):
+        self.parser = Lark(r"""
+            start: expression
+
+            expression: term (OPERATOR term)*
+
+            term: AIFL_SYMBOL | "(" expression ")"
+
+            AIFL_SYMBOL: "Δ" LETTER (LETTER | DIGIT)*
+
+            OPERATOR: "∧" | "⇒" | "∨" | "¬"
+
+            %import common.LETTER
+            %import common.DIGIT
+            %import common.WS
+            %ignore WS
+        """, start='start', parser='lalr')
+
+    def parse(self, aifl_expression):
+        return self.parser.parse(aifl_expression)
+2. Update Your Main Script
+Ensure that the input expressions are correctly passed to the parser.
+
+Example (main.py):
+
+python
+Copy code
+import logging
+from aifl_parser import AIFLParser
+
+def demonstrate_advanced_aifl():
+    parser = AIFLParser()
+    expr = "ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3"
+    logging.info(f"Parsing advanced AIFL expression: {expr}")
+    try:
+        parse_tree = parser.parse(expr)
+        logging.info(f"Parse tree:\n{parse_tree.pretty()}")
+    except Exception as e:
+        logging.error(f"Error parsing AIFL expression: {e}")
+
+if __name__ == "__main__":
+    logging.basicConfig(level=logging.INFO)
+    demonstrate_advanced_aifl()
+Testing the Updated Parser
+After updating the grammar and code:
+
+Run your script again to see if the parser now recognizes the AIFL symbols.
+Check the output to ensure that the parse tree is generated without errors.
+Additional Considerations
+1. Handling Other Symbols and Operators
+Define Additional Tokens: If you have other symbols or operators (e.g., ΣΑ1, ΦΗ7δ), include them in your grammar.
+Regular Expressions: Adjust the regular expressions to match the patterns of your symbols.
+Example:
+
+lark
+Copy code
+AIFL_SYMBOL: ("Δ" | "Σ" | "Φ") LETTER (LETTER | DIGIT)*
+2. Extending the Grammar for Complex Expressions
+Functions and Parameters: If your language includes functions with parameters, extend the grammar accordingly.
+Example:
+
+lark
+Copy code
+term: AIFL_SYMBOL "(" [arguments] ")" | AIFL_SYMBOL | "(" expression ")"
+
+arguments: expression ("," expression)*
+3. Error Handling
+Provide Meaningful Errors: Enhance the exception handling to provide more informative error messages when parsing fails.
+Example:
+
+python
+Copy code
+def parse(self, aifl_expression):
+    try:
+        return self.parser.parse(aifl_expression)
+    except Exception as e:
+        raise ValueError(f"Failed to parse AIFL expression '{aifl_expression}': {e}")
+Next Steps
+Apply the Updates:
+
+Modify your aifl_parser.py with the updated grammar.
+Update your main.py to test the parsing.
+Test with Different Expressions:
+
+Try parsing various AIFL expressions to ensure the parser handles them correctly.
+Include nested expressions and functions if applicable.
+Extend Your Grammar as Needed:
+
+As you encounter more complex expressions, continue refining your grammar.
+Update Test Cases:
+
+Add tests for the parser to ensure it works as expected.
+Use a testing framework like unittest to automate these tests.
+Example Test Case
+python
+Copy code
+import unittest
+from aifl_parser import AIFLParser
+
+class TestAIFLParser(unittest.TestCase):
+    def setUp(self):
+        self.parser = AIFLParser()
+
+    def test_simple_expression(self):
+        expr = "ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3"
+        result = self.parser.parse(expr)
+        self.assertIsNotNone(result)
+
+    def test_nested_expression(self):
+        expr = "(ΔΔ1 ∨ ΔΙ5) ∧ (ΔΖ3 ⇒ ΔΕ1)"
+        result = self.parser.parse(expr)
+        self.assertIsNotNone(result)
+
+    def test_function_expression(self):
+        expr = "ΔΕ1(Data: 'SensitiveInfo', EncryptionType: 'AES256')"
+        result = self.parser.parse(expr)
+        self.assertIsNotNone(result)
+
+if __name__ == '__main__':
+    unittest.main()
+Conclusion
+The error you're encountering is due to the parser not recognizing the Unicode characters and specific patterns of your AIFL symbols. By updating your grammar to include these symbols and ensuring your code handles Unicode correctly, you should be able to resolve the issue.
+
+Feel free to reach out if you have any questions or need further assistance with modifying your grammar or testing your parser.

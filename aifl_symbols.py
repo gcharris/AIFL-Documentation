@@ -1,14 +1,14 @@
 import logging
 import os
-import openai
+from openai import OpenAI
 from aifl_parser import AIFLParser
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Set the OpenAI API key
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# Initialize the OpenAI client
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 def aifl_process_and_generate(input_data):
     """
@@ -18,15 +18,27 @@ def aifl_process_and_generate(input_data):
     
     # AIFL symbols for data processing
     processed_data = f"ΔΔ1('{input_data}') ∧ ΔΙ5 ⇒ ΔΖ3"
-    parsed_processed_data = parser.parse(processed_data)
+    try:
+        parsed_processed_data = parser.parse(processed_data)
+    except ValueError as e:
+        logger.error(f"Error parsing processed data: {e}")
+        parsed_processed_data = "Error in parsing"
     
     # AIFL symbol for data encryption
     encryption_step = f"ΔΕ1('{input_data}')"
-    parsed_encryption_step = parser.parse(encryption_step)
+    try:
+        parsed_encryption_step = parser.parse(encryption_step)
+    except ValueError as e:
+        logger.error(f"Error parsing encryption step: {e}")
+        parsed_encryption_step = "Error in parsing"
     
     # AIFL symbols for model invocation
     model_invocation = f"ΔΘ5α ∧ ΔΜ1 ⇒ ΔΝ2"
-    parsed_model_invocation = parser.parse(model_invocation)
+    try:
+        parsed_model_invocation = parser.parse(model_invocation)
+    except ValueError as e:
+        logger.error(f"Error parsing model invocation: {e}")
+        parsed_model_invocation = "Error in parsing"
     
     # Combine AIFL symbols to create a prompt with explanations
     aifl_prompt = f"""
@@ -56,7 +68,7 @@ def aifl_process_and_generate(input_data):
     """
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an AI assistant that understands AIFL symbols and their parsed representations. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
