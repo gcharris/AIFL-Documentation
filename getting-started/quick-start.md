@@ -12,7 +12,7 @@ Ensure you have completed the [Installation](installation.md) process before pro
 
 2. Review the existing code, which demonstrates basic AIFL functionality:
    - Data retrieval and processing
-   - Data encryption
+   - Data encryption using Fernet symmetric encryption
    - Model training and evaluation
 
 3. Run the script:

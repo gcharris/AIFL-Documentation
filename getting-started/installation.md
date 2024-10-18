@@ -17,7 +17,7 @@ This guide will walk you through the process of installing AIFL in your developm
 
 2. Install the required dependencies:
    ```
-   pip install openai
+   pip install openai cryptography
    ```
 
 3. Set up your OpenAI API key as an environment variable:

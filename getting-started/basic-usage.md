@@ -50,6 +50,15 @@ This expression means: Retrieve and normalize data, then transform it.
    ```
    If data transformation fails, adjust hyperparameters as a fallback.
 
+## Data Encryption
+
+AIFL now includes robust data encryption using Fernet symmetric encryption. This is represented by the ΔΕ1 symbol:
+
+```python
+encrypted_data = encrypt_data(input_data)
+encryption_step = f"ΔΕ1('{encrypted_data}')"
+```
+
 ## Practical Example
 
 Here's a more complex example combining multiple operations:

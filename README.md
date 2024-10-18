@@ -51,18 +51,13 @@ AIFL is built on several key concepts:
 
 4. **Test Conversations**: Real-world scenarios demonstrating the application of AIFL in complex situations, such as collaborative assembly lines and autonomous exploration.
 
-### Latest Updates (Version 5.2)
+### Latest Updates (Version 5.3)
 
-- Incorporated Error Propagation mechanisms
-- Enhanced ROS Integration
-- Introduced CompatibilityCheck and ValidateData functions
-- Updated formal grammar
-- Added new scenarios for robotics and autonomous exploration
-- Standardized error severity representation
-- Improved consistency in example expressions and terminology
-- Added Test Conversations with practical usage examples
-- Implemented Data Encryption (ΔΕ1) symbol and functionality
-- Updated main script to provide both concise and detailed explanations of AIFL symbols
+- Updated OpenAI API usage to comply with the latest library standards
+- Improved data encryption using Fernet symmetric encryption
+- Enhanced error handling and reporting
+- Updated documentation to reflect recent changes
+- Improved code organization and modularity
 
 For a complete list of symbols, syntax rules, and usage examples, please refer to the [Core Concepts](Core_Concepts/Introduction.md) section.
 
@@ -77,7 +72,7 @@ To get started with AIFL, follow these steps:
 
 2. Install the required dependencies:
    ```
-   pip install openai
+   pip install openai cryptography
    ```
 
 3. Set up your OpenAI API key as an environment variable:

@@ -1,16 +1,25 @@
 import os
-from openai import OpenAI
-import base64
+import openai
+from cryptography.fernet import Fernet
 
-# Initialize the OpenAI client
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+# Set your OpenAI API key
+openai.api_key = os.environ["OPENAI_API_KEY"]
+
+# Generate and store this key securely in a real-world scenario
+key = Fernet.generate_key()
+fernet = Fernet(key)
 
 def encrypt_data(data):
     """
-    Simple encryption function using base64 encoding.
-    In a real-world scenario, use a proper encryption library.
+    Encrypt data using Fernet symmetric encryption.
     """
-    return base64.b64encode(data.encode()).decode()
+    return fernet.encrypt(data.encode()).decode()
+
+def decrypt_data(token):
+    """
+    Decrypt data using Fernet symmetric encryption.
+    """
+    return fernet.decrypt(token.encode()).decode()
 
 def aifl_process_and_generate(input_data):
     """
@@ -49,7 +58,7 @@ def aifl_process_and_generate(input_data):
     """
 
     try:
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an AI assistant that understands AIFL symbols. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
@@ -57,7 +66,7 @@ def aifl_process_and_generate(input_data):
             ],
             max_tokens=1000
         )
-        result = response.choices[0].message.content.strip()
+        result = response.choices[0].message['content'].strip()
         
         # AIFL symbol for successful operation
         return f"ΣΑ1 ⇒ {result}"
@@ -71,7 +80,7 @@ def test_data_encryption():
     """
     test_data = "Sensitive information for encryption"
     encrypted_data = encrypt_data(test_data)
-    decrypted_data = base64.b64decode(encrypted_data).decode()
+    decrypted_data = decrypt_data(encrypted_data)
     
     if decrypted_data == test_data:
         print(f"ΣΑ1 ⇒ Data Encryption (ΔΕ1) test passed. Original: '{test_data}', Encrypted: '{encrypted_data}'")
