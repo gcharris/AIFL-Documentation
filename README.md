@@ -4,33 +4,35 @@ Welcome to the official documentation for AIFL (Artificial Intelligence Function
 
 ## Table of Contents
 
-1. [Getting Started](getting-started/installation.md)
-   - [Installation](getting-started/installation.md)
-   - [Quick Start](getting-started/quick-start.md)
-   - [Basic Usage](getting-started/basic-usage.md)
+1. [Core Concepts](Core_Concepts/Introduction.md)
+   - [Introduction](Core_Concepts/Introduction.md)
+   - [Domains](Core_Concepts/Domains.md)
+   - [Symbol Dictionary](Core_Concepts/Symbol_Dictionary.md)
+   - [Syntax Rules](Core_Concepts/Syntax_Rules.md)
 
-2. [Core Concepts](core-concepts/aifl-overview.md)
-   - [AIFL Overview](core-concepts/aifl-overview.md)
-   - [Key Components](core-concepts/key-components.md)
-   - [Architecture](core-concepts/architecture.md)
+2. [Integration Guides](Integration_Guides/Swarm_API_Integration.md)
+   - [Swarm API Integration](Integration_Guides/Swarm_API_Integration.md)
+   - [Gemini AI Integration](Integration_Guides/Gemini_AI_Integration.md)
+   - [Other Frameworks](Integration_Guides/Other_Frameworks.md)
 
-3. [Advanced Topics](advanced-topics/customization.md)
-   - [Customization](advanced-topics/customization.md)
-   - [Performance Optimization](advanced-topics/performance-optimization.md)
-   - [Security](advanced-topics/security.md)
+3. [Test Cases](Test_Cases/Test_Case_1.md)
+   - [Test Case 1](Test_Cases/Test_Case_1.md)
+   - [Test Case 2](Test_Cases/Test_Case_2.md)
+   - [Test Case 3](Test_Cases/Test_Case_3.md)
 
-4. [API Reference](api-reference/endpoints.md)
-   - [Endpoints](api-reference/endpoints.md)
-   - [Data Models](api-reference/data-models.md)
+4. [Security & Compliance](Security_Compliance/Security_Protocols.md)
+   - [Security Protocols](Security_Compliance/Security_Protocols.md)
+   - [Compliance Standards](Security_Compliance/Compliance_Standards.md)
 
-5. [Tutorials](tutorials/beginner-tutorial.md)
-   - [Beginner Tutorial](tutorials/beginner-tutorial.md)
-   - [Advanced Tutorial](tutorials/advanced-tutorial.md)
+5. [Use Cases](Use_Cases/Use_Case_1.md)
+   - [Use Case 1](Use_Cases/Use_Case_1.md)
+   - [Use Case 2](Use_Cases/Use_Case_2.md)
+   - [Use Case 3](Use_Cases/Use_Case_3.md)
 
-6. [Contributing](contributing/code-of-conduct.md)
-   - [Code of Conduct](contributing/code-of-conduct.md)
-   - [Contribution Guidelines](contributing/contribution-guidelines.md)
-   - [Development Setup](contributing/development-setup.md)
+6. [Developer Resources](Developer_Resources/SDKs_Libraries.md)
+   - [SDKs & Libraries](Developer_Resources/SDKs_Libraries.md)
+   - [Tooling Support](Developer_Resources/Tooling_Support.md)
+   - [Tutorials](Developer_Resources/Tutorials.md)
 
 ## About AIFL
 
