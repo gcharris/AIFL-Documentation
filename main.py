@@ -2,6 +2,7 @@ import logging
 from encryption import encrypt_data, test_data_encryption
 from aifl_symbols import aifl_process_and_generate
 from aifl_parser import AIFLParser
+from aifl_executor import AIFLExecutor
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -9,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 def demonstrate_advanced_aifl():
     parser = AIFLParser()
+    executor = AIFLExecutor()
     advanced_expressions = [
         "ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3",
         "IF(ΔΣ1 > Threshold) THEN ΔΕ1(Data: 'SensitiveInfo') ELSE ΔΑ1(Data: 'PublicInfo')",
@@ -16,12 +18,15 @@ def demonstrate_advanced_aifl():
     ]
 
     for expr in advanced_expressions:
-        logger.info(f"Parsing advanced AIFL expression: {expr}")
+        logger.info(f"Parsing and executing advanced AIFL expression: {expr}")
         try:
-            result = parser.parse(expr)
-            logger.info(f"Parsed result: {result}")
+            parsed_result = parser.parse(expr)
+            logger.info(f"Parsed result: {parsed_result}")
+            
+            executed_result = executor.execute(expr)
+            logger.info(f"Executed result: {executed_result}")
         except ValueError as e:
-            logger.error(f"Error parsing expression: {e}")
+            logger.error(f"Error parsing or executing expression: {e}")
         logger.info("---")
 
 if __name__ == "__main__":
@@ -31,7 +36,7 @@ if __name__ == "__main__":
     if encryption_test_result:
         logger.info(f"ΣΑ1 ⇒ Data Encryption (ΔΕ1) test passed. Original: '{test_data}', Encrypted: '{encrypted_data}'")
         
-        # Demonstrate advanced AIFL parsing
+        # Demonstrate advanced AIFL parsing and execution
         demonstrate_advanced_aifl()
         
         # Proceed with the main process if encryption test passes
