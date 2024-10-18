@@ -1,9 +1,14 @@
 import os
-import openai
+import logging
+from openai import OpenAI
 from cryptography.fernet import Fernet
 
-# Set your OpenAI API key
-openai.api_key = os.environ["OPENAI_API_KEY"]
+# Set up logging
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+# Initialize the OpenAI client
+client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
 
 # Generate and store this key securely in a real-world scenario
 key = Fernet.generate_key()
@@ -58,7 +63,7 @@ def aifl_process_and_generate(input_data):
     """
 
     try:
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an AI assistant that understands AIFL symbols. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
@@ -66,13 +71,16 @@ def aifl_process_and_generate(input_data):
             ],
             max_tokens=1000
         )
-        result = response.choices[0].message['content'].strip()
+        result = response.choices[0].message.content.strip()
         
         # AIFL symbol for successful operation
+        logger.info("ΣΑ1 ⇒ Successfully generated AIFL response")
         return f"ΣΑ1 ⇒ {result}"
     except Exception as e:
-        # AIFL symbol for error handling
-        return f"ΦΗ7δ ⇒ Error: {str(e)}"
+        # Handle all exceptions
+        error_message = f"ΦΗ7δ ⇒ Error: {str(e)}"
+        logger.error(error_message)
+        return error_message
 
 def test_data_encryption():
     """
@@ -83,10 +91,10 @@ def test_data_encryption():
     decrypted_data = decrypt_data(encrypted_data)
     
     if decrypted_data == test_data:
-        print(f"ΣΑ1 ⇒ Data Encryption (ΔΕ1) test passed. Original: '{test_data}', Encrypted: '{encrypted_data}'")
+        logger.info(f"ΣΑ1 ⇒ Data Encryption (ΔΕ1) test passed. Original: '{test_data}', Encrypted: '{encrypted_data}'")
         return True
     else:
-        print(f"ΦΗ7δ ⇒ Data Encryption (ΔΕ1) test failed. Decryption mismatch.")
+        logger.error(f"ΦΗ7δ ⇒ Data Encryption (ΔΕ1) test failed. Decryption mismatch.")
         return False
 
 if __name__ == "__main__":
@@ -97,7 +105,7 @@ if __name__ == "__main__":
         # Proceed with the main process if encryption test passes
         input_data = "Explain the concept of AIFL in the context of AI development, including data encryption"
         result = aifl_process_and_generate(input_data)
-        print(f"Input: {input_data}")
-        print(f"AIFL-processed output: {result}")
+        logger.info(f"Input: {input_data}")
+        logger.info(f"AIFL-processed output: {result}")
     else:
-        print("ΦΗ7δ ⇒ Encryption test failed. Aborting main process.")
+        logger.error("ΦΗ7δ ⇒ Encryption test failed. Aborting main process.")
