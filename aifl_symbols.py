@@ -1,15 +1,15 @@
 import logging
-from openai import OpenAI
 import os
+import openai
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Initialize the OpenAI client
-client = OpenAI(api_key=os.environ["OPENAI_API_KEY"])
+# Set the OpenAI API key
+openai.api_key = os.environ["OPENAI_API_KEY"]
 
-def aifl_process_and_generate(input_data, encrypted_data):
+def aifl_process_and_generate(input_data):
     """
     Process input data using AIFL symbols and generate text using OpenAI API.
     """
@@ -17,7 +17,7 @@ def aifl_process_and_generate(input_data, encrypted_data):
     processed_data = f"ΔΔ1('{input_data}') ∧ ΔΙ5 ⇒ ΔΖ3"
     
     # AIFL symbol for data encryption
-    encryption_step = f"ΔΕ1('{encrypted_data}')"
+    encryption_step = f"ΔΕ1('{input_data}')"
     
     # AIFL symbols for model invocation
     model_invocation = f"ΔΘ5α ∧ ΔΜ1 ⇒ ΔΝ2"
@@ -45,7 +45,7 @@ def aifl_process_and_generate(input_data, encrypted_data):
     """
 
     try:
-        response = client.chat.completions.create(
+        response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
                 {"role": "system", "content": "You are an AI assistant that understands AIFL symbols. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
