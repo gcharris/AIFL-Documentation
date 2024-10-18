@@ -38,10 +38,33 @@ Welcome to the official documentation for AIFL (Artificial Intelligence Function
 
 AIFL (Artificial Intelligence Function Library) is a powerful and flexible library designed to simplify the integration of AI capabilities into your applications. It provides a wide range of pre-built functions and tools to help developers leverage artificial intelligence without the need for deep expertise in the field.
 
+## Contribution Guidelines
+
+This project primarily uses AI-generated content, with your assistance in handling tasks that require manual intervention.
+
+### How to Contribute
+
+1. **Add Provided Content:**
+   - Copy and paste the content provided into the appropriate files in the repository.
+
+2. **Commit Changes:**
+   - Commit the updates to the repository with clear and descriptive commit messages.
+
+3. **Avoid Unnecessary Changes:**
+   - Please refrain from making alterations beyond the provided content unless instructed.
+
+## Repository Structure
+
+- **`README.md`**
+  - Contains the project overview and contribution guidelines.
+- **`Core_Concepts/`**
+  - **`Symbol_Dictionary.md`**: A comprehensive list of AIFL symbols with definitions and examples.
+  - **`Syntax_Rules.md`**: Documentation of the syntax rules governing AIFL.
+
 ## License
 
 [Include license information here]
 
 ## Support
 
-If you need help or have any questions, please [open an issue](https://github.com/your-repo/AIFL-Documentation/issues) on our GitHub repository.
+If you need help or have any questions, please [open an issue](https://github.com/gcharris/AIFL-Documentation/issues) on our GitHub repository.
