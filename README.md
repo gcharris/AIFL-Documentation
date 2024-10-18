@@ -4,52 +4,24 @@ Welcome to the official documentation for AIFL (Artificial Intelligence Function
 
 ## Table of Contents
 
-1. [Core Concepts](Core_Concepts/Introduction.md)
-   - [Introduction](Core_Concepts/Introduction.md)
-   - [Domains](Core_Concepts/Domains.md)
-   - [Symbol Dictionary](Core_Concepts/Symbol_Dictionary.md)
-   - [Syntax Rules](Core_Concepts/Syntax_Rules.md)
-   - [Test Conversations](Core_Concepts/Test_Conversations.md)
-
-2. [Integration Guides](Integration_Guides/Swarm_API_Integration.md)
-   - [Swarm API Integration](Integration_Guides/Swarm_API_Integration.md)
-   - [Gemini AI Integration](Integration_Guides/Gemini_AI_Integration.md)
-   - [Other Frameworks](Integration_Guides/Other_Frameworks.md)
-
-3. [Test Cases](Test_Cases/Test_Case_1.md)
-   - [Test Case 1](Test_Cases/Test_Case_1.md)
-   - [Test Case 2](Test_Cases/Test_Case_2.md)
-   - [Test Case 3](Test_Cases/Test_Case_3.md)
-
-4. [Security & Compliance](Security_Compliance/Security_Protocols.md)
-   - [Security Protocols](Security_Compliance/Security_Protocols.md)
-   - [Compliance Standards](Security_Compliance/Compliance_Standards.md)
-
-5. [Use Cases](Use_Cases/Use_Case_1.md)
-   - [Use Case 1](Use_Cases/Use_Case_1.md)
-   - [Use Case 2](Use_Cases/Use_Case_2.md)
-   - [Use Case 3](Use_Cases/Use_Case_3.md)
-
-6. [Developer Resources](Developer_Resources/SDKs_Libraries.md)
-   - [SDKs & Libraries](Developer_Resources/SDKs_Libraries.md)
-   - [Tooling Support](Developer_Resources/Tooling_Support.md)
-   - [Tutorials](Developer_Resources/Tutorials.md)
+1. [About AIFL](#about-aifl)
+2. [Getting Started](#getting-started)
+3. [Running the Project](#running-the-project)
+4. [Core Concepts](#core-concepts)
+5. [Contributing](#contributing)
+6. [License](#license)
+7. [Support](#support)
 
 ## About AIFL
 
 AIFL (Artificial Intelligence Function Library) is a powerful and flexible library designed to simplify the integration of AI capabilities into your applications. It provides a wide range of pre-built functions and tools to help developers leverage artificial intelligence without the need for deep expertise in the field.
 
-### Core Concepts
+### Key Features
 
-AIFL is built on several key concepts:
-
-1. **Domains**: AIFL symbols are categorized into specific domains to organize their usage and facilitate expansion. The primary domains include Data Processing, Machine Learning, Model Evaluation Metrics, Risk Management and Fallback Mechanisms, Security and Privacy, Communication and Control, Robotics, Evolutionary Development, and Error Handling and Propagation.
-
-2. **Symbol Dictionary**: AIFL uses a comprehensive set of symbols to represent various operations and concepts. These symbols are organized by domain and include definitions, rationales, and example usages.
-
-3. **Syntax Rules**: AIFL follows a set of syntax rules and conventions to ensure clear and unambiguous communication between AI systems.
-
-4. **Test Conversations**: Real-world scenarios demonstrating the application of AIFL in complex situations, such as collaborative assembly lines and autonomous exploration.
+- Symbolic representation of AI processes
+- Data encryption and security measures
+- Integration with OpenAI's GPT models
+- Modular design for easy customization and extension
 
 ### Latest Updates (Version 5.3)
 
@@ -59,8 +31,6 @@ AIFL is built on several key concepts:
 - Updated documentation to reflect recent changes
 - Improved code organization and modularity
 
-For a complete list of symbols, syntax rules, and usage examples, please refer to the [Core Concepts](Core_Concepts/Introduction.md) section.
-
 ## Getting Started
 
 To get started with AIFL, follow these steps:
@@ -68,11 +38,12 @@ To get started with AIFL, follow these steps:
 1. Clone this repository:
    ```
    git clone https://github.com/your-username/AIFL-Documentation.git
+   cd AIFL-Documentation
    ```
 
 2. Install the required dependencies:
    ```
-   pip install openai cryptography
+   pip install -r requirements.txt
    ```
 
 3. Set up your OpenAI API key as an environment variable:
@@ -84,6 +55,31 @@ To get started with AIFL, follow these steps:
    ```
    python main.py
    ```
+
+## Running the Project
+
+1. Ensure you have Python 3.7 or higher installed on your system.
+2. Install the required dependencies by running `pip install -r requirements.txt` in the project directory.
+3. Set your OpenAI API key as an environment variable:
+   - On Unix-based systems: `export OPENAI_API_KEY='your-api-key-here'`
+   - On Windows: `set OPENAI_API_KEY=your-api-key-here`
+4. Run the main script: `python main.py`
+
+The script will first run a test on the data encryption functionality. If the test passes, it will proceed to generate an AIFL-processed explanation of the AIFL concept and symbols used.
+
+## Core Concepts
+
+AIFL uses a symbolic language to represent various AI and data processing operations. Here are some key concepts:
+
+1. **Symbols**: Each operation in AIFL is represented by a unique symbol. For example, ΔΔ1 represents data retrieval, while ΔΕ1 represents data encryption.
+
+2. **Operators**: Symbols are combined using operators like ∧ (AND), ∨ (OR), and ⇒ (Implies) to create complex expressions.
+
+3. **Data Flow**: AIFL expressions describe the flow of data and operations in an AI system, from data retrieval to model training and evaluation.
+
+4. **Security**: AIFL incorporates security measures, including data encryption and secure communication protocols.
+
+For a complete list of symbols and their meanings, refer to the [Symbol Dictionary](Core_Concepts/Symbol_Dictionary.md).
 
 ## Contributing
 

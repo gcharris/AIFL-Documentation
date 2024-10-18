@@ -4,13 +4,13 @@ This document provides a comprehensive list of symbols used in AIFL (Artificial 
 
 ## Data Processing
 
-| Symbol | Definition             | Rationale                                                    | Example Usage     |
-| ------ | ---------------------- | ------------------------------------------------------------ | ----------------- |
-| ΦΑ1    | Start Process          | Initiates a new process or workflow.                         | ΦΑ1 ∧ ΔΔ1(ΣDT100) |
-| ΔΔ1    | Retrieve Data          | Represents data retrieval from a specified source or dataset. | ΔΔ1(ΣDT100)       |
-| ΔΙ5    | Normalize Data         | Indicates data normalization processes.                      | ΔΙ5 ⇒ ΔΖ3         |
-| ΔΖ3    | Transform Data         | Represents data transformation, such as feature engineering. | ΔΖ3 ⇒ ΔΘ5α        |
-| ΔΔ2    | Restore Data Integrity | Used to restore data integrity in case of corruption or breach. | ΔΔ2 ΔΥ4           |
+| Symbol | Definition             | Rationale                                                    | Example Usage                                    |
+| ------ | ---------------------- | ------------------------------------------------------------ | ------------------------------------------------ |
+| ΦΑ1    | Start Process          | Initiates a new process or workflow.                         | ΦΑ1 ∧ ΔΔ1(ΣDT100)                                |
+| ΔΔ1    | Retrieve Data          | Represents data retrieval from a specified source or dataset. | ΔΔ1(ΣDT100)                                      |
+| ΔΙ5    | Normalize Data         | Indicates data normalization processes.                      | ΔΙ5 ⇒ ΔΖ3                                        |
+| ΔΖ3    | Transform Data         | Represents data transformation, such as feature engineering. | ΔΖ3 ⇒ ΔΘ5α                                       |
+| ΔΔ2    | Restore Data Integrity | Used to restore data integrity in case of corruption or breach. | ΔΔ2 ΔΥ4                                          |
 | ΔΕ1    | Encrypt Data           | Represents the process of converting plaintext into ciphertext. | ΔΕ1(Data: "SensitiveInfo", EncryptionType: "AES256") |
 
 ## Machine Learning
@@ -68,37 +68,11 @@ This document provides a comprehensive list of symbols used in AIFL (Artificial 
 | ΣΑ1    | Success State             | Indicates successful completion of a task or process. | ΣΑ1 ⇒ ΨΓ3                           |
 | ΣΓ3    | Progress Update           | Provides updates on the status of a task or process.  | ΣΓ3("Performance Report Generated") |
 
-## Robotics
+## Error Handling
 
-| Symbol | Definition            | Rationale                                             | Example Usage                                                |
-| ------ | --------------------- | ----------------------------------------------------- | ------------------------------------------------------------ |
-| ΡΧ1    | Real-Time Command     | High-priority commands requiring immediate execution. | ΡΧ1Ε(Timestamp: 1630000000, PriorityLevel: Critical)         |
-| ΡΧ1Ε   | Emergency Stop        | Immediate halt of all operations.                     | ΡΧ1Ε(Timestamp: 1630000000, PriorityLevel: Critical)         |
-| ΡΧ1Ο   | Collision Avoidance   | Immediate maneuvers to prevent collisions.            | ΡΧ1Ο(Timestamp: 1630000001, PriorityLevel: High)             |
-| ΡΧ1Π   | Prioritized Interrupt | Preempts ongoing tasks due to higher-priority events. | ΡΧ1Π(CommandType: ResumeOperations, Timestamp: 1630000030, PriorityLevel: High) |
-| ΡΣΥ3   | Synchronize           | Synchronizes tasks or data between agents.            | ΡΣΥ3(Action: SynchronizeSensorData, Sensors: [Lidar, Camera], Participants: [ExplorerIDAlpha, ExplorerIDBeta], Timestamp: 1630000500) |
+| Symbol | Definition            | Rationale                                            | Example Usage                                                |
+| ------ | --------------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
+| ΦΗ7δ   | Error Handling        | Represents general error handling processes.         | ΦΗ7δ ⇒ Error: {error_message}                                |
+| ΕΠΡ1   | Error Propagation     | Propagates errors to other agents or system layers.  | ΕΠΡ1(SourceError: ΕΣ1, Recipient: SupervisorAI, DetailLevel: High, Timestamp: 1630000051) |
 
-## Evolutionary Development
-
-| Symbol             | Definition           | Rationale                                       | Example Usage                                                |
-| ------------------ | -------------------- | ----------------------------------------------- | ------------------------------------------------------------ |
-| ΕΔΛ1               | Learning Update      | Updates to learning models or parameters.       | ΕΔΛ1(ModelID: PathPlanning, Version: 2.1, Data: [Parameters]) |
-| ΚΝS1               | Knowledge Share      | Sharing knowledge between robots.               | ΚΝS1(Model: AnomalyDetection, Version: 1.1, Recipient: ExplorerIDAlpha) |
-| CompatibilityCheck | Verify Compatibility | Ensures compatibility before sharing knowledge. | CompatibilityCheck(ModelID: NavigationModel, Version: 2.0, Target: RobotIDBeta, Dependencies: [SensorSuite v1.5]) |
-
-## Error Handling and Propagation
-
-| Symbol               | Definition            | Rationale                                            | Example Usage                                                |
-| -------------------- | --------------------- | ---------------------------------------------------- | ------------------------------------------------------------ |
-| ΕΣ1                  | Sensor Error          | Indicates a sensor malfunction.                      | ΕΣ1(SensorID: ΣLS2, ErrorType: DataCorruption, SeverityLevel: Critical, Timestamp: 1630000050) |
-| ΕΑ2                  | Actuator Error        | Indicates an actuator malfunction.                   | ΕΑ2(ComponentID: MotorActuator05, ErrorType: Overheating, SeverityLevel: Warning, Timestamp: 1630000022) |
-| ΦΑR1                 | Activate Recovery     | Initiates a recovery procedure.                      | ΦΑR1(Procedure: RestartSensor, SensorID: ΣLS2) ⇒ ΣΑ1         |
-| ΕΠΡ1                 | Error Propagation     | Propagates errors to other agents or system layers.  | ΕΠΡ1(SourceError: ΕΣ1, Recipient: SupervisorAI, DetailLevel: High, Timestamp: 1630000051) |
-| IncompatibilityError | Incompatibility Error | Represents incompatibility during knowledge sharing. | IncompatibilityError(ModelID: NavigationModel, RequiredVersion: ≥2.0, RecipientVersion: 1.8) |
-
-## Compatibility and Validation
-
-| Symbol             | Definition                | Rationale                                   | Example Usage                                                |
-| ------------------ | ------------------------- | ------------------------------------------- | ------------------------------------------------------------ |
-| CompatibilityCheck | Verify Compatibility      | Ensures compatibility to prevent conflicts. | CompatibilityCheck(ModelID: NavigationModel, Version: 2.0, Target: RobotIDBeta, Dependencies: [SensorSuite v1.5]) |
-| ValidateData       | Data Integrity Validation | Ensures data integrity before processing.   | ValidateData(DataReference: ΔDR1(URI: http://data.repo/maps/updated_map), ExpectedFormat: 'octomap', Checksum: 'abc123') |
+This Symbol Dictionary provides a comprehensive overview of the AIFL symbols used in various domains of AI development and data processing. Each symbol is defined with its rationale and example usage to facilitate clear communication and understanding within AI systems using the AIFL framework.
