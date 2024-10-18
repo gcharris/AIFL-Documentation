@@ -30,14 +30,19 @@ def aifl_process_and_generate(input_data):
     aifl_prompt = f"""
     Given the AIFL process: {processed_data} ∧ {encryption_step} and {model_invocation}, generate a response.
     
-    AIFL Symbol Explanations:
-    - ΔΔ1: Retrieve Data (in this case, the input data)
-    - ΔΙ5: Normalize Data
-    - ΔΖ3: Transform Data
-    - ΔΕ1: Encrypt Data
-    - ΔΘ5α: Supervised Learning
-    - ΔΜ1: Train Model
-    - ΔΝ2: Model Evaluation
+    Provide both a concise symbol representation and a detailed explanation for each AIFL symbol used:
+
+    1. ΔΔ1 (Retrieve Data)
+    2. ΔΙ5 (Normalize Data)
+    3. ΔΖ3 (Transform Data)
+    4. ΔΕ1 (Encrypt Data)
+    5. ΔΘ5α (Supervised Learning)
+    6. ΔΜ1 (Train Model)
+    7. ΔΝ2 (Model Evaluation)
+    
+    For each symbol, include:
+    - Concise representation (symbol and brief definition)
+    - Detailed explanation (including rationale and example usage)
     
     Using these AIFL symbols, explain the concept of AIFL in the context of AI development,
     including the importance of data encryption (ΔΕ1) in the process.
@@ -47,10 +52,10 @@ def aifl_process_and_generate(input_data):
         response = client.chat.completions.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are an AI assistant that understands AIFL symbols. Interpret the AIFL process and respond accordingly."},
+                {"role": "system", "content": "You are an AI assistant that understands AIFL symbols. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
                 {"role": "user", "content": aifl_prompt}
             ],
-            max_tokens=300
+            max_tokens=1000
         )
         result = response.choices[0].message.content.strip()
         
