@@ -1,6 +1,7 @@
 import logging
 import os
 import openai
+from aifl_parser import AIFLParser
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -13,18 +14,28 @@ def aifl_process_and_generate(input_data):
     """
     Process input data using AIFL symbols and generate text using OpenAI API.
     """
+    parser = AIFLParser()
+    
     # AIFL symbols for data processing
     processed_data = f"ΔΔ1('{input_data}') ∧ ΔΙ5 ⇒ ΔΖ3"
+    parsed_processed_data = parser.parse(processed_data)
     
     # AIFL symbol for data encryption
     encryption_step = f"ΔΕ1('{input_data}')"
+    parsed_encryption_step = parser.parse(encryption_step)
     
     # AIFL symbols for model invocation
     model_invocation = f"ΔΘ5α ∧ ΔΜ1 ⇒ ΔΝ2"
+    parsed_model_invocation = parser.parse(model_invocation)
     
     # Combine AIFL symbols to create a prompt with explanations
     aifl_prompt = f"""
     Given the AIFL process: {processed_data} ∧ {encryption_step} and {model_invocation}, generate a response.
+    
+    Parsed representations:
+    1. Data Processing: {parsed_processed_data}
+    2. Data Encryption: {parsed_encryption_step}
+    3. Model Invocation: {parsed_model_invocation}
     
     Provide both a concise symbol representation and a detailed explanation for each AIFL symbol used:
 
@@ -40,7 +51,7 @@ def aifl_process_and_generate(input_data):
     - Concise representation (symbol and brief definition)
     - Detailed explanation (including rationale and example usage)
     
-    Using these AIFL symbols, explain the concept of AIFL in the context of AI development,
+    Using these AIFL symbols and their parsed representations, explain the concept of AIFL in the context of AI development,
     including the importance of data encryption (ΔΕ1) in the process.
     """
 
@@ -48,7 +59,7 @@ def aifl_process_and_generate(input_data):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[
-                {"role": "system", "content": "You are an AI assistant that understands AIFL symbols. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
+                {"role": "system", "content": "You are an AI assistant that understands AIFL symbols and their parsed representations. Interpret the AIFL process and respond with both concise and detailed explanations for each symbol."},
                 {"role": "user", "content": aifl_prompt}
             ],
             max_tokens=1000
@@ -63,3 +74,9 @@ def aifl_process_and_generate(input_data):
         error_message = f"ΦΗ7δ ⇒ Error: {str(e)}"
         logger.error(error_message)
         return error_message
+
+# Example usage
+if __name__ == "__main__":
+    input_data = "Explain the concept of AIFL in the context of AI development, including data encryption"
+    result = aifl_process_and_generate(input_data)
+    print(result)
