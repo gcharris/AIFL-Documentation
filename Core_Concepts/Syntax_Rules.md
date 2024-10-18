@@ -36,7 +36,7 @@ This document outlines the syntax rules for using AIFL (Artificial Intelligence 
                                | 'ModelUpdate' '{' <model_properties> '}'
                                | 'NonTextData' '{' <data_properties> '}'
 
-<symbol>     ::= 'ΦΑ1' | 'ΔΔ1' | 'ΔΙ5' | 'ΔΖ3' | 'ΔΘ5α' | 'ΔΜ1' | 'ΔΝ2' | 'ΛΑ1' | 'ΛΜ2' | 'ΛΗ1' | 'ΛΘ2' | 'ΛΚ1' | 'ΛΣ2' | 'ΛΑ2' | 'ΦΚ1' | 'ΦΗ7ε1' | 'ΦΗ7β' | 'ΦΗ7δ' | 'ΦΖ6' | 'ΨΑ1' | 'ΨΛ1' | 'ΨΣ1' | 'ΨΔ2' | 'ΨΕ3' | 'ΨΙ9' | 'ΨΙ10' | 'ΨΓ3' | 'ΩΑ1' | 'ΩΒ2' | 'ΣΑ1' | 'ΣΓ3' | 'ΡΧ1' | 'ΡΧ1Ε' | 'ΡΧ1Ο' | 'ΡΧ1Π' | 'ΡΣΥ3' | 'ΕΔΛ1' | 'ΚΝS1' | 'CompatibilityCheck' | 'ValidateData' | 'ΕΠΡ1' | 'ΣROSN1' | 'ΣROSNH2' | ...
+<symbol>     ::= 'ΦΑ1' | 'ΔΔ1' | 'ΔΙ5' | 'ΔΖ3' | 'ΔΘ5α' | 'ΔΜ1' | 'ΔΝ2' | 'ΛΑ1' | 'ΛΜ2' | 'ΛΗ1' | 'ΛΘ2' | 'ΛΚ1' | 'ΛΣ2' | 'ΛΑ2' | 'ΦΚ1' | 'ΦΗ7ε1' | 'ΦΗ7β' | 'ΦΗ7δ' | 'ΦΖ6' | 'ΨΑ1' | 'ΨΛ1' | 'ΨΣ1' | 'ΨΔ2' | 'ΨΕ3' | 'ΨΙ9' | 'ΨΙ10' | 'ΨΓ3' | 'ΩΑ1' | 'ΩΒ2' | 'ΣΑ1' | 'ΣΓ3' | 'ΡΧ1' | 'ΡΧ1Ε' | 'ΡΧ1Ο' | 'ΡΧ1Π' | 'ΡΣΥ3' | 'ΕΔΛ1' | 'ΚΝS1' | 'CompatibilityCheck' | 'ValidateData' | 'ΕΠΡ1' | 'ΣROSN1' | 'ΣROSNH2' | 'ΔΕ1' | ...
 
 <operator>   ::= '∧'    (* Logical AND *)
                | '∨'    (* Logical OR *)
@@ -144,6 +144,14 @@ if (SeverityLevel == Critical) {
 ```
 
 *Interpretation:* Depending on the severity level, execute the appropriate recovery procedure.
+
+### Example 6: Data Encryption
+
+```
+ΔΕ1(Data: "SensitiveInfo", EncryptionType: "AES256") ⇒ ΨΙ9
+```
+
+*Interpretation:* Encrypt the sensitive information using AES256 encryption, then initiate data validation to ensure integrity.
 
 ## Usage Guidelines
 

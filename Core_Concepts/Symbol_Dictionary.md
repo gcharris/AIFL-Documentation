@@ -11,6 +11,7 @@ This document provides a comprehensive list of symbols used in AIFL (Artificial 
 | ΔΙ5    | Normalize Data         | Indicates data normalization processes.                      | ΔΙ5 ⇒ ΔΖ3         |
 | ΔΖ3    | Transform Data         | Represents data transformation, such as feature engineering. | ΔΖ3 ⇒ ΔΘ5α        |
 | ΔΔ2    | Restore Data Integrity | Used to restore data integrity in case of corruption or breach. | ΔΔ2 ΔΥ4           |
+| ΔΕ1    | Encrypt Data           | Represents the process of converting plaintext into ciphertext. | ΔΕ1(Data: "SensitiveInfo", EncryptionType: "AES256") |
 
 ## Machine Learning
 

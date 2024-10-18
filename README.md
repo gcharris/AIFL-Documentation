@@ -51,7 +51,7 @@ AIFL is built on several key concepts:
 
 4. **Test Conversations**: Real-world scenarios demonstrating the application of AIFL in complex situations, such as collaborative assembly lines and autonomous exploration.
 
-### Latest Updates (Version 5.1)
+### Latest Updates (Version 5.2)
 
 - Incorporated Error Propagation mechanisms
 - Enhanced ROS Integration
@@ -61,32 +61,38 @@ AIFL is built on several key concepts:
 - Standardized error severity representation
 - Improved consistency in example expressions and terminology
 - Added Test Conversations with practical usage examples
+- Implemented Data Encryption (ΔΕ1) symbol and functionality
+- Updated main script to provide both concise and detailed explanations of AIFL symbols
 
 For a complete list of symbols, syntax rules, and usage examples, please refer to the [Core Concepts](Core_Concepts/Introduction.md) section.
 
-## Contribution Guidelines
+## Getting Started
 
-This project primarily uses AI-generated content, with your assistance in handling tasks that require manual intervention.
+To get started with AIFL, follow these steps:
 
-### How to Contribute
+1. Clone this repository:
+   ```
+   git clone https://github.com/your-username/AIFL-Documentation.git
+   ```
 
-1. **Add Provided Content:**
-   - Copy and paste the content provided into the appropriate files in the repository.
+2. Install the required dependencies:
+   ```
+   pip install openai
+   ```
 
-2. **Commit Changes:**
-   - Commit the updates to the repository with clear and descriptive commit messages.
+3. Set up your OpenAI API key as an environment variable:
+   ```
+   export OPENAI_API_KEY='your-api-key-here'
+   ```
 
-3. **Avoid Unnecessary Changes:**
-   - Please refrain from making alterations beyond the provided content unless instructed.
+4. Run the main script to see AIFL in action:
+   ```
+   python main.py
+   ```
 
-## Repository Structure
+## Contributing
 
-- **`README.md`**
-  - Contains the project overview and contribution guidelines.
-- **`Core_Concepts/`**
-  - **`Symbol_Dictionary.md`**: A comprehensive list of AIFL symbols with definitions and examples.
-  - **`Syntax_Rules.md`**: Documentation of the syntax rules governing AIFL.
-  - **`Test_Conversations.md`**: Real-world scenarios demonstrating AIFL usage.
+We welcome contributions to the AIFL project! Please read our [Contribution Guidelines](contributing/contribution-guidelines.md) for more information on how to get involved.
 
 ## License
 
@@ -94,4 +100,4 @@ This project primarily uses AI-generated content, with your assistance in handli
 
 ## Support
 
-If you need help or have any questions, please [open an issue](https://github.com/gcharris/AIFL-Documentation/issues) on our GitHub repository.
+If you need help or have any questions, please [open an issue](https://github.com/your-username/AIFL-Documentation/issues) on our GitHub repository.
