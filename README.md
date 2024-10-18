@@ -9,6 +9,7 @@ Welcome to the official documentation for AIFL (Artificial Intelligence Function
    - [Domains](Core_Concepts/Domains.md)
    - [Symbol Dictionary](Core_Concepts/Symbol_Dictionary.md)
    - [Syntax Rules](Core_Concepts/Syntax_Rules.md)
+   - [Test Conversations](Core_Concepts/Test_Conversations.md)
 
 2. [Integration Guides](Integration_Guides/Swarm_API_Integration.md)
    - [Swarm API Integration](Integration_Guides/Swarm_API_Integration.md)
@@ -38,6 +39,31 @@ Welcome to the official documentation for AIFL (Artificial Intelligence Function
 
 AIFL (Artificial Intelligence Function Library) is a powerful and flexible library designed to simplify the integration of AI capabilities into your applications. It provides a wide range of pre-built functions and tools to help developers leverage artificial intelligence without the need for deep expertise in the field.
 
+### Core Concepts
+
+AIFL is built on several key concepts:
+
+1. **Domains**: AIFL symbols are categorized into specific domains to organize their usage and facilitate expansion. The primary domains include Data Processing, Machine Learning, Model Evaluation Metrics, Risk Management and Fallback Mechanisms, Security and Privacy, Communication and Control, Robotics, Evolutionary Development, and Error Handling and Propagation.
+
+2. **Symbol Dictionary**: AIFL uses a comprehensive set of symbols to represent various operations and concepts. These symbols are organized by domain and include definitions, rationales, and example usages.
+
+3. **Syntax Rules**: AIFL follows a set of syntax rules and conventions to ensure clear and unambiguous communication between AI systems.
+
+4. **Test Conversations**: Real-world scenarios demonstrating the application of AIFL in complex situations, such as collaborative assembly lines and autonomous exploration.
+
+### Latest Updates (Version 5.1)
+
+- Incorporated Error Propagation mechanisms
+- Enhanced ROS Integration
+- Introduced CompatibilityCheck and ValidateData functions
+- Updated formal grammar
+- Added new scenarios for robotics and autonomous exploration
+- Standardized error severity representation
+- Improved consistency in example expressions and terminology
+- Added Test Conversations with practical usage examples
+
+For a complete list of symbols, syntax rules, and usage examples, please refer to the [Core Concepts](Core_Concepts/Introduction.md) section.
+
 ## Contribution Guidelines
 
 This project primarily uses AI-generated content, with your assistance in handling tasks that require manual intervention.
@@ -60,6 +86,7 @@ This project primarily uses AI-generated content, with your assistance in handli
 - **`Core_Concepts/`**
   - **`Symbol_Dictionary.md`**: A comprehensive list of AIFL symbols with definitions and examples.
   - **`Syntax_Rules.md`**: Documentation of the syntax rules governing AIFL.
+  - **`Test_Conversations.md`**: Real-world scenarios demonstrating AIFL usage.
 
 ## License
 
