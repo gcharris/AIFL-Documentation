@@ -49,7 +49,7 @@ class AIFLExecutor:
 
     def _format_argument(self, arg):
         if isinstance(arg, dict) and arg['type'] == 'key_value':
-            key = arg['key']
+            key = arg['key']['value']  # Extract 'value' from 'key' dict
             value = self._execute_node(arg['value'])
             return f"{key}: {value}"
         else:
