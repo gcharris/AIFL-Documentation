@@ -11,7 +11,11 @@ class AIFLExecutor:
         try:
             parsed_expression = self.parser.parse(aifl_expression)
             print(f"Parsed Expression: {parsed_expression}")  # Debug Statement
-            return self._execute_node(parsed_expression)
+            result = self._execute_node(parsed_expression)
+            print(f"Result type before conversion: {type(result)}")  # Debug Statement
+            result_str = str(result)
+            print(f"Result after conversion to string: {result_str}")  # Debug Statement
+            return result_str
         except Exception as e:
             self.logger.error(f"Error executing AIFL expression: {e}")
             return f"Error: {str(e)}"
@@ -36,8 +40,11 @@ class AIFLExecutor:
                 print(f"Unhandled node type: {node_type}")  # Debug Statement
                 return str(node)
         elif isinstance(node, list):
-            return [self._execute_node(n, indent) for n in node]
+            # If node is a list, process each item and join with commas
+            processed_nodes = [self._execute_node(n, indent) for n in node]
+            return ', '.join(processed_nodes)
         else:
+            # If node is neither dict nor list, convert it to string
             return str(node)
 
     def _execute_operation(self, node, indent=0):
@@ -49,15 +56,19 @@ class AIFLExecutor:
         return f"{indent_str}Executed operation: {operator}\n{indent_str}  Left: {left_result}\n{indent_str}  Right: {right_result}"
 
     def _execute_function(self, node):
-        function_name = node['name']  # node['name'] is already a string
+        function_name = node['name']
         arguments = [self._format_argument(arg) for arg in node.get('arguments', [])]
         print(f"Executing function: {function_name} with arguments: {arguments}")  # Debug Statement
         return f"Executed function: {function_name}({', '.join(arguments)})"
 
     def _format_argument(self, arg):
         if isinstance(arg, dict) and arg['type'] == 'key_value':
-            key = arg['key']['value']  # Extract 'Data' from {'type': 'identifier', 'value': 'Data'}
-            value = self._execute_node(arg['value'])
+            key = arg['key']['value']
+            # Ensure 'value' is a string, not a dict
+            if isinstance(arg['value'], dict) and 'value' in arg['value']:
+                value = arg['value']['value']
+            else:
+                value = str(arg['value'])
             print(f"Formatting argument: {key} = {value}")  # Debug Statement
             return f"{key}: {value}"
         else:

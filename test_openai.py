@@ -5,7 +5,7 @@ def test_openai_setup():
     try:
         openai.api_key = os.environ["OPENAI_API_KEY"]
         print("OpenAI library imported successfully and API key is set.")
-        return True
+        assert True
     except ImportError:
         print("Failed to import OpenAI library.")
         return False

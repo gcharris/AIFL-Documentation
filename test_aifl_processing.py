@@ -1,15 +1,12 @@
 import unittest
-from aifl_parser import AIFLParser
 from aifl_executor import AIFLExecutor
 
 class TestAIFLProcessing(unittest.TestCase):
     def setUp(self):
-        self.parser = AIFLParser()
         self.executor = AIFLExecutor()
 
     def _parse_and_execute(self, expression):
-        parsed = self.parser.parse(expression)
-        return self.executor.execute(parsed)
+        return self.executor.execute(expression)
 
     def test_simple_symbol_execution(self):
         result = self._parse_and_execute("ΔΔ1")
