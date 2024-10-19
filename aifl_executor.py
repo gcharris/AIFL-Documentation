@@ -28,6 +28,8 @@ class AIFLExecutor:
                 return self._execute_conditional(node)
             elif node_type == 'condition':
                 return self._execute_condition(node)
+            elif node_type in ['string', 'identifier', 'number']:
+                return node['value']
             else:
                 return str(node)
         elif isinstance(node, list):
@@ -43,13 +45,13 @@ class AIFLExecutor:
         return f"{indent_str}Executed operation: {operator}\n{indent_str}  Left: {left_result}\n{indent_str}  Right: {right_result}"
 
     def _execute_function(self, node):
-        function_name = node['name']
+        function_name = node['name']  # node['name'] is already a string
         arguments = [self._format_argument(arg) for arg in node.get('arguments', [])]
         return f"Executed function: {function_name}({', '.join(arguments)})"
 
     def _format_argument(self, arg):
         if isinstance(arg, dict) and arg['type'] == 'key_value':
-            key = arg['key']['value']  # Extract 'value' from 'key' dict
+            key = arg['key']['value']  # Extract 'Data' from {'type': 'identifier', 'value': 'Data'}
             value = self._execute_node(arg['value'])
             return f"{key}: {value}"
         else:
