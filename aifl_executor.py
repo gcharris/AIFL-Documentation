@@ -5,7 +5,7 @@ class AIFLExecutor:
     def __init__(self):
         self.parser = AIFLParser()
         self.logger = logging.getLogger(__name__)
-        logging.basicConfig(level=logging.ERROR)  # Set logging level to ERROR
+        logging.basicConfig(level=logging.ERROR)
 
     def execute(self, aifl_expression):
         try:
@@ -19,7 +19,7 @@ class AIFLExecutor:
         if isinstance(node, dict):
             node_type = node.get('type')
             if node_type == 'symbol':
-                return self._execute_symbol(node)
+                return f"Executed symbol: {node['value']}"
             elif node_type == 'operation':
                 return self._execute_operation(node, indent)
             elif node_type == 'function':
@@ -28,18 +28,12 @@ class AIFLExecutor:
                 return self._execute_conditional(node)
             elif node_type == 'condition':
                 return self._execute_condition(node)
-            elif node_type == 'string':
-                return node['value']
-            elif node_type == 'number':
-                return str(node['value'])
-            elif node_type == 'identifier':
-                return node['value']
+            else:
+                return str(node)
         elif isinstance(node, list):
             return [self._execute_node(n, indent) for n in node]
-        return str(node)
-
-    def _execute_symbol(self, node):
-        return f"Executed symbol: {node['value']}"
+        else:
+            return str(node)
 
     def _execute_operation(self, node, indent=0):
         operator = node['operator']
@@ -59,7 +53,7 @@ class AIFLExecutor:
             value = self._execute_node(arg['value'])
             return f"{key}: {value}"
         else:
-            return self._execute_node(arg)
+            return str(arg)
 
     def _execute_conditional(self, node):
         condition_result = self._execute_node(node['condition'])

@@ -30,7 +30,7 @@ class AIFLTransformer(Transformer):
         return result
 
     def condition(self, left, op, right):
-        return {'type': 'condition', 'left': left, 'operator': str(op), 'right': right}
+        return {'type': 'condition', 'left': left, 'operator': op, 'right': right}
 
     def function_call(self, name, arguments=None):
         if arguments is None:
@@ -41,13 +41,13 @@ class AIFLTransformer(Transformer):
         return list(args)
 
     def key_value_pair(self, key, value):
-        return {'type': 'key_value', 'key': key['value'], 'value': value}
+        return {'type': 'key_value', 'key': key, 'value': value}
 
     def value(self, value):
         return value
 
-    def AIFL_SYMBOL(self, value):
-        return {'type': 'symbol', 'value': str(value)}
+    def AIFL_SYMBOL(self, s):
+        return {'type': 'symbol', 'value': str(s)}
 
     def IDENTIFIER(self, s):
         return {'type': 'identifier', 'value': str(s)}
@@ -56,7 +56,7 @@ class AIFLTransformer(Transformer):
         return {'type': 'string', 'value': s[1:-1]}  # Remove quotes
 
     def NUMBER(self, n):
-        return {'type': 'number', 'value': float(n)}
+        return {'type': 'number', 'value': str(n)}
 
     def OPERATOR(self, op):
         return str(op)
@@ -68,10 +68,10 @@ class AIFLParser:
 
             ?expression: implication
 
-            implication: conjunction "⇒" implication   -> implication
+            implication: conjunction "⇒" expression   -> implication
                        | conjunction
 
-            conjunction: term "∧" conjunction          -> conjunction
+            conjunction: conjunction "∧" term          -> conjunction
                        | term
 
             term: function_call
