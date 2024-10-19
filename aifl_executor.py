@@ -5,6 +5,7 @@ class AIFLExecutor:
     def __init__(self):
         self.parser = AIFLParser()
         self.logger = logging.getLogger(__name__)
+        logging.basicConfig(level=logging.ERROR)  # Set logging level to ERROR
 
     def execute(self, aifl_expression):
         try:
@@ -12,56 +13,81 @@ class AIFLExecutor:
             return self._execute_node(parsed_expression)
         except Exception as e:
             self.logger.error(f"Error executing AIFL expression: {e}")
-            return f"ΦΗ7δ ⇒ Error: {str(e)}"
+            return f"Error: {str(e)}"
 
-    def _execute_node(self, node):
+    def _execute_node(self, node, indent=0):
         if isinstance(node, dict):
             node_type = node.get('type')
             if node_type == 'symbol':
                 return self._execute_symbol(node)
             elif node_type == 'operation':
-                return self._execute_operation(node)
+                return self._execute_operation(node, indent)
             elif node_type == 'function':
                 return self._execute_function(node)
             elif node_type == 'conditional':
                 return self._execute_conditional(node)
-        return node
+            elif node_type == 'condition':
+                return self._execute_condition(node)
+            elif node_type == 'string':
+                return node['value']
+            elif node_type == 'number':
+                return str(node['value'])
+            elif node_type == 'identifier':
+                return node['value']
+        elif isinstance(node, list):
+            return [self._execute_node(n, indent) for n in node]
+        return str(node)
 
     def _execute_symbol(self, node):
-        # Placeholder for symbol execution
         return f"Executed symbol: {node['value']}"
 
-    def _execute_operation(self, node):
-        left = self._execute_node(node['left'])
-        right = self._execute_node(node['right'])
+    def _execute_operation(self, node, indent=0):
         operator = node['operator']
-        # Placeholder for operation execution
-        return f"Executed operation: {left} {operator} {right}"
+        left_result = self._execute_node(node['left'], indent + 2)
+        right_result = self._execute_node(node['right'], indent + 2)
+        indent_str = ' ' * indent
+        return f"{indent_str}Executed operation: {operator}\n{indent_str}  Left: {left_result}\n{indent_str}  Right: {right_result}"
 
     def _execute_function(self, node):
-        function_name = node['name']['value']
-        arguments = [self._execute_node(arg) for arg in node['arguments']]
-        # Placeholder for function execution
-        return f"Executed function: {function_name}({', '.join(map(str, arguments))})"
+        function_name = node['name']
+        arguments = [self._format_argument(arg) for arg in node.get('arguments', [])]
+        return f"Executed function: {function_name}({', '.join(arguments)})"
+
+    def _format_argument(self, arg):
+        if isinstance(arg, dict) and arg['type'] == 'key_value':
+            key = arg['key']
+            value = self._execute_node(arg['value'])
+            return f"{key}: {value}"
+        else:
+            return self._execute_node(arg)
 
     def _execute_conditional(self, node):
-        condition = self._execute_node(node['condition'])
-        if condition:
-            return self._execute_node(node['then'])
-        elif 'else' in node:
-            return self._execute_node(node['else'])
-        return None
+        condition_result = self._execute_node(node['condition'])
+        then_result = self._execute_node(node['then'])
+        else_result = self._execute_node(node['else']) if 'else' in node else None
+        result = f"Executed conditional:\n  Condition: {condition_result}\n  Then: {then_result}"
+        if else_result:
+            result += f"\n  Else: {else_result}"
+        return result
 
-# Example usage
+    def _execute_condition(self, node):
+        left = self._execute_node(node['left'])
+        operator = node['operator']
+        right = self._execute_node(node['right'])
+        return f"{left} {operator} {right}"
+
 if __name__ == "__main__":
     executor = AIFLExecutor()
     test_expressions = [
+        "ΔΔ1",
+        "ΔΔ1 ∧ ΔΙ5",
         "ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3",
+        "ΔΕ1(Data: 'SensitiveInfo', EncryptionType: 'AES256')",
         "IF(ΔΣ1 > Threshold) THEN ΔΕ1(Data: 'SensitiveInfo') ELSE ΔΑ1(Data: 'PublicInfo')",
         "ΔΕ1(Data: 'UserCredentials', EncryptionType: 'RSA') ∧ (ΔΘ5α ∧ ΔΜ1) ⇒ ΔΝ2"
     ]
 
     for expr in test_expressions:
-        print(f"Executing: {expr}")
+        print(f"Testing expression: {expr}")
         result = executor.execute(expr)
         print(f"Result: {result}\n")

@@ -1,40 +1,74 @@
 import unittest
-from unittest.mock import patch
-from aifl_symbols import aifl_process_and_generate
+from aifl_parser import AIFLParser
+from aifl_executor import AIFLExecutor
 
 class TestAIFLProcessing(unittest.TestCase):
-    @patch('aifl_symbols.openai.ChatCompletion.create')
-    def test_aifl_process_success(self, mock_openai):
-        # Mock the API response
-        mock_openai.return_value.choices = [
-            unittest.mock.Mock(
-                message=unittest.mock.Mock(
-                    content='ΔΔ1: Retrieve Data\nΔΙ5: Normalize Data\nΔΖ3: Transform Data\nΔΕ1: Encrypt Data\nΔΘ5α: Supervised Learning\nΔΜ1: Train Model\nΔΝ2: Model Evaluation'
-                )
-            )
-        ]
-        
-        input_data = "Explain the concept of AIFL in the context of AI development, including data encryption"
-        result = aifl_process_and_generate(input_data)
-        
-        self.assertTrue(result.startswith("ΣΑ1 ⇒"))
-        self.assertIn("ΔΔ1", result)
-        self.assertIn("ΔΙ5", result)
-        self.assertIn("ΔΖ3", result)
-        self.assertIn("ΔΕ1", result)
-        self.assertIn("ΔΘ5α", result)
-        self.assertIn("ΔΜ1", result)
-        self.assertIn("ΔΝ2", result)
+    def setUp(self):
+        self.parser = AIFLParser()
+        self.executor = AIFLExecutor()
 
-    @patch('aifl_symbols.openai.ChatCompletion.create')
-    def test_aifl_process_api_exception(self, mock_openai):
-        mock_openai.side_effect = Exception("API Error")
-        
-        input_data = "Test input"
-        result = aifl_process_and_generate(input_data)
-        
-        self.assertTrue(result.startswith("ΦΗ7δ ⇒ Error:"))
-        self.assertIn("API Error", result)
+    def _parse_and_execute(self, expression):
+        parsed = self.parser.parse(expression)
+        return self.executor.execute(parsed)
+
+    def test_simple_symbol_execution(self):
+        result = self._parse_and_execute("ΔΔ1")
+        self.assertIn("Executed symbol: ΔΔ1", result)
+
+    def test_simple_operation_execution(self):
+        result = self._parse_and_execute("ΔΔ1 ∧ ΔΙ5")
+        expected_substrings = [
+            "Executed operation: ∧",
+            "Executed symbol: ΔΔ1",
+            "Executed symbol: ΔΙ5"
+        ]
+        for substring in expected_substrings:
+            self.assertIn(substring, result)
+
+    def test_complex_operation_execution(self):
+        result = self._parse_and_execute("ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3")
+        expected_substrings = [
+            "Executed operation: ⇒",
+            "Executed operation: ∧",
+            "Executed symbol: ΔΔ1",
+            "Executed symbol: ΔΙ5",
+            "Executed symbol: ΔΖ3"
+        ]
+        for substring in expected_substrings:
+            self.assertIn(substring, result)
+
+    def test_function_execution(self):
+        result = self._parse_and_execute("ΔΕ1(Data: 'SensitiveInfo', EncryptionType: 'AES256')")
+        expected_substrings = [
+            "Executed function: ΔΕ1",
+            "Data: SensitiveInfo",
+            "EncryptionType: AES256"
+        ]
+        for substring in expected_substrings:
+            self.assertIn(substring, result)
+
+    def test_conditional_execution(self):
+        result = self._parse_and_execute("IF(ΔΣ1 > Threshold) THEN ΔΕ1(Data: 'SensitiveInfo') ELSE ΔΑ1(Data: 'PublicInfo')")
+        expected_substrings = [
+            "Executed conditional:",
+            "Executed symbol: ΔΣ1",
+            "Executed function: ΔΕ1",
+            "Executed function: ΔΑ1"
+        ]
+        for substring in expected_substrings:
+            self.assertIn(substring, result)
+
+    def test_complex_expression_execution(self):
+        expr = "ΔΕ1(Data: 'UserCredentials', EncryptionType: 'RSA') ∧ (ΔΘ5α ∧ ΔΜ1) ⇒ ΔΝ2"
+        result = self._parse_and_execute(expr)
+        expected_substrings = [
+            "Executed symbol: ΔΝ2",
+            "Executed function: ΔΕ1",
+            "Executed symbol: ΔΘ5α",
+            "Executed symbol: ΔΜ1"
+        ]
+        for substring in expected_substrings:
+            self.assertIn(substring, result)
 
 if __name__ == '__main__':
     unittest.main()

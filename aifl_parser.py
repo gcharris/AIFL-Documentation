@@ -1,110 +1,109 @@
-from lark import Lark, Transformer
+from lark import Lark, Transformer, v_args
 
-aifl_grammar = """
-    start: expression
-
-    expression: term (OPERATOR term)*
-
-    term: AIFL_SYMBOL
-        | aifl_function
-        | "(" expression ")"
-        | conditional
-
-    conditional: "IF" "(" condition ")" "THEN" expression ("ELSE" expression)?
-
-    condition: expression COMPARISON_OPERATOR (expression | IDENTIFIER)
-
-    aifl_function: AIFL_SYMBOL "(" [arguments] ")"
-    arguments: argument ("," argument)*
-    argument: key_value | expression | STRING
-    key_value: IDENTIFIER ":" (STRING | NUMBER | IDENTIFIER)
-
-    AIFL_SYMBOL: /[ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ][Α-Ωα-ω0-9]*/
-    OPERATOR: "∧" | "∨" | "⇒" | "∴" | "¬" | "⊕" | "⊗" | "≡"
-    COMPARISON_OPERATOR: ">" | "<" | "==" | ">=" | "<=" | "!="
-    STRING: /"[^"]*"/ | /'[^']*'/
-    NUMBER: /-?\d+(\.\d+)?/
-    IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
-
-    %import common.WS
-    %ignore WS
-"""
-
+@v_args(inline=True)
 class AIFLTransformer(Transformer):
-    def start(self, args):
-        return args[0]
+    def start(self, expression):
+        return expression
 
-    def expression(self, args):
-        if len(args) == 1:
-            return args[0]
-        return {"type": "operation", "operator": args[1], "left": args[0], "right": args[2]}
+    def expression(self, expression):
+        return expression
 
-    def term(self, args):
-        return args[0]
+    def implication(self, left, right=None):
+        if right is not None:
+            return {'type': 'operation', 'operator': '⇒', 'left': left, 'right': right}
+        else:
+            return left
 
-    def conditional(self, args):
-        if len(args) == 3:
-            return {"type": "conditional", "condition": args[0], "then": args[1], "else": args[2]}
-        return {"type": "conditional", "condition": args[0], "then": args[1]}
+    def conjunction(self, left, right=None):
+        if right is not None:
+            return {'type': 'operation', 'operator': '∧', 'left': left, 'right': right}
+        else:
+            return left
 
-    def condition(self, args):
-        return {"type": "condition", "left": args[0], "operator": args[1], "right": args[2]}
+    def term(self, term):
+        return term
 
-    def aifl_function(self, args):
-        return {"type": "function", "name": args[0], "arguments": args[1] if len(args) > 1 else []}
+    def conditional(self, condition, then_expr, else_expr=None):
+        result = {'type': 'conditional', 'condition': condition, 'then': then_expr}
+        if else_expr is not None:
+            result['else'] = else_expr
+        return result
 
-    def arguments(self, args):
-        return args
+    def condition(self, left, op, right):
+        return {'type': 'condition', 'left': left, 'operator': str(op), 'right': right}
 
-    def argument(self, args):
-        return args[0]
+    def function_call(self, name, arguments=None):
+        if arguments is None:
+            arguments = []
+        return {'type': 'function', 'name': name['value'], 'arguments': arguments}
 
-    def key_value(self, args):
-        return {"type": "key_value", "key": args[0], "value": args[1]}
+    def arguments(self, *args):
+        return list(args)
 
-    def AIFL_SYMBOL(self, token):
-        return {"type": "symbol", "value": token.value}
+    def key_value_pair(self, key, value):
+        return {'type': 'key_value', 'key': key['value'], 'value': value}
 
-    def OPERATOR(self, token):
-        return token.value
+    def value(self, value):
+        return value
 
-    def COMPARISON_OPERATOR(self, token):
-        return token.value
+    def AIFL_SYMBOL(self, value):
+        return {'type': 'symbol', 'value': str(value)}
 
-    def STRING(self, token):
-        return {"type": "string", "value": token.value[1:-1]}  # Remove quotes
+    def IDENTIFIER(self, s):
+        return {'type': 'identifier', 'value': str(s)}
 
-    def NUMBER(self, token):
-        return {"type": "number", "value": float(token.value)}
+    def STRING(self, s):
+        return {'type': 'string', 'value': s[1:-1]}  # Remove quotes
 
-    def IDENTIFIER(self, token):
-        return {"type": "identifier", "value": token.value}
+    def NUMBER(self, n):
+        return {'type': 'number', 'value': float(n)}
+
+    def OPERATOR(self, op):
+        return str(op)
 
 class AIFLParser:
     def __init__(self):
-        self.parser = Lark(aifl_grammar, parser='lalr', transformer=AIFLTransformer())
+        self.parser = Lark(r"""
+            start: expression
+
+            ?expression: implication
+
+            implication: conjunction "⇒" implication   -> implication
+                       | conjunction
+
+            conjunction: term "∧" conjunction          -> conjunction
+                       | term
+
+            term: function_call
+                | AIFL_SYMBOL
+                | IDENTIFIER
+                | NUMBER
+                | STRING
+                | conditional
+                | "(" expression ")"
+
+            conditional: "IF" "(" condition ")" "THEN" expression ("ELSE" expression)?
+
+            condition: term OPERATOR term
+
+            OPERATOR: ">" | "<" | ">=" | "<=" | "==" | "!="
+
+            function_call: AIFL_SYMBOL "(" arguments? ")"
+
+            arguments: key_value_pair ("," key_value_pair)*
+
+            key_value_pair: IDENTIFIER ":" value
+
+            value: STRING | NUMBER | IDENTIFIER
+
+            AIFL_SYMBOL: /Δ[Α-Ω]+[0-9]*[α-ω]?/
+            IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
+            STRING: /'[^']*'/
+            NUMBER: /\d+(\.\d+)?/
+
+            %import common.WS
+            %ignore WS
+        """, start='start', parser='lalr', transformer=AIFLTransformer())
 
     def parse(self, aifl_expression):
-        try:
-            return self.parser.parse(aifl_expression)
-        except Exception as e:
-            raise ValueError(f"Failed to parse AIFL expression '{aifl_expression}': {e}")
-
-# Example usage
-if __name__ == "__main__":
-    parser = AIFLParser()
-    test_expressions = [
-        "ΔΔ1 ∧ ΔΙ5 ⇒ ΔΖ3",
-        "IF(ΔΣ1 > Threshold) THEN ΔΕ1(Data: 'SensitiveInfo') ELSE ΔΑ1(Data: 'PublicInfo')",
-        "ΔΕ1(Data: 'UserCredentials', EncryptionType: 'RSA') ∧ (ΔΘ5α ∧ ΔΜ1) ⇒ ΔΝ2",
-        "ΔΔ1('Explain the concept of AIFL') ∧ ΔΙ5 ⇒ ΔΖ3"
-    ]
-
-    for expr in test_expressions:
-        print(f"Parsing: {expr}")
-        try:
-            result = parser.parse(expr)
-            print(f"Result: {result}")
-        except ValueError as e:
-            print(f"Error: {e}")
-        print()
+        return self.parser.parse(aifl_expression)
