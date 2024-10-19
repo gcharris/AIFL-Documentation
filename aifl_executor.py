@@ -10,6 +10,7 @@ class AIFLExecutor:
     def execute(self, aifl_expression):
         try:
             parsed_expression = self.parser.parse(aifl_expression)
+            print(f"Parsed Expression: {parsed_expression}")  # Debug Statement
             return self._execute_node(parsed_expression)
         except Exception as e:
             self.logger.error(f"Error executing AIFL expression: {e}")
@@ -17,7 +18,8 @@ class AIFLExecutor:
 
     def _execute_node(self, node, indent=0):
         if isinstance(node, dict):
-            node_type = node.get('type')
+            node_type = node.get('type', '').lower()  # Ensure lowercase
+            print(f"Processing node_type: {node_type}")  # Debug Statement
             if node_type == 'symbol':
                 return f"Executed symbol: {node['value']}"
             elif node_type == 'operation':
@@ -31,6 +33,7 @@ class AIFLExecutor:
             elif node_type in ['string', 'identifier', 'number']:
                 return node['value']
             else:
+                print(f"Unhandled node type: {node_type}")  # Debug Statement
                 return str(node)
         elif isinstance(node, list):
             return [self._execute_node(n, indent) for n in node]
@@ -42,17 +45,20 @@ class AIFLExecutor:
         left_result = self._execute_node(node['left'], indent + 2)
         right_result = self._execute_node(node['right'], indent + 2)
         indent_str = ' ' * indent
+        print(f"Executing operation: {operator}")  # Debug Statement
         return f"{indent_str}Executed operation: {operator}\n{indent_str}  Left: {left_result}\n{indent_str}  Right: {right_result}"
 
     def _execute_function(self, node):
         function_name = node['name']  # node['name'] is already a string
         arguments = [self._format_argument(arg) for arg in node.get('arguments', [])]
+        print(f"Executing function: {function_name} with arguments: {arguments}")  # Debug Statement
         return f"Executed function: {function_name}({', '.join(arguments)})"
 
     def _format_argument(self, arg):
         if isinstance(arg, dict) and arg['type'] == 'key_value':
             key = arg['key']['value']  # Extract 'Data' from {'type': 'identifier', 'value': 'Data'}
             value = self._execute_node(arg['value'])
+            print(f"Formatting argument: {key} = {value}")  # Debug Statement
             return f"{key}: {value}"
         else:
             return str(arg)
@@ -61,6 +67,7 @@ class AIFLExecutor:
         condition_result = self._execute_node(node['condition'])
         then_result = self._execute_node(node['then'])
         else_result = self._execute_node(node['else']) if 'else' in node else None
+        print(f"Executing conditional with condition: {condition_result}, then: {then_result}, else: {else_result}")  # Debug Statement
         result = f"Executed conditional:\n  Condition: {condition_result}\n  Then: {then_result}"
         if else_result:
             result += f"\n  Else: {else_result}"
@@ -70,6 +77,7 @@ class AIFLExecutor:
         left = self._execute_node(node['left'])
         operator = node['operator']
         right = self._execute_node(node['right'])
+        print(f"Executing condition: {left} {operator} {right}")  # Debug Statement
         return f"{left} {operator} {right}"
 
 if __name__ == "__main__":
