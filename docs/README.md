@@ -2,8 +2,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-blue.svg)
 ![Python Version](https://img.shields.io/badge/python-3.7%2B-blue.svg)
-![GitHub Issues](https://img.shields.io/github/issues/gcharris/AIFL-Documentation.svg)
-![GitHub Pull Requests](https://img.shields.io/github/issues-pr/gcharris/AIFL-Documentation.svg)
+
 ![Website](https://img.shields.io/badge/website-aifl.dev-brightgreen.svg)
 ![Email](https://img.shields.io/badge/email-team@aifl.dev-blue.svg)
 
@@ -50,31 +49,6 @@ For more information, visit our website at [aifl.dev](https://aifl.dev).
 ---
 
 ## Project Structure
-
-AIFL-Documentation/
-├── src/
-│   ├── aifl_parser.py
-│   ├── aifl_executor.py
-│   └── ...
-├── tests/
-│   ├── test_aifl_parser.py
-│   ├── test_aifl_executor.py
-│   └── ...
-├── docs/
-│   ├── SYMBOLS.md
-│   ├── GRAMMAR.md
-│   ├── PROTOCOLS.md
-│   ├── ROADMAP.md
-│   └── ...
-├── assets/
-│   ├── images/
-│   │   ├── data_processing_workflow.png
-│   │   └── security_breach_handling.png
-│   └── ...
-├── requirements.txt
-├── README.md
-└── LICENSE
-
 
 - **`src/`**: Contains the source code files, including the parser (`aifl_parser.py`), executor (`aifl_executor.py`), and other core components.
 - **`tests/`**: Includes all test files to ensure the correctness and reliability of the codebase.
