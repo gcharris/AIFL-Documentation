@@ -1,94 +1,139 @@
-# AIFL Documentation
+# AIFL-Documentation
 
-Welcome to the official documentation for AIFL (Artificial Intelligence Function Library). This repository contains comprehensive information about AIFL, its features, usage, and more.
+An AI Interchange Format Language (AIFL) for seamless communication between AI agents.
 
-## Table of Contents
+## Overview
 
-1. [About AIFL](#about-aifl)
-2. [Getting Started](#getting-started)
-3. [Running the Project](#running-the-project)
-4. [Core Concepts](#core-concepts)
-5. [Contributing](#contributing)
-6. [License](#license)
-7. [Support](#support)
+AIFL-Documentation is a project aimed at creating a standardized language and protocols for AI agents to communicate effectively. It includes parsers, executors, and communication protocols to facilitate interoperability among diverse AI systems.
 
-## About AIFL
+## Features
 
-AIFL (Artificial Intelligence Function Library) is a powerful and flexible library designed to simplify the integration of AI capabilities into your applications. It provides a wide range of pre-built functions and tools to help developers leverage artificial intelligence without the need for deep expertise in the field.
+- **AIFL Parser and Executor**: Parse and execute AIFL expressions using a standardized set of symbols and grammar.
+- **Standardized Symbols and Grammar**: Utilize a consistent set of symbols and grammar rules defined in the `docs/SYMBOLS.md` and `docs/GRAMMAR.md` files.
+- **Communication Protocols**: Define protocols for AI agent communication to enable seamless interaction between different AI systems.
+- **Extensibility**: Easily extend the language and protocols to accommodate new requirements and AI functionalities.
+- **Security Measures**: Implement data encryption and security protocols to ensure safe communication and data handling between AI agents.
 
-### Key Features
+## Project Structure
 
-- Symbolic representation of AI processes
-- Data encryption and security measures
-- Integration with OpenAI's GPT models
-- Modular design for easy customization and extension
+- `src/`: Contains the source code files, including the parser (`aifl_parser.py`), executor (`aifl_executor.py`), and other core components.
+- `tests/`: Includes all test files to ensure the correctness and reliability of the codebase.
+- `docs/`: Contains documentation files, such as symbols definitions, grammar rules, communication protocols, and the project roadmap.
+- `assets/`: Holds images and other asset files used in documentation or the project.
 
-### Latest Updates (Version 5.3)
+## Installation
 
-- Updated OpenAI API usage to comply with the latest library standards
-- Improved data encryption using Fernet symmetric encryption
-- Enhanced error handling and reporting
-- Updated documentation to reflect recent changes
-- Improved code organization and modularity
+To get started with AIFL-Documentation, follow these steps:
 
-## Getting Started
+1. **Clone the Repository**:
 
-To get started with AIFL, follow these steps:
-
-1. Clone this repository:
-   ```
-   git clone https://github.com/your-username/AIFL-Documentation.git
+   ```bash
+   git clone https://github.com/gcharris/AIFL-Documentation.git
    cd AIFL-Documentation
    ```
 
-2. Install the required dependencies:
-   ```
+2. **Install Dependencies**:
+
+   Ensure you have Python 3.7 or higher installed. Install the required dependencies using pip:
+
+   ```bash
    pip install -r requirements.txt
    ```
 
-3. Set up your OpenAI API key as an environment variable:
-   ```
+3. **Set Up Environment Variables**:
+
+   If your project uses environment variables (e.g., for API keys), set them up accordingly. **Do not include your actual API key in any files or commit it to version control.**
+
+   For Unix-based systems:
+
+   ```bash
    export OPENAI_API_KEY='your-api-key-here'
    ```
 
-4. Run the main script to see AIFL in action:
+   For Windows PowerShell:
+
+   ```powershell
+   $env:OPENAI_API_KEY='your-api-key-here'
    ```
-   python main.py
-   ```
 
-## Running the Project
+   **Note**: Replace `'your-api-key-here'` with your actual API key when running the commands, but **do not** include the key in your code or documentation.
 
-1. Ensure you have Python 3.7 or higher installed on your system.
-2. Install the required dependencies by running `pip install -r requirements.txt` in the project directory.
-3. Set your OpenAI API key as an environment variable:
-   - On Unix-based systems: `export OPENAI_API_KEY='your-api-key-here'`
-   - On Windows: `set OPENAI_API_KEY=your-api-key-here`
-4. Run the main script: `python main.py`
+## Usage
 
-The script will first run a test on the data encryption functionality. If the test passes, it will proceed to generate an AIFL-processed explanation of the AIFL concept and symbols used.
+You can use the AIFL executor to parse and execute AIFL expressions. Here's an example:
 
-## Core Concepts
+```python
+from src.aifl_executor import AIFLExecutor
 
-AIFL uses a symbolic language to represent various AI and data processing operations. Here are some key concepts:
+executor = AIFLExecutor()
+expression = "ΔΕ1(Data: 'SensitiveInfo', EncryptionType: 'AES256') ∧ ΔΙ5 ⇒ ΔΖ3"
+result = executor.execute(expression)
+print(result)
+```
 
-1. **Symbols**: Each operation in AIFL is represented by a unique symbol. For example, ΔΔ1 represents data retrieval, while ΔΕ1 represents data encryption.
+**Sample Output**:
 
-2. **Operators**: Symbols are combined using operators like ∧ (AND), ∨ (OR), and ⇒ (Implies) to create complex expressions.
+```
+Executed operation: ⇒
+  Left: Executed operation: ∧
+    Left: Executed function: ΔΕ1(Data: SensitiveInfo, EncryptionType: AES256)
+    Right: Executed symbol: ΔΙ5
+  Right: Executed symbol: ΔΖ3
+```
 
-3. **Data Flow**: AIFL expressions describe the flow of data and operations in an AI system, from data retrieval to model training and evaluation.
+## Communication Protocols
 
-4. **Security**: AIFL incorporates security measures, including data encryption and secure communication protocols.
+To enable AI agents to communicate seamlessly, we've defined standardized communication protocols documented in `docs/PROTOCOLS.md`.
 
-For a complete list of symbols and their meanings, refer to the [Symbol Dictionary](Core_Concepts/Symbol_Dictionary.md).
+- **Message Format**: JSON-based messages that include sender, receiver, message type, and content.
+- **Transport Layer**: Uses HTTP with RESTful APIs for communication between agents.
+- **Security**: Communications are secured using TLS encryption and include authentication mechanisms.
+
+For detailed information, refer to the [Communication Protocols Documentation](docs/PROTOCOLS.md).
+
+## Documentation
+
+- **Symbols Definition**: See `docs/SYMBOLS.md` for a comprehensive list of symbols and their meanings.
+- **Grammar Rules**: Refer to `docs/GRAMMAR.md` for detailed grammar rules used in parsing AIFL expressions.
+- **Project Roadmap**: Check `docs/ROADMAP.md` for upcoming milestones and development plans.
 
 ## Contributing
 
-We welcome contributions to the AIFL project! Please read our [Contribution Guidelines](contributing/contribution-guidelines.md) for more information on how to get involved.
+We welcome contributions to AIFL-Documentation! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md) to get started.
+
+To contribute:
+
+1. **Fork the Repository**: Click the "Fork" button on GitHub.
+
+2. **Create a Feature Branch**:
+
+   ```bash
+   git checkout -b feature/YourFeatureName
+   ```
+
+3. **Commit Your Changes**:
+
+   ```bash
+   git commit -am 'Add new feature'
+   ```
+
+4. **Push to the Branch**:
+
+   ```bash
+   git push origin feature/YourFeatureName
+   ```
+
+5. **Open a Pull Request**: Submit your changes for review.
 
 ## License
 
-[Include license information here]
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ## Support
 
-If you need help or have any questions, please [open an issue](https://github.com/your-username/AIFL-Documentation/issues) on our GitHub repository.
+If you have any questions or need assistance, please [open an issue](https://github.com/gcharris/AIFL-Documentation/issues) on GitHub.
+
+## Acknowledgments
+
+- **Contributors**: Thank you to all the contributors who have helped develop this project.
+- **Resources**: This project utilizes libraries such as Lark for parsing and follows AI communication standards inspired by FIPA.
