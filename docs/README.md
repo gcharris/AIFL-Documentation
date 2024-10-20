@@ -9,7 +9,7 @@ AIFL-Documentation is a project aimed at creating a standardized language and pr
 ## Features
 
 - **AIFL Parser and Executor**: Parse and execute AIFL expressions using a standardized set of symbols and grammar.
-- **Standardized Symbols and Grammar**: Utilize a consistent set of symbols and grammar rules defined in the `docs/SYMBOLS.md` and `docs/GRAMMAR.md` files.
+- **Standardized Symbols and Grammar**: Utilize a consistent set of symbols and grammar rules defined in the [SYMBOLS.md](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/SYMBOLS.md) and [GRAMMAR.md](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/GRAMMAR.md) files.
 - **Communication Protocols**: Define protocols for AI agent communication to enable seamless interaction between different AI systems.
 - **Extensibility**: Easily extend the language and protocols to accommodate new requirements and AI functionalities.
 - **Security Measures**: Implement data encryption and security protocols to ensure safe communication and data handling between AI agents.
@@ -31,6 +31,12 @@ To get started with AIFL-Documentation, follow these steps:
    git clone https://github.com/gcharris/AIFL-Documentation.git
    cd AIFL-Documentation
    ```
+
+---
+
+```markdown
+
+```
 
 2. **Install Dependencies**:
 
@@ -83,51 +89,64 @@ Executed operation: ⇒
 
 ## Communication Protocols
 
-To enable AI agents to communicate seamlessly, we've defined standardized communication protocols documented in `docs/PROTOCOLS.md`.
+To enable AI agents to communicate seamlessly, we've defined standardized communication protocols documented in [PROTOCOLS.md](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/PROTOCOLS.md).
 
 - **Message Format**: JSON-based messages that include sender, receiver, message type, and content.
 - **Transport Layer**: Uses HTTP with RESTful APIs for communication between agents.
 - **Security**: Communications are secured using TLS encryption and include authentication mechanisms.
 
-For detailed information, refer to the [Communication Protocols Documentation](docs/PROTOCOLS.md).
+For detailed information, refer to the [Communication Protocols Documentation](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/PROTOCOLS.md).
 
 ## Documentation
 
-- **Symbols Definition**: See `docs/SYMBOLS.md` for a comprehensive list of symbols and their meanings.
-- **Grammar Rules**: Refer to `docs/GRAMMAR.md` for detailed grammar rules used in parsing AIFL expressions.
-- **Project Roadmap**: Check `docs/ROADMAP.md` for upcoming milestones and development plans.
+- **Symbols Definition**: See [SYMBOLS.md](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/SYMBOLS.md) for a comprehensive list of symbols and their meanings.
+- **Grammar Rules**: Refer to [GRAMMAR.md](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/GRAMMAR.md) for detailed grammar rules used in parsing AIFL expressions.
+- **Project Roadmap**: Check [ROADMAP.md](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/ROADMAP.md) for upcoming milestones and development plans.
 
 ## Contributing
 
-We welcome contributions to AIFL-Documentation! Please read our [Contributing Guidelines](docs/CONTRIBUTING.md) to get started.
+We welcome contributions to AIFL-Documentation! Please read our [Contributing Guidelines](https://github.com/gcharris/AIFL-Documentation/blob/main/docs/CONTRIBUTING.md) to get started.
 
 To contribute:
 
 1. **Fork the Repository**: Click the "Fork" button on GitHub.
 
-2. **Create a Feature Branch**:
+2. **Clone Your Fork**:
+
+   ```bash
+   git clone https://github.com/gcharris/AIFL-Documentation.git
+   cd AIFL-Documentation
+   ```
+
+3. **Create a Feature Branch**:
 
    ```bash
    git checkout -b feature/YourFeatureName
    ```
 
-3. **Commit Your Changes**:
+4. **Make Changes**:
+
+   - **Code**: Implement your feature or bugfix.
+   - **Documentation**: Update or add new documentation as needed.
+   - **Tests**: Add tests to verify your changes.
+
+5. **Commit Your Changes**:
 
    ```bash
-   git commit -am 'Add new feature'
+   git commit -am 'Add feature XYZ'  # Replace with your message
    ```
 
-4. **Push to the Branch**:
+6. **Push to Your Fork**:
 
    ```bash
    git push origin feature/YourFeatureName
    ```
 
-5. **Open a Pull Request**: Submit your changes for review.
+7. **Open a Pull Request**: Submit your changes for review.
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
+This project is licensed under the [MIT License](https://github.com/gcharris/AIFL-Documentation/blob/main/LICENSE). See the [LICENSE](https://github.com/gcharris/AIFL-Documentation/blob/main/LICENSE) file for details.
 
 ## Support
 

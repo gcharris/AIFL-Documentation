@@ -1,109 +1,65 @@
-from lark import Lark, Transformer, v_args
+# src/aifl_parser.py
 
-@v_args(inline=True)
-class AIFLTransformer(Transformer):
-    def start(self, expression):
-        return expression
-
-    def expression(self, expression):
-        return expression
-
-    def implication(self, left, right=None):
-        if right is not None:
-            return {'type': 'operation', 'operator': '⇒', 'left': left, 'right': right}
-        else:
-            return left
-
-    def conjunction(self, left, right=None):
-        if right is not None:
-            return {'type': 'operation', 'operator': '∧', 'left': left, 'right': right}
-        else:
-            return left
-
-    def term(self, term):
-        return term
-
-    def conditional(self, condition, then_expr, else_expr=None):
-        result = {'type': 'conditional', 'condition': condition, 'then': then_expr}
-        if else_expr is not None:
-            result['else'] = else_expr
-        return result
-
-    def condition(self, left, op, right):
-        return {'type': 'condition', 'left': left, 'operator': op, 'right': right}
-
-    def function_call(self, name, arguments=None):
-        if arguments is None:
-            arguments = []
-        return {'type': 'function', 'name': name['value'], 'arguments': arguments}
-
-    def arguments(self, *args):
-        return list(args)
-
-    def key_value_pair(self, key, value):
-        return {'type': 'key_value', 'key': key, 'value': value}
-
-    def value(self, value):
-        return value
-
-    def AIFL_SYMBOL(self, s):
-        return {'type': 'symbol', 'value': str(s)}
-
-    def IDENTIFIER(self, s):
-        return {'type': 'identifier', 'value': str(s)}
-
-    def STRING(self, s):
-        return {'type': 'string', 'value': s[1:-1]}  # Remove quotes
-
-    def NUMBER(self, n):
-        return {'type': 'number', 'value': str(n)}
-
-    def OPERATOR(self, op):
-        return str(op)
+from lark import Lark
 
 class AIFLParser:
     def __init__(self):
         self.parser = Lark(r"""
             start: expression
 
-            ?expression: implication
+            expression: conditional
+                       | implication
 
-            implication: conjunction "⇒" expression   -> implication
-                       | conjunction
+            conditional: "IF" "(" expression ")" "THEN" expression "ELSE" expression
 
-            conjunction: conjunction "∧" term          -> conjunction
-                       | term
+            implication: disjunction
+                        | disjunction IMPLIES implication   -> implication_op
 
-            term: function_call
-                | AIFL_SYMBOL
-                | IDENTIFIER
-                | NUMBER
-                | STRING
-                | conditional
-                | "(" expression ")"
+            disjunction: conjunction
+                        | conjunction OR disjunction        -> disjunction_op
 
-            conditional: "IF" "(" condition ")" "THEN" expression ("ELSE" expression)?
+            conjunction: comparison
+                        | comparison AND conjunction          -> conjunction_op
 
-            condition: term OPERATOR term
+            comparison: operand MORETHAN operand    -> comparison_op
+                       | operand
 
-            OPERATOR: ">" | "<" | ">=" | "<=" | "==" | "!="
+            operand: function_call
+                   | symbol
+                   | "(" expression ")"
 
-            function_call: AIFL_SYMBOL "(" arguments? ")"
+            function_call: IDENTIFIER "(" [arguments] ")"
 
-            arguments: key_value_pair ("," key_value_pair)*
+            arguments: argument ("," argument)*
 
-            key_value_pair: IDENTIFIER ":" value
+            argument: IDENTIFIER ":" value
 
-            value: STRING | NUMBER | IDENTIFIER
+            value: STRING_SINGLE 
+                  | STRING_DOUBLE 
+                  | IDENTIFIER
 
-            AIFL_SYMBOL: /Δ[Α-Ω]+[0-9]*[α-ω]?/
-            IDENTIFIER: /[a-zA-Z_][a-zA-Z0-9_]*/
-            STRING: /'[^']*'/
-            NUMBER: /\d+(\.\d+)?/
+            symbol: IDENTIFIER
+
+            STRING_SINGLE : /'[^']*'/
+            STRING_DOUBLE : /"[^"]*"/
+
+            # Define operators as tokens
+            AND: "∧"
+            OR: "∨"
+            IMPLIES: "⇒"
+            MORETHAN: ">" 
+
+            # Define keywords to prevent them from being treated as IDENTIFIER
+            IF: "IF"
+            THEN: "THEN"
+            ELSE: "ELSE"
+
+            # Updated IDENTIFIER to include both Greek and Latin letters
+            IDENTIFIER: /[_\u0391-\u03A9\u03B1-\u03C9A-Za-z][_\u0391-\u03A9\u03B1-\u03C9A-Za-z0-9]*/
 
             %import common.WS
             %ignore WS
-        """, start='start', parser='lalr', transformer=AIFLTransformer())
+        """, parser='earley', start='start')
 
-    def parse(self, aifl_expression):
-        return self.parser.parse(aifl_expression)
+    def parse(self, expression):
+        return self.parser.parse(expression)

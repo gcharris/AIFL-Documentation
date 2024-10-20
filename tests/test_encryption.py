@@ -1,5 +1,5 @@
 import unittest
-from encryption import encrypt_data, decrypt_data
+from src.encryption import encrypt_data, decrypt_data
 
 class TestEncryption(unittest.TestCase):
     def test_encrypt_decrypt_standard_string(self):
