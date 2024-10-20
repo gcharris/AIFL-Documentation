@@ -1,7 +1,11 @@
 # src/aifl_executor.py
 
+import logging
 from lark import Tree, Token
 from src.aifl_parser import AIFLParser
+
+# Configure logging
+logging.basicConfig(level=logging.DEBUG, format='%(levelname)s:%(message)s')
 
 class AIFLExecutor:
     def __init__(self):
@@ -11,49 +15,45 @@ class AIFLExecutor:
         try:
             tree = self.parser.parse(expr)
             if isinstance(tree, Tree):
-                print(f"Parse Tree for '{expr}':\n{tree.pretty()}\n")  # Debugging statement
+                logging.debug(f"Parse Tree for '{expr}':\n{tree.pretty()}\n")
             else:
-                print(f"Parse Tree for '{expr}':\n{tree}\n")  # Token
+                logging.debug(f"Parse Tree for '{expr}':\n{tree}\n")
 
             return self._execute_tree(tree)
         except Exception as e:
-            # Raise exceptions to be handled by the caller (tests)
-            print(f"Error executing expression '{expr}': {str(e)}")  # Debugging statement
+            logging.error(f"Error executing expression '{expr}': {str(e)}")
             raise e
 
     def _execute_tree(self, tree, indent=0):
+        indent_str = '  ' * indent
         if isinstance(tree, Token):
-            # Treat tokens as symbols
-            print(f"{'  ' * indent}Processing Token: {tree.value}")  # Debugging statement
+            logging.debug(f"{indent_str}Processing Token: {tree.value}")
             return f"Executed symbol: {tree.value}"
         elif isinstance(tree, Tree):
-            print(f"{'  ' * indent}Processing Tree: {tree.data}")  # Debugging statement
+            logging.debug(f"{indent_str}Processing Tree: {tree.data}")
 
             # Handle delegation based on node type
             if tree.data == 'start':
-                # Delegate to the child node
                 return self._execute_tree(tree.children[0], indent)
             elif tree.data == 'expression':
-                # Delegate to the child node
                 return self._execute_tree(tree.children[0], indent)
             elif tree.data == 'symbol':
                 symbol = tree.children[0].value
-                print(f"{'  ' * indent}Executing symbol: {symbol}")  # Debugging statement
+                logging.debug(f"{indent_str}Executing symbol: {symbol}")
                 return f"Executed symbol: {symbol}"
             elif tree.data == 'value':
-                # Handle value by processing its child token
-                print(f"{'  ' * indent}Processing Value")  # Debugging statement
+                logging.debug(f"{indent_str}Processing Value")
                 value_token = tree.children[0]
                 if isinstance(value_token, Token):
                     value = self._strip_quotes(value_token.value)
-                    print(f"{'  ' * indent}Extracted Value: {value}")  # Debugging statement
+                    logging.debug(f"{indent_str}Extracted Value: {value}")
                     return value
                 else:
                     raise NotImplementedError(f"Unhandled value node child type: {type(value_token)}")
             elif tree.data == 'function_call':
                 func_name = tree.children[0].value
                 args = {}
-                print(f"{'  ' * indent}Executing function: {func_name}")  # Debugging statement
+                logging.debug(f"{indent_str}Executing function: {func_name}")
 
                 # Iterate over each argument in the 'arguments' tree
                 arguments_tree = tree.children[1] if len(tree.children) > 1 else None
@@ -84,7 +84,7 @@ class AIFLExecutor:
                             raise ValueError(f"Expected 'argument' tree, got {type(arg)}")
                 args_str = ', '.join([f"{k}: {v}" for k, v in args.items()])
                 executed_function = f"Executed function: {func_name}({args_str})"
-                print(f"{'  ' * indent}{executed_function}")  # Debugging statement
+                logging.debug(f"{indent_str}{executed_function}")
                 return executed_function
 
             # Define operator nodes and expression nodes
@@ -100,39 +100,44 @@ class AIFLExecutor:
                 }
                 operator = operator_map.get(tree.data, tree.data)
 
-                # **Important:** Skip operator tokens and extract operands
+                # Skip operator tokens and extract operands
                 operands = [child for child in tree.children if not isinstance(child, Token)]
                 if len(operands) != 2:
                     raise ValueError(f"Operator '{operator}' expected 2 operands, got {len(operands)}")
 
-                print(f"{'  ' * indent}Executing operation: {operator}")  # Debugging statement
+                logging.debug(f"{indent_str}Executing operation: {operator}")
                 left = self._execute_tree(operands[0], indent + 1)
                 right = self._execute_tree(operands[1], indent + 1)
 
-                # Extract symbol names from executed symbols
-                left_symbol = left.split(': ')[1] if 'Executed symbol: ' in left else left
-                right_symbol = right.split(': ')[1] if 'Executed symbol: ' in right else right
+                # Check if operands are operations themselves
+                if 'Executed operation:' in left:
+                    left_str = left
+                else:
+                    left_str = left  # Could be a symbol or function
 
-                executed_operation = f"Executed operation: {operator} on Executed symbol: {left_symbol} and Executed symbol: {right_symbol}"
-                print(f"{'  ' * indent}{executed_operation}")  # Debugging statement
+                if 'Executed operation:' in right:
+                    right_str = right
+                else:
+                    right_str = right  # Could be a symbol or function
+
+                executed_operation = f"Executed operation: {operator} on {left_str} and {right_str}"
+                logging.debug(f"{indent_str}{executed_operation}")
                 return executed_operation
 
             elif tree.data in expression_nodes:
-                # Delegate to the child node (expression)
                 return self._execute_tree(tree.children[0], indent)
 
             elif tree.data == 'conditional':
-                print(f"{'  ' * indent}Executing conditional")  # Debugging statement
+                logging.debug(f"{indent_str}Executing conditional")
                 condition = self._execute_tree(tree.children[0], indent + 1)
                 then_expr = self._execute_tree(tree.children[1], indent + 1)
                 else_expr = self._execute_tree(tree.children[2], indent + 1)
                 executed_conditional = f"Executed conditional: IF {condition} THEN {then_expr} ELSE {else_expr}"
-                print(f"{'  ' * indent}{executed_conditional}")  # Debugging statement
+                logging.debug(f"{indent_str}{executed_conditional}")
                 return executed_conditional
 
             elif tree.data == 'operand':
-                # Handle operand by delegating to its child
-                print(f"{'  ' * indent}Processing Operand")  # Debugging statement
+                logging.debug(f"{indent_str}Processing Operand")
                 return self._execute_tree(tree.children[0], indent)
 
             else:
