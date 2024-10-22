@@ -1,4 +1,21 @@
+# Specify the programming language
+language = "python3"
+
+# Define the command to run your Flask application
+run = "python main.py"
 modules = ["python-3.11"]
+
+[[ports]]
+localPort = 8080
+externalPort = 8080
+
+[[ports]]
+localPort = 8081
+externalPort = 80
+
+# Nix configuration (optional, retains your existing setup)
+[nix]
+channel = "stable-24_05"
 
 [workflows]
 runButton = "Project"
@@ -10,97 +27,7 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Test OpenAI Setup"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Run Main Script"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Run Tests"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Run Parser Test"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Run AIFL Tests"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
-args = "Run Test Script"
-
-[[workflows.workflow.tasks]]
-task = "workflow.run"
 args = "Flask Server"
-
-[[workflows.workflow]]
-name = "Test OpenAI Setup"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python test_openai.py"
-
-[[workflows.workflow]]
-name = "Run Main Script"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python main.py"
-
-[[workflows.workflow]]
-name = "Run Tests"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python -m unittest"
-
-[[workflows.workflow]]
-name = "Run Parser Test"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python test_parser.py"
-
-[[workflows.workflow]]
-name = "Run AIFL Tests"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python -m unittest tests/test_aifl_processing.py"
-
-[[workflows.workflow]]
-name = "Run Test Script"
-author = "agent"
-
-[workflows.workflow.metadata]
-agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python test_execute_endpoint.py"
 
 [[workflows.workflow]]
 name = "Flask Server"
@@ -111,23 +38,8 @@ agentRequireRestartOnSave = false
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "python main.py"
+args = "python app.py"
 waitForPort = 8081
 
 [deployment]
-run = ["sh", "-c", "python -m http.server 8000"]
-
-[[ports]]
-localPort = 8000
-externalPort = 80
-
-[[ports]]
-localPort = 8080
-externalPort = 8080
-
-[[ports]]
-localPort = 8081
-externalPort = 8081
-
-[nix]
-channel = "stable-24_05"
+run = ["sh", "-c", "python app.py"]
