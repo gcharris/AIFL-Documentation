@@ -1,5 +1,3 @@
-# tests/test_aifl_processing.py
-
 import unittest
 from src.aifl_executor import AIFLExecutor
 
@@ -48,3 +46,12 @@ class TestAIFLProcessing(unittest.TestCase):
         expected = "Executed symbol: ΔΔ1"
         result = self.executor.execute(expr)
         self.assertEqual(result, expected)
+
+    def test_complex_nested_expression(self):
+        expr = "IF((ΔΕ1(Data: 'UserInput') ∧ ΔΘ5α) ∨ (ΔΜ1 ⇒ ΔΖ3)) THEN ΔΝ2(Action: 'Process') ELSE ΔΑ1(Data: 'Ignore')"
+        expected = "Executed conditional: IF Executed operation: ∨ on Executed operation: ∧ on Executed function: ΔΕ1(Data: UserInput) and Executed symbol: ΔΘ5α and Executed operation: ⇒ on Executed symbol: ΔΜ1 and Executed symbol: ΔΖ3 THEN Executed function: ΔΝ2(Action: Process) ELSE Executed function: ΔΑ1(Data: Ignore)"
+        result = self.executor.execute(expr)
+        self.assertEqual(result, expected)
+
+if __name__ == '__main__':
+    unittest.main()
