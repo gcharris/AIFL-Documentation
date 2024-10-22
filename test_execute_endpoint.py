@@ -8,7 +8,7 @@ logging.basicConfig(level=logging.DEBUG)
 logger = logging.getLogger(__name__)
 
 def test_execute_endpoint(num_tests=10):
-    url = "http://172.31.196.67:8081/execute"
+    url = "http://172.31.196.67:8080/execute"
     headers = {'Content-Type': 'application/json'}
     data = {
         "message": "IF(ΔΕ1(Data: 'UserCredentials') ∧ (ΔΘ5α ∨ ΔΜ1)) THEN ΔΝ2 ELSE ΔΑ1"

@@ -9,9 +9,6 @@ modules = ["python-3.11"]
 localPort = 8080
 externalPort = 8080
 
-[[ports]]
-localPort = 8081
-externalPort = 80
 
 # Nix configuration (retain your existing setup)
 [nix]
@@ -35,11 +32,6 @@ author = "agent"
 
 [workflows.workflow.metadata]
 agentRequireRestartOnSave = false
-
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "python app.py"
-waitForPort = 8081
 
 [deployment]
 run = ["sh", "-c", "python app.py"]
