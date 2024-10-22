@@ -1,5 +1,3 @@
-# src/aifl_parser.py
-
 from lark import Lark
 
 class AIFLParser:
@@ -19,7 +17,7 @@ class AIFLParser:
                         | conjunction OR disjunction        -> disjunction_op
 
             conjunction: comparison
-                        | comparison AND conjunction          -> conjunction_op
+                        | comparison AND conjunction        -> conjunction_op
 
             comparison: operand MORETHAN operand    -> comparison_op
                        | operand
@@ -43,18 +41,15 @@ class AIFLParser:
             STRING_SINGLE : /'[^']*'/
             STRING_DOUBLE : /"[^"]*"/
 
-            # Define operators as tokens
             AND: "∧"
             OR: "∨"
             IMPLIES: "⇒"
             MORETHAN: ">" 
 
-            # Define keywords to prevent them from being treated as IDENTIFIER
             IF: "IF"
             THEN: "THEN"
             ELSE: "ELSE"
 
-            # Updated IDENTIFIER to include both Greek and Latin letters
             IDENTIFIER: /[_\u0391-\u03A9\u03B1-\u03C9A-Za-z][_\u0391-\u03A9\u03B1-\u03C9A-Za-z0-9]*/
 
             %import common.WS
