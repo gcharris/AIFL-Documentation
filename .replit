@@ -13,7 +13,7 @@ externalPort = 8080
 localPort = 8081
 externalPort = 80
 
-# Nix configuration (optional, retains your existing setup)
+# Nix configuration (retain your existing setup)
 [nix]
 channel = "stable-24_05"
 
