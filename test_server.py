@@ -1,29 +1,33 @@
 # test_server.py
 import requests
 import json
+import time
 
 def test_server():
-    """Test if the AIFL server is running and responding correctly"""
-    base_url = 'http://localhost:3000'
+    """Test basic server functionality"""
+    base_url = 'http://localhost:3001'
 
-    # Test health endpoint
+    print(f"Testing AIFL server at {base_url}")
+
     try:
+        # Test health endpoint
+        print("\nTesting health endpoint...")
         response = requests.get(f'{base_url}/health')
-        print("\nHealth check response:", json.dumps(response.json(), indent=2))
-    except requests.exceptions.ConnectionError:
-        print("\nCould not connect to server. Is it running?")
-        return
+        print(json.dumps(response.json(), indent=2))
 
-    # Test execute endpoint
-    test_expression = "ΔΕ1(Data: 'TestData') ∧ ΔΙ5"
-    try:
+        # Test simple execution
+        print("\nTesting execute endpoint...")
+        test_expr = "ΔΕ1(Data: 'TestData') ∧ ΔΙ5"
         response = requests.post(
             f'{base_url}/execute',
-            json={'expression': test_expression}
+            json={'expression': test_expr}
         )
-        print("\nExecute response:", json.dumps(response.json(), indent=2))
+        print(json.dumps(response.json(), indent=2))
+
+    except requests.exceptions.ConnectionError:
+        print(f"ERROR: Could not connect to server at {base_url}")
     except Exception as e:
-        print(f"\nError testing execute endpoint: {str(e)}")
+        print(f"Error during test: {str(e)}")
 
 if __name__ == "__main__":
     test_server()
