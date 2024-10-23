@@ -1,18 +1,18 @@
-# Specify the programming language
+run = "bash install.sh && python src/app.py"
 language = "python3"
-
-# Define the command to run your Flask application
-run = "python main.py"
 modules = ["python-3.11"]
 
-[[ports]]
-localPort = 8080
-externalPort = 8080
-
-
-# Nix configuration (retain your existing setup)
 [nix]
-channel = "stable-24_05"
+channel = "stable-22_11"
+
+[env]
+PYTHONPATH = "./src"
+PORT = "3000"
+FLASK_DEBUG = "1"
+
+[deployment]
+run = ["sh", "-c", "python src/app.py"]
+deploymentTarget = "cloudrun"
 
 [workflows]
 runButton = "Project"
@@ -33,5 +33,11 @@ author = "agent"
 [workflows.workflow.metadata]
 agentRequireRestartOnSave = false
 
-[deployment]
-run = ["sh", "-c", "python app.py"]
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "python main.py"
+waitForPort = 8081
+
+[[ports]]
+localPort = 3000
+externalPort = 80
