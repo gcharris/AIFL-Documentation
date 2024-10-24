@@ -1,60 +1,89 @@
-from lark import Lark
+# src/aifl/aifl_parser.py enhancement
+from lark import Lark, Transformer, v_args
+import logging
 
 class AIFLParser:
     def __init__(self):
+        self.logger = logging.getLogger('AIFL.Parser')
         self.parser = Lark(r"""
-            start: expression
+            ?start: expression
 
             expression: conditional
-                       | implication
+                     | asynchronous
+                     | operation
+                     | symbol_call
+                     | "(" expression ")"
 
-            conditional: "IF" "(" expression ")" "THEN" expression "ELSE" expression
+            conditional: "IF" "(" condition ")" "THEN" expression "ELSE" expression
+            asynchronous: expression "↷" "[" expression "]"
+            operation: expression operator expression
 
-            implication: disjunction
-                        | disjunction IMPLIES implication   -> implication_op
+            symbol_call: SYMBOL ("(" [parameters] ")")?
+            parameters: parameter ("," parameter)*
+            parameter: IDENTIFIER ":" value
 
-            disjunction: conjunction
-                        | conjunction OR disjunction        -> disjunction_op
+            value: STRING_LITERAL 
+                | NUMBER
+                | BOOLEAN
+                | array
+                | IDENTIFIER
 
-            conjunction: comparison
-                        | comparison AND conjunction        -> conjunction_op
+            array: "[" [value ("," value)*] "]"
 
-            comparison: operand MORETHAN operand    -> comparison_op
-                       | operand
+            operator: "∧" -> and_op
+                   | "∨" -> or_op
+                   | "⇒" -> implies_op
+                   | "∴" -> therefore_op
+                   | "¬" -> not_op
+                   | "⊕" -> xor_op
+                   | "⊗" -> compose_op
+                   | "≡" -> equiv_op
 
-            operand: function_call
-                   | symbol
-                   | "(" expression ")"
+            condition: expression comparison_operator expression
+            comparison_operator: "==" | "!=" | "<" | ">" | "<=" | ">="
 
-            function_call: IDENTIFIER "(" [arguments] ")"
+            SYMBOL: /[ΜΙΕΣΔΠΨΩΛΦΡΚΝ][ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]?[0-9]+[αβγδε]?/
 
-            arguments: argument ("," argument)*
-
-            argument: IDENTIFIER ":" value
-
-            value: STRING_SINGLE 
-                  | STRING_DOUBLE 
-                  | IDENTIFIER
-
-            symbol: IDENTIFIER
-
-            STRING_SINGLE : /'[^']*'/
-            STRING_DOUBLE : /"[^"]*"/
-
-            AND: "∧"
-            OR: "∨"
-            IMPLIES: "⇒"
-            MORETHAN: ">" 
-
-            IF: "IF"
-            THEN: "THEN"
-            ELSE: "ELSE"
-
-            IDENTIFIER: /[_\u0391-\u03A9\u03B1-\u03C9A-Za-z][_\u0391-\u03A9\u03B1-\u03C9A-Za-z0-9]*/
+            IDENTIFIER: /[A-Za-z_][A-Za-z0-9_]*/
+            STRING_LITERAL: /"[^"]*"/ | /'[^']*'/
+            NUMBER: /-?\d+(\.\d+)?/
+            BOOLEAN: "True" | "False"
 
             %import common.WS
             %ignore WS
         """, parser='earley', start='start')
 
-    def parse(self, expression):
-        return self.parser.parse(expression)
+    def parse(self, expression: str) -> dict:
+        """Parse an AIFL expression into an AST."""
+        try:
+            self.logger.debug(f"Parsing expression: {expression}")
+            tree = self.parser.parse(expression)
+            return self._transform_tree(tree)
+        except Exception as e:
+            self.logger.error(f"Parse error in expression '{expression}': {str(e)}")
+            raise
+
+    def _transform_tree(self, tree):
+        """Transform parse tree into a structured format."""
+        if isinstance(tree, str):
+            return {"type": "literal", "value": tree}
+
+        data = tree.data if hasattr(tree, 'data') else None
+        children = tree.children if hasattr(tree, 'children') else []
+
+        if data == 'symbol_call':
+            return {
+                "type": "symbol_call",
+                "symbol": str(children[0]),
+                "parameters": self._transform_tree(children[1]) if len(children) > 1 else {}
+            }
+        elif data == 'operation':
+            return {
+                "type": "operation",
+                "operator": self._transform_tree(children[1]),
+                "left": self._transform_tree(children[0]),
+                "right": self._transform_tree(children[2])
+            }
+        # Add more transformation cases...
+
+        return tree

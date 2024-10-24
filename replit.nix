@@ -1,5 +1,6 @@
 {pkgs}: {
   deps = [
+    pkgs.fltk14
     pkgs.libffi
     pkgs.bash
     pkgs.python39Packages.flask
