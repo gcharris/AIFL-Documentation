@@ -1,89 +1,137 @@
-# src/aifl/aifl_parser.py enhancement
-from lark import Lark, Transformer, v_args
+from lark import Lark, Transformer
 import logging
+
+class AIFLTransformer(Transformer):
+    def symbol_call(self, items):
+        symbol = str(items[0])
+        parameters = items[1] if len(items) > 1 else {}
+        return {
+            "type": "symbol_call",
+            "symbol": symbol,
+            "parameters": parameters
+        }
+
+    def operation(self, items):
+        left, op, right = items
+        return {
+            "type": "operation",
+            "operator": op,
+            "left": left,
+            "right": right
+        }
+
+    def unary_operation(self, items):
+        op, operand = items
+        return {
+            "type": "unary_operation",
+            "operator": op,
+            "operand": operand
+        }
+
+    def parameters(self, items):
+        params = {}
+        for key, value in items:
+            params[str(key)] = value
+        return params
+
+    def parameter(self, items):
+        key, value = items
+        return (str(key), value)
+
+    def value(self, items):
+        return items[0]
+
+    def array(self, items):
+        return [item for item in items if item is not None]
+
+    # Terminal transformations
+    def STRING_LITERAL(self, s): 
+        return s[1:-1]  # Remove quotes
+
+    def IDENTIFIER(self, i): 
+        return str(i)
+
+    # Operator transformations
+    def AND(self, _): return "∧"
+    def OR(self, _): return "∨"
+    def NOT(self, _): return "¬"
+    def IMPLIES(self, _): return "⇒"
+    def THEREFORE(self, _): return "∴"
+    def COMPOSE(self, _): return "⊗"
+    def EQUIV(self, _): return "≡"
 
 class AIFLParser:
     def __init__(self):
         self.logger = logging.getLogger('AIFL.Parser')
-        self.parser = Lark(r"""
-            ?start: expression
 
-            expression: conditional
-                     | asynchronous
-                     | operation
-                     | symbol_call
-                     | "(" expression ")"
+        grammar = r"""
+        ?start: expression
 
-            conditional: "IF" "(" condition ")" "THEN" expression "ELSE" expression
-            asynchronous: expression "↷" "[" expression "]"
-            operation: expression operator expression
+        ?expression: therefore_expr
 
-            symbol_call: SYMBOL ("(" [parameters] ")")?
-            parameters: parameter ("," parameter)*
-            parameter: IDENTIFIER ":" value
+        ?therefore_expr: implies_expr
+                     | implies_expr THEREFORE therefore_expr -> operation
 
-            value: STRING_LITERAL 
-                | NUMBER
-                | BOOLEAN
-                | array
-                | IDENTIFIER
+        ?implies_expr: equiv_expr
+                    | equiv_expr IMPLIES implies_expr -> operation
 
-            array: "[" [value ("," value)*] "]"
+        ?equiv_expr: or_expr
+                  | or_expr EQUIV equiv_expr -> operation
 
-            operator: "∧" -> and_op
-                   | "∨" -> or_op
-                   | "⇒" -> implies_op
-                   | "∴" -> therefore_op
-                   | "¬" -> not_op
-                   | "⊕" -> xor_op
-                   | "⊗" -> compose_op
-                   | "≡" -> equiv_op
+        ?or_expr: and_expr
+                | or_expr OR and_expr -> operation
 
-            condition: expression comparison_operator expression
-            comparison_operator: "==" | "!=" | "<" | ">" | "<=" | ">="
+        ?and_expr: compose_expr
+                | and_expr AND compose_expr -> operation
 
-            SYMBOL: /[ΜΙΕΣΔΠΨΩΛΦΡΚΝ][ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]?[0-9]+[αβγδε]?/
+        ?compose_expr: not_expr
+                    | compose_expr COMPOSE not_expr -> operation
 
-            IDENTIFIER: /[A-Za-z_][A-Za-z0-9_]*/
-            STRING_LITERAL: /"[^"]*"/ | /'[^']*'/
-            NUMBER: /-?\d+(\.\d+)?/
-            BOOLEAN: "True" | "False"
+        ?not_expr: atom
+                | NOT atom -> unary_operation
 
-            %import common.WS
-            %ignore WS
-        """, parser='earley', start='start')
+        ?atom: symbol_call
+             | "(" expression ")"
+
+        symbol_call: SYMBOL parameters?
+        parameters: "(" parameter ("," parameter)* ")"
+        parameter: IDENTIFIER ":" value
+
+        ?value: array
+             | STRING_LITERAL
+             | IDENTIFIER
+
+        array: "[" [value ("," value)*] "]"
+
+        AND: "∧"
+        OR: "∨"
+        NOT: "¬"
+        IMPLIES: "⇒"
+        THEREFORE: "∴"
+        COMPOSE: "⊗"
+        EQUIV: "≡"
+
+        SYMBOL: /[ΜΙΕΣΔΠΨΩΛΦΡΚΝ][ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩ]{0,2}[0-9]+[αβγδε]?/
+        IDENTIFIER: /[A-Za-z][A-Za-z0-9_]*/
+        STRING_LITERAL: /'[^']*'/ | /"[^"]*"/
+
+        %import common.WS
+        %ignore WS
+        """
+
+        self.parser = Lark(
+            grammar,
+            parser='lalr',
+            transformer=AIFLTransformer(),
+            debug=True
+        )
 
     def parse(self, expression: str) -> dict:
-        """Parse an AIFL expression into an AST."""
         try:
             self.logger.debug(f"Parsing expression: {expression}")
-            tree = self.parser.parse(expression)
-            return self._transform_tree(tree)
+            result = self.parser.parse(expression)
+            self.logger.debug(f"Parse result: {result}")
+            return result
         except Exception as e:
-            self.logger.error(f"Parse error in expression '{expression}': {str(e)}")
-            raise
-
-    def _transform_tree(self, tree):
-        """Transform parse tree into a structured format."""
-        if isinstance(tree, str):
-            return {"type": "literal", "value": tree}
-
-        data = tree.data if hasattr(tree, 'data') else None
-        children = tree.children if hasattr(tree, 'children') else []
-
-        if data == 'symbol_call':
-            return {
-                "type": "symbol_call",
-                "symbol": str(children[0]),
-                "parameters": self._transform_tree(children[1]) if len(children) > 1 else {}
-            }
-        elif data == 'operation':
-            return {
-                "type": "operation",
-                "operator": self._transform_tree(children[1]),
-                "left": self._transform_tree(children[0]),
-                "right": self._transform_tree(children[2])
-            }
-        # Add more transformation cases...
-
-        return tree
+            self.logger.error(f"Parse error: {str(e)}")
+            raise ValueError(f"Parse error: {str(e)}") from e

@@ -1,0 +1,13 @@
+Metadata-Version: 2.1
+Name: repl-nix-aifl-docassist
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.7
+License-File: LICENSE.md
+Requires-Dist: cryptography==3.4.7
+Requires-Dist: flask==2.3.2
+Requires-Dist: lark-parser==0.12.0
+Requires-Dist: lark>=1.2.2
+Requires-Dist: openai==0.27.0
+Requires-Dist: requests==2.27.1
+Requires-Dist: werkzeug==2.3.3
