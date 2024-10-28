@@ -1,0 +1,31 @@
+site_name: AIFL Documentation
+theme: readthedocs
+
+nav:
+  - Home: README.md
+  - Core Concepts:
+    - Introduction: Core_Concepts/introduction.md
+    - Architecture: Core_Concepts/architecture.md
+    - Domains: Core_Concepts/domains.md
+    - Key Components: Core_Concepts/key-components.md
+  - Getting Started:
+    - Installation: Getting_Started/installation.md
+    - Quick Start: Getting_Started/quick-start.md
+  - API Reference:
+    - Endpoints: api-reference/endpoints.md
+    - Data Models: api-reference/data-models.md
+  - Integration Guides:
+    - Gemini AI: Integration_Guides/Gemini_AI_Integration.md
+    - Other Frameworks: Integration_Guides/Other_Frameworks.md
+  - Test Cases:
+    - Overview: Test_Cases/index.md
+    - Test Case 1: Test_Cases/Test_Case_1.md
+    - Test Case 2: Test_Cases/Test_Case_2.md
+  - References:
+    - Grammar: GRAMMAR.md
+    - Protocols: PROTOCOLS.md
+    - Symbols: SYMBOLS.md
+  - About:
+    - Contributing: CONTRIBUTING.md
+    - Code of Conduct: CODE_OF_CONDUCT.md
+    - FAQ: FAQ.md
