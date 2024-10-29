@@ -1,5 +1,6 @@
 {pkgs}: {
   deps = [
+    pkgs.tree
     pkgs.python312
     pkgs.python312Packages.mkdocs
     pkgs.python312Packages.mkdocs-material
