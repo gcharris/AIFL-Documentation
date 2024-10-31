@@ -224,5 +224,5 @@ async def data_processor():
 - [AIFL Documentation](https://docs.aifl.dev)
 - [API Reference](../api-reference/endpoints.md)
 - [Community Forums](https://community.aifl.dev)
-- [GitHub Repository](https://github.com/aifl/aifl-sdk)
+- [GitHub Repository](https://github.com/gcharris/AIFL-Public)
 

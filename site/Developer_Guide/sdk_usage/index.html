@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://aifl-public.gcharris.repl.co/Developer_Guide/sdk_usage/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>SDK Usage - AIFL Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "SDK Usage";
+        var mkdocs_page_input_path = "Developer_Guide/sdk_usage.md";
+        var mkdocs_page_url = "/Developer_Guide/sdk_usage/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> AIFL Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Guide</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">SDK Usage</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-sdk-components">Core SDK Components</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#client-configuration">Client Configuration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#event-handlers">Event Handlers</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#state-management">State Management</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#advanced-message-patterns">Advanced Message Patterns</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#broadcast-messages">Broadcast Messages</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-streams">Message Streams</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-priorities">Message Priorities</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#conversation-management">Conversation Management</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#create-and-manage-conversations">Create and Manage Conversations</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conversation-context">Conversation Context</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#error-handling-and-recovery">Error Handling and Recovery</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#retry-patterns">Retry Patterns</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#circuit-breaker">Circuit Breaker</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#middleware-and-plugins">Middleware and Plugins</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#custom-middleware">Custom Middleware</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#plugin-system">Plugin System</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#security-features">Security Features</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#message-encryption">Message Encryption</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#authentication">Authentication</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#monitoring-and-metrics">Monitoring and Metrics</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#performance-monitoring">Performance Monitoring</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#health-checks">Health Checks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-utilities">Testing Utilities</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#mock-client">Mock Client</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#test-helpers">Test Helpers</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../platform_setup/">Platform Setup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../authentication/">Authentication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../message_handling/">Message Handling</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/architecture/">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/domains/">Domains</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/key-components/">Key Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/symbol-dictionary/">Symbol Dictionary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/syntax-rules/">Syntax Rules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/test-conversations/">Test Conversations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Resources</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/SDKs_Libraries/">SDKs & Libraries</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tooling_Support/">Tooling Support</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tutorials/">Tutorials</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Integration Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Gemini_AI_Integration/">Gemini AI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Other_Frameworks/">Other Frameworks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Swarm_API_Integration/">Swarm API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Security & Compliance</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Security_Protocols/">Security Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Compliance_Standards/">Compliance Standards</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Topics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/performance-optimization/">Performance Optimization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Test Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_1/">Test Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_2/">Test Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_3/">Test Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Use Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_1/">Use Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_2/">Use Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_3/">Use Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api-reference/endpoints/">Endpoints</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api-reference/data-models/">Data Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../GRAMMAR/">Grammar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../PROTOCOLS/">Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SYMBOLS/">Symbols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Appendices/">Appendices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Glossary/">Glossary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ROADMAP/">Roadmap</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CODE_OF_CONDUCT/">Code of Conduct</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../FAQ/">FAQ</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AIFL Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Developer Guide &raquo;</li><li>SDK Usage</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="sdk-usage-guide">SDK Usage Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>The AIFL SDK provides comprehensive tools and utilities for integrating AI systems with the AIFL framework. This guide covers advanced usage patterns and features of the SDK.</p>
+<h2 id="core-sdk-components">Core SDK Components</h2>
+<h3 id="client-configuration">Client Configuration</h3>
+<pre><code class="language-python">from aifl_sdk import AIFLClient, ClientConfig
+
+config = ClientConfig(
+    api_key=&quot;your_key&quot;,
+    environment=&quot;production&quot;,
+    timeout=30,
+    max_retries=3,
+    debug_mode=False,
+    metrics_enabled=True
+)
+
+client = AIFLClient(config)
+</code></pre>
+<h3 id="event-handlers">Event Handlers</h3>
+<pre><code class="language-python"># Message handler
+@client.on_message
+async def handle_message(message):
+    print(f&quot;Received: {message}&quot;)
+
+# Connection status handler
+@client.on_connection_status
+async def handle_status(status):
+    print(f&quot;Connection status: {status}&quot;)
+
+# Error handler
+@client.on_error
+async def handle_error(error):
+    print(f&quot;Error occurred: {error}&quot;)
+</code></pre>
+<h3 id="state-management">State Management</h3>
+<pre><code class="language-python"># Manage agent state
+async def manage_state():
+    # Store state
+    await client.set_state(&quot;processing_status&quot;, &quot;active&quot;)
+
+    # Retrieve state
+    status = await client.get_state(&quot;processing_status&quot;)
+
+    # Update state
+    await client.update_state(&quot;processing_status&quot;, &quot;completed&quot;)
+</code></pre>
+<h2 id="advanced-message-patterns">Advanced Message Patterns</h2>
+<h3 id="broadcast-messages">Broadcast Messages</h3>
+<pre><code class="language-python"># Send to multiple agents
+await client.broadcast(
+    message=&quot;ΜΑΒ2(Message: 'SystemUpdate')&quot;,
+    recipients=[&quot;agent1&quot;, &quot;agent2&quot;, &quot;agent3&quot;]
+)
+</code></pre>
+<h3 id="message-streams">Message Streams</h3>
+<pre><code class="language-python"># Stream processing
+async for message in client.message_stream(filter=&quot;data_processing&quot;):
+    await process_message(message)
+</code></pre>
+<h3 id="message-priorities">Message Priorities</h3>
+<pre><code class="language-python"># Send high-priority message
+await client.send_message(
+    message=&quot;ΜΑΝ1(Topic: 'Emergency')&quot;,
+    recipient=&quot;emergency_handler&quot;,
+    priority=&quot;high&quot;
+)
+</code></pre>
+<h2 id="conversation-management">Conversation Management</h2>
+<h3 id="create-and-manage-conversations">Create and Manage Conversations</h3>
+<pre><code class="language-python"># Start new conversation
+conversation = await client.start_conversation(
+    participants=[&quot;agent1&quot;, &quot;agent2&quot;],
+    metadata={
+        &quot;topic&quot;: &quot;data_analysis&quot;,
+        &quot;priority&quot;: &quot;normal&quot;
+    }
+)
+
+# Add participant
+await conversation.add_participant(&quot;agent3&quot;)
+
+# Remove participant
+await conversation.remove_participant(&quot;agent1&quot;)
+
+# End conversation
+await conversation.end()
+</code></pre>
+<h3 id="conversation-context">Conversation Context</h3>
+<pre><code class="language-python"># Set conversation context
+await conversation.set_context({
+    &quot;domain&quot;: &quot;scientific&quot;,
+    &quot;language&quot;: &quot;python&quot;,
+    &quot;scope&quot;: &quot;analysis&quot;
+})
+
+# Update context
+await conversation.update_context({
+    &quot;status&quot;: &quot;processing&quot;
+})
+</code></pre>
+<h2 id="error-handling-and-recovery">Error Handling and Recovery</h2>
+<h3 id="retry-patterns">Retry Patterns</h3>
+<pre><code class="language-python">from aifl_sdk.utils import retry_with_backoff
+
+@retry_with_backoff(max_retries=3, initial_delay=1)
+async def send_with_retry():
+    await client.send_message(message)
+</code></pre>
+<h3 id="circuit-breaker">Circuit Breaker</h3>
+<pre><code class="language-python">from aifl_sdk.utils import circuit_breaker
+
+@circuit_breaker(failure_threshold=5, reset_timeout=60)
+async def protected_operation():
+    await client.send_message(message)
+</code></pre>
+<h2 id="middleware-and-plugins">Middleware and Plugins</h2>
+<h3 id="custom-middleware">Custom Middleware</h3>
+<pre><code class="language-python">from aifl_sdk import Middleware
+
+class LoggingMiddleware(Middleware):
+    async def before_send(self, message):
+        print(f&quot;Sending message: {message}&quot;)
+        return message
+
+    async def after_receive(self, message):
+        print(f&quot;Received message: {message}&quot;)
+        return message
+
+# Register middleware
+client.add_middleware(LoggingMiddleware())
+</code></pre>
+<h3 id="plugin-system">Plugin System</h3>
+<pre><code class="language-python">from aifl_sdk import Plugin
+
+class MetricsPlugin(Plugin):
+    def __init__(self):
+        self.message_count = 0
+
+    async def on_message_sent(self, message):
+        self.message_count += 1
+
+    async def get_metrics(self):
+        return {&quot;messages_sent&quot;: self.message_count}
+
+# Register plugin
+client.register_plugin(MetricsPlugin())
+</code></pre>
+<h2 id="security-features">Security Features</h2>
+<h3 id="message-encryption">Message Encryption</h3>
+<pre><code class="language-python"># Enable end-to-end encryption
+client.enable_encryption(
+    key_type=&quot;RSA&quot;,
+    key_size=2048
+)
+
+# Send encrypted message
+await client.send_encrypted_message(
+    message=&quot;ΣΑΙ1(Topic: 'SecureData')&quot;,
+    recipient=&quot;secure_agent&quot;
+)
+</code></pre>
+<h3 id="authentication">Authentication</h3>
+<pre><code class="language-python"># Token-based authentication
+client.set_auth_token(&quot;your_token&quot;)
+
+# Custom authentication
+client.set_auth_handler(custom_auth_handler)
+</code></pre>
+<h2 id="monitoring-and-metrics">Monitoring and Metrics</h2>
+<h3 id="performance-monitoring">Performance Monitoring</h3>
+<pre><code class="language-python"># Enable metrics collection
+metrics = client.enable_metrics()
+
+# Get performance data
+performance_data = await metrics.get_performance_data()
+print(f&quot;Average response time: {performance_data.avg_response_time}ms&quot;)
+</code></pre>
+<h3 id="health-checks">Health Checks</h3>
+<pre><code class="language-python"># Check system health
+health = await client.check_health()
+print(f&quot;System status: {health.status}&quot;)
+</code></pre>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Resource Management</strong></li>
+</ol>
+<pre><code class="language-python">async with AIFLClient(config) as client:
+    # Client automatically handles cleanup
+    await client.send_message(message)
+</code></pre>
+<ol>
+<li><strong>Batch Processing</strong></li>
+</ol>
+<pre><code class="language-python"># Process messages in batches
+messages = [message1, message2, message3]
+await client.send_batch(messages, batch_size=10)
+</code></pre>
+<ol>
+<li><strong>Rate Limiting</strong></li>
+</ol>
+<pre><code class="language-python"># Configure rate limits
+client.set_rate_limit(
+    max_requests=100,
+    per_second=60
+)
+</code></pre>
+<h2 id="testing-utilities">Testing Utilities</h2>
+<h3 id="mock-client">Mock Client</h3>
+<pre><code class="language-python">from aifl_sdk.testing import MockAIFLClient
+
+# Create mock client for testing
+mock_client = MockAIFLClient()
+
+# Set up mock responses
+mock_client.add_response(
+    pattern=&quot;ΜΑΝ1&quot;,
+    response=&quot;ΙΑΧ3(Status: 'Success')&quot;
+)
+</code></pre>
+<h3 id="test-helpers">Test Helpers</h3>
+<pre><code class="language-python">from aifl_sdk.testing import create_test_conversation
+
+# Create test conversation
+conversation = await create_test_conversation(
+    client,
+    num_messages=5
+)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../getting_started/" class="btn btn-neutral float-left" title="Getting Started"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../platform_setup/" class="btn btn-neutral float-right" title="Platform Setup">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../getting_started/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../platform_setup/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

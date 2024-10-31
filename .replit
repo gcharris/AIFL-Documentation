@@ -1,3 +1,14 @@
-modules = ["python-3.11"]
+run = "mkdocs serve --dev-addr=0.0.0.0:8080"
+language = "python"
+
 [nix]
-channel = "stable-24_05"
+channel = "stable-22_11"
+
+[deployment]
+deploymentTarget = "static"
+build = ["mkdocs", "build"]
+publicDir = "site"
+
+[[ports]]
+localPort = 8080
+externalPort = 80

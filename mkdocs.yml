@@ -1,60 +1,22 @@
 site_name: AIFL Documentation
-theme: readthedocs
 nav:
-  - Developer Guide:
-    - Getting Started: Developer_Guide/getting_started.md
-    - SDK Usage: Developer_Guide/sdk_usage.md
-    - Platform Setup: Developer_Guide/platform_setup.md
-    - Authentication: Developer_Guide/authentication.md
-    - Message Handling: Developer_Guide/message_handling.md
-    - Best Practices: Developer_Guide/best_practices.md
-  - Home: README.md
+  - Home: index.md
   - Core Concepts:
     - Introduction: Core_Concepts/introduction.md
     - Architecture: Core_Concepts/architecture.md
-    - Key Components: Core_Concepts/key-components.md
-    - Domains: Core_Concepts/domains.md
-    - Symbol Dictionary: Core_Concepts/symbol-dictionary.md
-    - Syntax Rules: Core_Concepts/syntax-rules.md
-    - Test Conversations: Core_Concepts/test-conversations.md
-  - Getting Started:
-    - Installation: Getting_Started/installation.md
-    - Quick Start: Getting_Started/quick-start.md
-    - Basic Usage: Getting_Started/basic-usage.md
-  - Developer Resources:
-    - SDKs & Libraries: Developer_Resources/SDKs_Libraries.md
-    - Tooling Support: Developer_Resources/Tooling_Support.md
-    - Tutorials: Developer_Resources/Tutorials.md
-  - API Reference:
-    - Endpoints: api-reference/endpoints.md
-    - Data Models: api-reference/data-models.md
-  - Integration Guides:
-    - Gemini AI: Integration_Guides/Gemini_AI_Integration.md
-    - Swarm API: Integration_Guides/Swarm_API_Integration.md
-    - Other Frameworks: Integration_Guides/Other_Frameworks.md
-  - Advanced Topics:
-    - Customization: advanced-topics/customization.md
-    - Performance Optimization: advanced-topics/performance-optimization.md
-  - Security & Compliance:
-    - Security Protocols: Security_Compliance/Security_Protocols.md
-    - Compliance Standards: Security_Compliance/Compliance_Standards.md
-  - Test Cases:
-    - Overview: Test_Cases/index.md
-    - Test Case 1: Test_Cases/Test_Case_1.md
-    - Test Case 2: Test_Cases/Test_Case_2.md
-    - Test Case 3: Test_Cases/Test_Case_3.md
-  - Use Cases:
-    - Use Case 1: Use_Cases/Use_Case_1.md
-    - Use Case 2: Use_Cases/Use_Case_2.md
-    - Use Case 3: Use_Cases/Use_Case_3.md
-  - References:
-    - Grammar: GRAMMAR.md
-    - Protocols: PROTOCOLS.md
-    - Symbols: SYMBOLS.md
-    - Appendices: Appendices.md
-    - Glossary: Glossary.md
-    - Roadmap: ROADMAP.md
-  - About:
-    - Contributing: CONTRIBUTING.md
-    - Code of Conduct: CODE_OF_CONDUCT.md
-    - FAQ: FAQ.md
+    - Grammar: grammar.md
+    - Protocols: protocols.md
+    - Symbols: symbols.md
+  - Orchestrator:
+    - Overview: orchestrator/overview.md
+    - Message Flow: orchestrator/message-flow.md
+    - Integration Guide: orchestrator/integration-guide.md
+    - AIFL Messaging: orchestrator/aifl-messaging.md
+    - Monitoring: orchestrator/monitoring.md
+    - Scaling: orchestrator/scaling.md
+    - Security: orchestrator/security.md
+    - Troubleshooting: orchestrator/troubleshooting.md
+  - Reference:
+    - Glossary: glossary.md
+    - Roadmap: roadmap.md
+theme: readthedocs

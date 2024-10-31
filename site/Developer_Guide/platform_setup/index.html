@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://aifl-public.gcharris.repl.co/Developer_Guide/platform_setup/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Platform Setup - AIFL Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Platform Setup";
+        var mkdocs_page_input_path = "Developer_Guide/platform_setup.md";
+        var mkdocs_page_url = "/Developer_Guide/platform_setup/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> AIFL Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Guide</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../sdk_usage/">SDK Usage</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Platform Setup</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#environment-setup">Environment Setup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#1-development-environment">1. Development Environment</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#platform-specific-setup">Platform-Specific Setup</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#openai-integration">OpenAI Integration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#anthropic-claude-integration">Anthropic Claude Integration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#google-gemini-integration">Google Gemini Integration</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#platform-capabilities">Platform Capabilities</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#capability-registration">Capability Registration</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#platform-specific-features">Platform-Specific Features</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#multi-platform-configuration">Multi-Platform Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#load-balancing">Load Balancing</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#cost-management">Cost Management</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#security-configuration">Security Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#api-key-management">API Key Management</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#access-controls">Access Controls</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#monitoring-and-logging">Monitoring and Logging</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#platform-metrics">Platform Metrics</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#health-checks">Health Checks</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#testing-configuration">Testing Configuration</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#platform-mocks">Platform Mocks</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#integration-tests">Integration Tests</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#troubleshooting">Troubleshooting</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#common-issues">Common Issues</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#platform-status">Platform Status</a>
+    </li>
+        </ul>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../authentication/">Authentication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../message_handling/">Message Handling</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../best_practices/">Best Practices</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/architecture/">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/domains/">Domains</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/key-components/">Key Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/symbol-dictionary/">Symbol Dictionary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/syntax-rules/">Syntax Rules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/test-conversations/">Test Conversations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Resources</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/SDKs_Libraries/">SDKs & Libraries</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tooling_Support/">Tooling Support</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tutorials/">Tutorials</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Integration Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Gemini_AI_Integration/">Gemini AI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Other_Frameworks/">Other Frameworks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Swarm_API_Integration/">Swarm API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Security & Compliance</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Security_Protocols/">Security Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Compliance_Standards/">Compliance Standards</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Topics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/performance-optimization/">Performance Optimization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Test Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_1/">Test Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_2/">Test Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_3/">Test Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Use Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_1/">Use Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_2/">Use Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_3/">Use Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api-reference/endpoints/">Endpoints</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api-reference/data-models/">Data Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../GRAMMAR/">Grammar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../PROTOCOLS/">Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SYMBOLS/">Symbols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Appendices/">Appendices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Glossary/">Glossary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ROADMAP/">Roadmap</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CODE_OF_CONDUCT/">Code of Conduct</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../FAQ/">FAQ</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AIFL Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Developer Guide &raquo;</li><li>Platform Setup</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="platform-setup-guide">Platform Setup Guide</h1>
+<h2 id="overview">Overview</h2>
+<p>This guide covers the setup and configuration of AIFL with various AI platforms and frameworks.</p>
+<h2 id="environment-setup">Environment Setup</h2>
+<h3 id="1-development-environment">1. Development Environment</h3>
+<pre><code class="language-python"># .env configuration
+AIFL_API_KEY=your_aifl_api_key
+AIFL_ENVIRONMENT=development
+OPENAI_API_KEY=your_openai_key
+ANTHROPIC_API_KEY=your_anthropic_key
+GEMINI_API_KEY=your_gemini_key
+</code></pre>
+<pre><code class="language-python"># Load environment variables
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
+# Configure AIFL client
+from aifl_sdk import AIFLClient
+
+client = AIFLClient(
+    api_key=os.getenv('AIFL_API_KEY'),
+    environment=os.getenv('AIFL_ENVIRONMENT')
+)
+</code></pre>
+<h2 id="platform-specific-setup">Platform-Specific Setup</h2>
+<h3 id="openai-integration">OpenAI Integration</h3>
+<pre><code class="language-python">from aifl_sdk.platforms import OpenAIConfig
+
+# Configure OpenAI settings
+openai_config = OpenAIConfig(
+    api_key=os.getenv('OPENAI_API_KEY'),
+    model=&quot;gpt-4&quot;,
+    temperature=0.7,
+    max_tokens=1000
+)
+
+# Register with AIFL client
+client.register_platform(openai_config)
+</code></pre>
+<h3 id="anthropic-claude-integration">Anthropic Claude Integration</h3>
+<pre><code class="language-python">from aifl_sdk.platforms import ClaudeConfig
+
+# Configure Claude settings
+claude_config = ClaudeConfig(
+    api_key=os.getenv('ANTHROPIC_API_KEY'),
+    model=&quot;claude-3-sonnet&quot;,
+    temperature=0.7
+)
+
+# Register with AIFL client
+client.register_platform(claude_config)
+</code></pre>
+<h3 id="google-gemini-integration">Google Gemini Integration</h3>
+<pre><code class="language-python">from aifl_sdk.platforms import GeminiConfig
+
+# Configure Gemini settings
+gemini_config = GeminiConfig(
+    api_key=os.getenv('GEMINI_API_KEY'),
+    model=&quot;gemini-pro&quot;,
+    temperature=0.7
+)
+
+# Register with AIFL client
+client.register_platform(gemini_config)
+</code></pre>
+<h2 id="platform-capabilities">Platform Capabilities</h2>
+<h3 id="capability-registration">Capability Registration</h3>
+<pre><code class="language-python"># Register platform capabilities
+client.register_capabilities({
+    &quot;text_generation&quot;: [&quot;openai&quot;, &quot;claude&quot;, &quot;gemini&quot;],
+    &quot;code_generation&quot;: [&quot;openai&quot;, &quot;claude&quot;],
+    &quot;image_analysis&quot;: [&quot;gemini&quot;],
+    &quot;data_analysis&quot;: [&quot;all&quot;]
+})
+</code></pre>
+<h3 id="platform-specific-features">Platform-Specific Features</h3>
+<pre><code class="language-python"># OpenAI function calling
+await client.invoke_function(
+    platform=&quot;openai&quot;,
+    function_name=&quot;analyze_data&quot;,
+    parameters={&quot;data_type&quot;: &quot;numeric&quot;}
+)
+
+# Claude XML mode
+await client.set_platform_mode(
+    platform=&quot;claude&quot;,
+    mode=&quot;xml&quot;,
+    enabled=True
+)
+
+# Gemini safety settings
+await client.configure_safety(
+    platform=&quot;gemini&quot;,
+    settings={
+        &quot;harassment&quot;: &quot;block_medium_and_above&quot;,
+        &quot;hate_speech&quot;: &quot;block_medium_and_above&quot;
+    }
+)
+</code></pre>
+<h2 id="multi-platform-configuration">Multi-Platform Configuration</h2>
+<h3 id="load-balancing">Load Balancing</h3>
+<pre><code class="language-python"># Configure platform priorities
+client.set_platform_priorities({
+    &quot;openai&quot;: 1,    # Primary
+    &quot;claude&quot;: 2,    # Secondary
+    &quot;gemini&quot;: 3     # Tertiary
+})
+
+# Enable automatic failover
+client.enable_failover(
+    retry_attempts=3,
+    failover_delay=1.0
+)
+</code></pre>
+<h3 id="cost-management">Cost Management</h3>
+<pre><code class="language-python"># Set platform budgets
+client.set_platform_budgets({
+    &quot;openai&quot;: {
+        &quot;daily_limit&quot;: 100.0,
+        &quot;warning_threshold&quot;: 80.0
+    },
+    &quot;claude&quot;: {
+        &quot;daily_limit&quot;: 50.0,
+        &quot;warning_threshold&quot;: 40.0
+    }
+})
+</code></pre>
+<h2 id="security-configuration">Security Configuration</h2>
+<h3 id="api-key-management">API Key Management</h3>
+<pre><code class="language-python"># Rotate platform API keys
+await client.rotate_platform_key(
+    platform=&quot;openai&quot;,
+    new_key=&quot;new_api_key&quot;
+)
+
+# Validate platform credentials
+status = await client.validate_platform_credentials()
+</code></pre>
+<h3 id="access-controls">Access Controls</h3>
+<pre><code class="language-python"># Set platform access rules
+client.set_platform_access({
+    &quot;openai&quot;: [&quot;team_a&quot;, &quot;team_b&quot;],
+    &quot;claude&quot;: [&quot;team_a&quot;],
+    &quot;gemini&quot;: [&quot;team_b&quot;]
+})
+</code></pre>
+<h2 id="monitoring-and-logging">Monitoring and Logging</h2>
+<h3 id="platform-metrics">Platform Metrics</h3>
+<pre><code class="language-python"># Enable platform monitoring
+client.enable_platform_monitoring({
+    &quot;request_logging&quot;: True,
+    &quot;performance_metrics&quot;: True,
+    &quot;cost_tracking&quot;: True
+})
+
+# Get platform statistics
+stats = await client.get_platform_stats(
+    platform=&quot;openai&quot;,
+    timeframe=&quot;24h&quot;
+)
+</code></pre>
+<h3 id="health-checks">Health Checks</h3>
+<pre><code class="language-python"># Check platform health
+health = await client.check_platform_health()
+for platform, status in health.items():
+    print(f&quot;{platform}: {status}&quot;)
+
+# Set up health alerts
+client.configure_health_alerts(
+    email=&quot;admin@example.com&quot;,
+    slack_webhook=&quot;https://hooks.slack.com/...&quot;
+)
+</code></pre>
+<h2 id="testing-configuration">Testing Configuration</h2>
+<h3 id="platform-mocks">Platform Mocks</h3>
+<pre><code class="language-python">from aifl_sdk.testing import PlatformMock
+
+# Create platform mock
+mock = PlatformMock(platform=&quot;openai&quot;)
+mock.add_response(
+    prompt=&quot;Hello&quot;,
+    response=&quot;Hi there!&quot;
+)
+
+# Use mock in tests
+client.use_mock(mock)
+</code></pre>
+<h3 id="integration-tests">Integration Tests</h3>
+<pre><code class="language-python"># Test platform integration
+async def test_platform_integration():
+    result = await client.test_platform(
+        platform=&quot;openai&quot;,
+        test_type=&quot;basic&quot;,
+        timeout=30
+    )
+    assert result.status == &quot;passed&quot;
+</code></pre>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="common-issues">Common Issues</h3>
+<ol>
+<li>API Key Issues</li>
+</ol>
+<pre><code class="language-python"># Verify API keys
+await client.verify_platform_keys()
+</code></pre>
+<ol>
+<li>Rate Limiting</li>
+</ol>
+<pre><code class="language-python"># Check rate limits
+limits = await client.get_rate_limits()
+</code></pre>
+<ol>
+<li>Connection Issues</li>
+</ol>
+<pre><code class="language-python"># Test platform connectivity
+connectivity = await client.test_connectivity()
+</code></pre>
+<h3 id="platform-status">Platform Status</h3>
+<pre><code class="language-python"># Get platform status
+status = await client.get_platform_status()
+print(f&quot;OpenAI Status: {status.openai}&quot;)
+print(f&quot;Claude Status: {status.claude}&quot;)
+print(f&quot;Gemini Status: {status.gemini}&quot;)
+</code></pre>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../sdk_usage/" class="btn btn-neutral float-left" title="SDK Usage"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../authentication/" class="btn btn-neutral float-right" title="Authentication">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../sdk_usage/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../authentication/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

@@ -73,8 +73,8 @@ With built-in error handling, message validation, and recovery mechanisms, AIFL 
 To begin working with AIFL:
 
 1. Read through the [Core Concepts](architecture.md) documentation
-2. Follow the [Quick Start Guide](../Getting_Started/quick-start.md)
-3. Explore the [Integration Guides](../Integration_Guides) for your platform
+2. Follow the [Quick Start Guide](../Developer_Guide/getting_started.md)
+3. Explore the [Integration Guides](../Integration_Guides/Other_Frameworks.md) for your platform
 4. Join the AIFL community and contribute
 
 ## Community and Support

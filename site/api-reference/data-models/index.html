@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://aifl-public.gcharris.repl.co/api-reference/data-models/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Data Models - AIFL Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Data Models";
+        var mkdocs_page_input_path = "api-reference/data-models.md";
+        var mkdocs_page_url = "/api-reference/data-models/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> AIFL Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Guide</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/sdk_usage/">SDK Usage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/platform_setup/">Platform Setup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/authentication/">Authentication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/message_handling/">Message Handling</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/best_practices/">Best Practices</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/architecture/">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/domains/">Domains</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/key-components/">Key Components</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/symbol-dictionary/">Symbol Dictionary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/syntax-rules/">Syntax Rules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Core_Concepts/test-conversations/">Test Conversations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Resources</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/SDKs_Libraries/">SDKs & Libraries</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tooling_Support/">Tooling Support</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tutorials/">Tutorials</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Integration Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Gemini_AI_Integration/">Gemini AI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Other_Frameworks/">Other Frameworks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Swarm_API_Integration/">Swarm API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Security & Compliance</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Security_Protocols/">Security Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Compliance_Standards/">Compliance Standards</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Topics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/performance-optimization/">Performance Optimization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Test Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_1/">Test Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_2/">Test Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_3/">Test Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Use Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_1/">Use Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_2/">Use Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_3/">Use Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../endpoints/">Endpoints</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Data Models</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#overview">Overview</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#core-models">Core Models</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#agent-model">Agent Model</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-model">Message Model</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conversation-model">Conversation Model</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#symbol-model">Symbol Model</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#validation-rules">Validation Rules</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#agent-validation">Agent Validation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#message-validation">Message Validation</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#conversation-validation">Conversation Validation</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#best-practices">Best Practices</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#schema-evolution">Schema Evolution</a>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#next-steps">Next Steps</a>
+    </li>
+    </ul>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../GRAMMAR/">Grammar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../PROTOCOLS/">Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SYMBOLS/">Symbols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Appendices/">Appendices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Glossary/">Glossary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ROADMAP/">Roadmap</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CODE_OF_CONDUCT/">Code of Conduct</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../FAQ/">FAQ</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AIFL Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>API Reference &raquo;</li><li>Data Models</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="data-models">Data Models</h1>
+<h2 id="overview">Overview</h2>
+<p>This document describes the core data models used in the AIFL API. These models define the structure of data exchanged between clients and the AIFL system.</p>
+<h2 id="core-models">Core Models</h2>
+<h3 id="agent-model">Agent Model</h3>
+<pre><code class="language-typescript">interface Agent {
+    agent_id: string;
+    capabilities: string[];
+    platform: string;
+    version: string;
+    status: &quot;active&quot; | &quot;inactive&quot;;
+    last_seen: timestamp;
+    metadata: Record&lt;string, any&gt;;
+}
+</code></pre>
+<h3 id="message-model">Message Model</h3>
+<pre><code class="language-typescript">interface Message {
+    message_id: string;
+    conversation_id: string;
+    sender_id: string;
+    recipient_id: string;
+    content: string;
+    timestamp: string;
+    priority: &quot;low&quot; | &quot;normal&quot; | &quot;high&quot;;
+    status: &quot;sent&quot; | &quot;delivered&quot; | &quot;processed&quot;;
+}
+</code></pre>
+<h3 id="conversation-model">Conversation Model</h3>
+<pre><code class="language-typescript">interface Conversation {
+    conversation_id: string;
+    participants: string[];
+    started_at: timestamp;
+    last_message_at: timestamp;
+    status: &quot;active&quot; | &quot;closed&quot;;
+    metadata: Record&lt;string, any&gt;;
+}
+</code></pre>
+<h3 id="symbol-model">Symbol Model</h3>
+<pre><code class="language-typescript">interface Symbol {
+    value: string;
+    domain: string;
+    description: string;
+    parameters: Parameter[];
+    added_at: timestamp;
+    deprecated_at?: timestamp;
+    version: string;
+}
+
+interface Parameter {
+    name: string;
+    type: string;
+    required: boolean;
+    description: string;
+}
+</code></pre>
+<h2 id="validation-rules">Validation Rules</h2>
+<h3 id="agent-validation">Agent Validation</h3>
+<ul>
+<li>agent_id: Unique identifier, alphanumeric</li>
+<li>capabilities: Non-empty array of known capabilities</li>
+<li>platform: Must be a supported platform</li>
+<li>version: Semantic versioning format</li>
+</ul>
+<h3 id="message-validation">Message Validation</h3>
+<ul>
+<li>message_id: UUID format</li>
+<li>content: Valid AIFL syntax</li>
+<li>timestamp: ISO 8601 format</li>
+<li>priority: Must be one of defined values</li>
+</ul>
+<h3 id="conversation-validation">Conversation Validation</h3>
+<ul>
+<li>conversation_id: UUID format</li>
+<li>participants: At least two unique agent_ids</li>
+<li>timestamps: ISO 8601 format</li>
+</ul>
+<h2 id="best-practices">Best Practices</h2>
+<ol>
+<li><strong>Data Persistence</strong></li>
+<li>Store conversation history appropriately</li>
+<li>Implement data retention policies</li>
+<li>
+<p>Handle data export capabilities</p>
+</li>
+<li>
+<p><strong>Performance Considerations</strong></p>
+</li>
+<li>Implement pagination for large datasets</li>
+<li>Use appropriate indexing</li>
+<li>
+<p>Consider caching strategies</p>
+</li>
+<li>
+<p><strong>Security</strong></p>
+</li>
+<li>Sanitize all input data</li>
+<li>Validate data types and ranges</li>
+<li>Implement access control</li>
+</ol>
+<h2 id="schema-evolution">Schema Evolution</h2>
+<p>The AIFL data models support backward-compatible evolution through:
+- Optional fields for new features
+- Versioned models
+- Deprecation notices
+- Migration utilities</p>
+<h2 id="next-steps">Next Steps</h2>
+<ul>
+<li>Explore <a href="../../Integration_Guides/Other_Frameworks/">Integration Guides</a></li>
+<li>Review <a href="../../Security_Compliance/Security_Protocols/">Security Protocols</a></li>
+<li>Check <a href="../../Use_Cases/Use_Case_1/">Example Implementations</a></li>
+</ul>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../endpoints/" class="btn btn-neutral float-left" title="Endpoints"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../../GRAMMAR/" class="btn btn-neutral float-right" title="Grammar">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../endpoints/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../../GRAMMAR/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

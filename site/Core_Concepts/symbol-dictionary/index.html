@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><link rel="canonical" href="https://aifl-public.gcharris.repl.co/Core_Concepts/symbol-dictionary/" />
+      <link rel="shortcut icon" href="../../img/favicon.ico" />
+    <title>Symbol Dictionary - AIFL Documentation</title>
+    <link rel="stylesheet" href="../../css/theme.css" />
+    <link rel="stylesheet" href="../../css/theme_extra.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css" />
+    
+      <script>
+        // Current page data
+        var mkdocs_page_name = "Symbol Dictionary";
+        var mkdocs_page_input_path = "Core_Concepts/symbol-dictionary.md";
+        var mkdocs_page_url = "/Core_Concepts/symbol-dictionary/";
+      </script>
+    
+    <script src="../../js/jquery-3.6.0.min.js" defer></script>
+    <!--[if lt IE 9]>
+      <script src="../../js/html5shiv.min.js"></script>
+    <![endif]-->
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+      <script>hljs.initHighlightingOnLoad();</script> 
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+          <a href="../.." class="icon icon-home"> AIFL Documentation
+        </a><div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+      <input type="text" name="q" placeholder="Search docs" title="Type search term here" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul>
+                <li class="toctree-l1"><a class="reference internal" href="../..">Home</a>
+                </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Guide</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/getting_started/">Getting Started</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/sdk_usage/">SDK Usage</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/platform_setup/">Platform Setup</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/authentication/">Authentication</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/message_handling/">Message Handling</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Guide/best_practices/">Best Practices</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Core Concepts</span></p>
+              <ul class="current">
+                  <li class="toctree-l1"><a class="reference internal" href="../introduction/">Introduction</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../architecture/">Architecture</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../domains/">Domains</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../key-components/">Key Components</a>
+                  </li>
+                  <li class="toctree-l1 current"><a class="reference internal current" href="./">Symbol Dictionary</a>
+    <ul class="current">
+    <li class="toctree-l2"><a class="reference internal" href="#symbol-categories">Symbol Categories</a>
+        <ul>
+    <li class="toctree-l3"><a class="reference internal" href="#legend">Legend</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#symbol-table">Symbol Table</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#detailed-symbol-descriptions">Detailed Symbol Descriptions</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#multi-agent-coordination-symbols">Multi-Agent Coordination Symbols</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#inter-agent-communication-protocols-symbols">Inter-Agent Communication Protocols Symbols</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#security-and-compliance-symbols">Security and Compliance Symbols</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#data-management-symbols">Data Management Symbols</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#machine-learning-operations-symbols">Machine Learning Operations Symbols</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#consistency-and-formatting">Consistency and Formatting</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#expanding-the-symbol-dictionary">Expanding the Symbol Dictionary</a>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#practical-examples-and-use-cases">Practical Examples and Use Cases</a>
+        <ul>
+    <li class="toctree-l4"><a class="reference internal" href="#example-1-collaborative-assembly-line">Example 1: Collaborative Assembly Line</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#example-2-secure-data-transmission">Example 2: Secure Data Transmission</a>
+    </li>
+    <li class="toctree-l4"><a class="reference internal" href="#example-3-error-handling-and-recovery">Example 3: Error Handling and Recovery</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l3"><a class="reference internal" href="#summary">Summary</a>
+    </li>
+        </ul>
+    </li>
+    <li class="toctree-l2"><a class="reference internal" href="#4-syntax-and-grammar">4. Syntax and Grammar</a>
+    </li>
+    </ul>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../syntax-rules/">Syntax Rules</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../test-conversations/">Test Conversations</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Developer Resources</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/SDKs_Libraries/">SDKs & Libraries</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tooling_Support/">Tooling Support</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Developer_Resources/Tutorials/">Tutorials</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Integration Guides</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Gemini_AI_Integration/">Gemini AI</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Other_Frameworks/">Other Frameworks</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Integration_Guides/Swarm_API_Integration/">Swarm API</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Security & Compliance</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Security_Protocols/">Security Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Security_Compliance/Compliance_Standards/">Compliance Standards</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Advanced Topics</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/customization/">Customization</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../advanced-topics/performance-optimization/">Performance Optimization</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Test Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/">Overview</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_1/">Test Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_2/">Test Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Test_Cases/Test_Case_3/">Test Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">Use Cases</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_1/">Use Case 1</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_2/">Use Case 2</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Use_Cases/Use_Case_3/">Use Case 3</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">API Reference</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api-reference/endpoints/">Endpoints</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../api-reference/data-models/">Data Models</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">References</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../GRAMMAR/">Grammar</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../PROTOCOLS/">Protocols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../SYMBOLS/">Symbols</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Appendices/">Appendices</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../Glossary/">Glossary</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../ROADMAP/">Roadmap</a>
+                  </li>
+              </ul>
+              <p class="caption"><span class="caption-text">About</span></p>
+              <ul>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CONTRIBUTING/">Contributing</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../CODE_OF_CONDUCT/">Code of Conduct</a>
+                  </li>
+                  <li class="toctree-l1"><a class="reference internal" href="../../FAQ/">FAQ</a>
+                  </li>
+              </ul>
+      </div>
+    </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+      <nav class="wy-nav-top" role="navigation" aria-label="Mobile navigation menu">
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../..">AIFL Documentation</a>
+        
+      </nav>
+      <div class="wy-nav-content">
+        <div class="rst-content"><div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="../.." class="icon icon-home" alt="Docs"></a> &raquo;</li>
+          <li>Core Concepts &raquo;</li><li>Symbol Dictionary</li>
+    <li class="wy-breadcrumbs-aside">
+    </li>
+  </ul>
+  <hr/>
+</div>
+
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+            <div class="section" itemprop="articleBody">
+              
+                <h1 id="aifl-symbol-dictionary">AIFL Symbol Dictionary</h1>
+<p>The AIFL Symbol Dictionary serves as the foundational vocabulary for AI-to-AI communication within the AIFL framework. This comprehensive reference documents all available symbols, their meanings, and proper usage patterns.</p>
+<h2 id="symbol-categories">Symbol Categories</h2>
+<h3 id="legend">Legend</h3>
+<p>To aid in understanding the symbolism and prefixes used within AIFL, the following legend provides a breakdown of symbol categories and their corresponding prefixes:</p>
+<table>
+<thead>
+<tr>
+<th><strong>Prefix</strong></th>
+<th><strong>Domain</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ΜΑ</strong></td>
+<td>Multi-Agent Coordination</td>
+</tr>
+<tr>
+<td><strong>ΙΑ</strong></td>
+<td>Inter-Agent Communication Protocols</td>
+</tr>
+<tr>
+<td><strong>ΣΑ</strong></td>
+<td>Security and Compliance</td>
+</tr>
+<tr>
+<td><strong>ΔΔ</strong></td>
+<td>Data Management</td>
+</tr>
+<tr>
+<td><strong>ΜΛ</strong></td>
+<td>Machine Learning Operations</td>
+</tr>
+<tr>
+<td><strong>ΕΧ</strong></td>
+<td>Error Handling and Recovery</td>
+</tr>
+<tr>
+<td><strong>ΚΣ</strong></td>
+<td>Knowledge Sharing and Collaborative Learning</td>
+</tr>
+<tr>
+<td><strong>Ω</strong></td>
+<td>Communication Protocols</td>
+</tr>
+<tr>
+<td><strong>Δ</strong></td>
+<td>Data Processing</td>
+</tr>
+<tr>
+<td><strong>Π</strong></td>
+<td>Privacy and Compliance</td>
+</tr>
+<tr>
+<td><strong>Φ</strong></td>
+<td>Fallback and Recovery Procedures</td>
+</tr>
+<tr>
+<td><strong>Ψ</strong></td>
+<td>Security Protocols</td>
+</tr>
+<tr>
+<td><strong>Ν</strong></td>
+<td>Data Transmission</td>
+</tr>
+<tr>
+<td><strong>Λ</strong></td>
+<td>Learning and Adaptation</td>
+</tr>
+<tr>
+<td><strong>Ο</strong></td>
+<td>Optimization</td>
+</tr>
+<tr>
+<td><strong>ΚΝ</strong></td>
+<td>Knowledge Networks</td>
+</tr>
+<tr>
+<td><strong>ΚΣ</strong></td>
+<td>Knowledge Sharing</td>
+</tr>
+</tbody>
+</table>
+<h3 id="symbol-table"><strong>Symbol Table</strong></h3>
+<p>The table below provides a comprehensive list of AIFL symbols, categorized by their respective domains. Each entry includes the symbol, its definition, the domain it belongs to, the rationale behind its inclusion, and an example of its usage to illustrate practical application.</p>
+<table>
+<thead>
+<tr>
+<th><strong>Symbol</strong></th>
+<th><strong>Definition</strong></th>
+<th><strong>Domain</strong></th>
+<th><strong>Rationale</strong></th>
+<th><strong>Example Usage</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ΜΑΝ1</strong></td>
+<td>Initiate Negotiation</td>
+<td>Multi-Agent Coordination</td>
+<td>Begins negotiation between agents to reach a consensus.</td>
+<td><code>ΜΑΝ1(Agents: [A1, A2], Topic: 'ResourceAllocation')</code></td>
+</tr>
+<tr>
+<td><strong>ΜΑΒ2</strong></td>
+<td>Broadcast Message</td>
+<td>Multi-Agent Coordination</td>
+<td>Sends a message to all agents in a group.</td>
+<td><code>ΜΑΒ2(GroupID: G1, Message: 'UpdateParameters')</code></td>
+</tr>
+<tr>
+<td><strong>ΜΑΗ3</strong></td>
+<td>Hierarchical Task Assignment</td>
+<td>Multi-Agent Coordination</td>
+<td>Assigns tasks in a hierarchical structure.</td>
+<td><code>ΜΑΗ3(ParentTask: T1, SubTasks: [T1.1, T1.2])</code></td>
+</tr>
+<tr>
+<td><strong>ΜΑΛ4</strong></td>
+<td>Lock Resource</td>
+<td>Multi-Agent Coordination</td>
+<td>Locks a shared resource to prevent conflicts.</td>
+<td><code>ΜΑΛ4(ResourceID: R123, AgentID: A3)</code></td>
+</tr>
+<tr>
+<td><strong>ΜΑΥ5</strong></td>
+<td>Unlock Resource</td>
+<td>Multi-Agent Coordination</td>
+<td>Releases a previously locked resource.</td>
+<td><code>ΜΑΥ5(ResourceID: R123, AgentID: A3)</code></td>
+</tr>
+<tr>
+<td><strong>ΙΑΣ1</strong></td>
+<td>Subscribe to Updates</td>
+<td>Inter-Agent Communication Protocols</td>
+<td>Subscribes to receive updates on a specific topic.</td>
+<td><code>ΙΑΣ1(Topic: 'DataFeed', AgentID: A4)</code></td>
+</tr>
+<tr>
+<td><strong>ΙΑΠ2</strong></td>
+<td>Publish Update</td>
+<td>Inter-Agent Communication Protocols</td>
+<td>Publishes an update to subscribed agents.</td>
+<td><code>ΙΑΠ2(Topic: 'DataFeed', Data: {...})</code></td>
+</tr>
+<tr>
+<td><strong>ΙΑΧ3</strong></td>
+<td>Acknowledge Receipt</td>
+<td>Inter-Agent Communication Protocols</td>
+<td>Confirms receipt of a message or data.</td>
+<td><code>ΙΑΧ3(MessageID: M567, Status: 'Received')</code></td>
+</tr>
+<tr>
+<td><strong>ΙΑΤ4</strong></td>
+<td>Terminate Communication</td>
+<td>Inter-Agent Communication Protocols</td>
+<td>Ends communication with an agent or group.</td>
+<td><code>ΙΑΤ4(AgentID: A5, Reason: 'TaskCompleted')</code></td>
+</tr>
+<tr>
+<td><strong>ΙΑΛ5</strong></td>
+<td>Request Latency Information</td>
+<td>Inter-Agent Communication Protocols</td>
+<td>Requests information about communication latency.</td>
+<td><code>ΙΑΛ5(AgentID: A6)</code></td>
+</tr>
+<tr>
+<td><strong>ΣΑΙ1</strong></td>
+<td>Initialize Secure Session</td>
+<td>Security and Compliance</td>
+<td>Establishes a secure communication session between agents.</td>
+<td><code>ΣΑΙ1(AgentID: A7, SessionID: S789)</code></td>
+</tr>
+<tr>
+<td><strong>ΣΑΚ2</strong></td>
+<td>Key Exchange</td>
+<td>Security and Compliance</td>
+<td>Exchanges cryptographic keys for secure communication.</td>
+<td><code>ΣΑΚ2(AgentID: A8, KeyType: 'RSA2048')</code></td>
+</tr>
+<tr>
+<td><strong>ΣΑΜ3</strong></td>
+<td>Monitor Compliance</td>
+<td>Security and Compliance</td>
+<td>Monitors actions to ensure compliance with regulations.</td>
+<td><code>ΣΑΜ3(AgentID: A9, Regulation: 'HIPAA')</code></td>
+</tr>
+<tr>
+<td><strong>ΣΑΡ4</strong></td>
+<td>Report Security Breach</td>
+<td>Security and Compliance</td>
+<td>Notifies about a potential security breach.</td>
+<td><code>ΣΑΡ4(IncidentID: I101, Details: 'UnauthorizedAccess')</code></td>
+</tr>
+<tr>
+<td><strong>ΣΑΒ5</strong></td>
+<td>Block Agent</td>
+<td>Security and Compliance</td>
+<td>Blocks communication with an agent due to security concerns.</td>
+<td><code>ΣΑΒ5(AgentID: A10, Reason: 'MaliciousActivity')</code></td>
+</tr>
+<tr>
+<td><strong>ΔΔΦ1</strong></td>
+<td>Fetch Data</td>
+<td>Data Management</td>
+<td>Retrieves data from a specified source.</td>
+<td><code>ΔΔΦ1(SourceID: 'Database1', Query: 'SELECT *')</code></td>
+</tr>
+<tr>
+<td><strong>ΔΔΩ2</strong></td>
+<td>Write Data</td>
+<td>Data Management</td>
+<td>Writes data to a specified destination.</td>
+<td><code>ΔΔΩ2(DestinationID: 'Database1', Data: {...})</code></td>
+</tr>
+<tr>
+<td><strong>ΔΔΣ3</strong></td>
+<td>Data Synchronization</td>
+<td>Data Management</td>
+<td>Synchronizes data between agents or systems.</td>
+<td><code>ΔΔΣ3(TargetAgent: A11, DataSetID: D202)</code></td>
+</tr>
+<tr>
+<td><strong>ΔΔΑ4</strong></td>
+<td>Data Acknowledgment</td>
+<td>Data Management</td>
+<td>Acknowledges successful data processing.</td>
+<td><code>ΔΔΑ4(DataSetID: D202, Status: 'Processed')</code></td>
+</tr>
+<tr>
+<td><strong>ΔΔΕ5</strong></td>
+<td>Data Encryption</td>
+<td>Data Management</td>
+<td>Encrypts data for secure storage or transmission.</td>
+<td><code>ΔΔΕ5(Data: {...}, EncryptionType: 'AES256')</code></td>
+</tr>
+<tr>
+<td><strong>ΜΛΤ1</strong></td>
+<td>Train Model</td>
+<td>Machine Learning Operations</td>
+<td>Initiates training of a machine learning model.</td>
+<td><code>ΜΛΤ1(ModelID: M303, DataSetID: D404)</code></td>
+</tr>
+<tr>
+<td><strong>ΜΛΕ2</strong></td>
+<td>Evaluate Model</td>
+<td>Machine Learning Operations</td>
+<td>Evaluates a model's performance on a test dataset.</td>
+<td><code>ΜΛΕ2(ModelID: M303, TestDataID: D505)</code></td>
+</tr>
+<tr>
+<td><strong>ΜΛΥ3</strong></td>
+<td>Deploy Model</td>
+<td>Machine Learning Operations</td>
+<td>Deploys a trained model to production.</td>
+<td><code>ΜΛΥ3(ModelID: M303, DeploymentID: 'ProdServer1')</code></td>
+</tr>
+<tr>
+<td><strong>ΜΛΜ4</strong></td>
+<td>Monitor Model</td>
+<td>Machine Learning Operations</td>
+<td>Monitors a deployed model for performance and drift.</td>
+<td><code>ΜΛΜ4(ModelID: M303, Metrics: ['Accuracy', 'Latency'])</code></td>
+</tr>
+<tr>
+<td><strong>ΜΛΠ5</strong></td>
+<td>Predict Using Model</td>
+<td>Machine Learning Operations</td>
+<td>Uses a model to make predictions on new data.</td>
+<td><code>ΜΛΠ5(ModelID: M303, InputData: {...})</code></td>
+</tr>
+<tr>
+<td><strong>ΕΧΛ1</strong></td>
+<td>Log Error</td>
+<td>Error Handling and Recovery</td>
+<td>Logs an error event for auditing and debugging.</td>
+<td><code>ΕΧΛ1(ErrorCode: E404, Description: 'DataNotFound')</code></td>
+</tr>
+<tr>
+<td><strong>ΕΧΤ2</strong></td>
+<td>Trigger Recovery Process</td>
+<td>Error Handling and Recovery</td>
+<td>Initiates a predefined recovery process after an error.</td>
+<td><code>ΕΧΤ2(ProcessID: R606, ErrorCode: E404)</code></td>
+</tr>
+<tr>
+<td><strong>ΕΧΝ3</strong></td>
+<td>Notify Administrator</td>
+<td>Error Handling and Recovery</td>
+<td>Sends an alert to a human administrator.</td>
+<td><code>ΕΧΝ3(AdminID: 'AdminUser', Alert: 'SystemFailure')</code></td>
+</tr>
+<tr>
+<td><strong>ΕΧΣ4</strong></td>
+<td>Suppress Non-Critical Error</td>
+<td>Error Handling and Recovery</td>
+<td>Suppresses an error deemed non-critical to prevent interruption.</td>
+<td><code>ΕΧΣ4(ErrorCode: E101)</code></td>
+</tr>
+<tr>
+<td><strong>ΕΧΡ5</strong></td>
+<td>Retry Operation</td>
+<td>Error Handling and Recovery</td>
+<td>Retries a failed operation a specified number of times.</td>
+<td><code>ΕΧΡ5(OperationID: OP707, RetryCount: 3)</code></td>
+</tr>
+<tr>
+<td><strong>ΕΧΑ5</strong></td>
+<td>Retry with Backoff</td>
+<td>Error Handling and Recovery</td>
+<td>Retries a failed operation with exponential backoff.</td>
+<td><code>ΕΧΑ5(OperationID: OP808, MaxRetries: 5)</code></td>
+</tr>
+<tr>
+<td><strong>ΚΣΕ1</strong></td>
+<td>Exchange Experience</td>
+<td>Knowledge Sharing and Collaborative Learning</td>
+<td>Shares learned experiences between agents.</td>
+<td><code>ΚΣΕ1(AgentID: A12, ExperienceID: EXP808)</code></td>
+</tr>
+<tr>
+<td><strong>ΚΣΚ2</strong></td>
+<td>Contribute to Knowledge Base</td>
+<td>Knowledge Sharing and Collaborative Learning</td>
+<td>Adds new information to a shared knowledge base.</td>
+<td><code>ΚΣΚ2(KnowledgeID: K909, Data: {...})</code></td>
+</tr>
+<tr>
+<td><strong>ΚΣΑ3</strong></td>
+<td>Access Shared Knowledge</td>
+<td>Knowledge Sharing and Collaborative Learning</td>
+<td>Retrieves information from the shared knowledge base.</td>
+<td><code>ΚΣΑ3(KnowledgeID: K909)</code></td>
+</tr>
+<tr>
+<td><strong>ΚΣΜ4</strong></td>
+<td>Merge Knowledge</td>
+<td>Knowledge Sharing and Collaborative Learning</td>
+<td>Combines knowledge from multiple agents into a unified format.</td>
+<td><code>ΚΣΜ4(SourceAgents: [A13, A14], TargetID: K1010)</code></td>
+</tr>
+<tr>
+<td><strong>ΚΣΟ5</strong></td>
+<td>Optimize Shared Knowledge</td>
+<td>Knowledge Sharing and Collaborative Learning</td>
+<td>Improves the efficiency or structure of shared knowledge.</td>
+<td><code>ΚΣΟ5(KnowledgeID: K1010, Method: 'Deduplication')</code></td>
+</tr>
+<tr>
+<td><strong>ΩΑ1</strong></td>
+<td>Initiate Communication</td>
+<td>Communication Protocols</td>
+<td>Signals the start of a communication exchange.</td>
+<td><code>ΩΑ1 ∧ ΨΛ1(ΣID123)</code></td>
+</tr>
+<tr>
+<td><strong>ΩΒ2</strong></td>
+<td>Acknowledge Communication</td>
+<td>Communication Protocols</td>
+<td>Confirms receipt of a message.</td>
+<td><code>ΩΒ2 ∧ ΣΑ1</code></td>
+</tr>
+<tr>
+<td><strong>ΩΔ4</strong></td>
+<td>Synchronization</td>
+<td>Communication Protocols</td>
+<td>Requests synchronization between systems or data.</td>
+<td><code>ΩΔ4(Agent1, Agent2)</code></td>
+</tr>
+<tr>
+<td><strong>ΩΕ5</strong></td>
+<td>Termination Signal</td>
+<td>Communication Protocols</td>
+<td>Signals the end of a communication exchange.</td>
+<td><code>ΩΕ5 ∴ ΦΒ2</code></td>
+</tr>
+<tr>
+<td><strong>ΔΔ1</strong></td>
+<td>Data Retrieval</td>
+<td>Data Processing</td>
+<td>Represents retrieving data from a source.</td>
+<td><code>ΔΔ1(Source: DatabaseA, Query: "SELECT *")</code></td>
+</tr>
+<tr>
+<td><strong>ΔΕ2</strong></td>
+<td>Data Storage</td>
+<td>Data Processing</td>
+<td>Represents storing data.</td>
+<td><code>ΔΕ2(Destination: FileStorage, Data: Data123)</code></td>
+</tr>
+<tr>
+<td><strong>ΔΖ3</strong></td>
+<td>Data Transformation</td>
+<td>Data Processing</td>
+<td>Represents modifying or converting data.</td>
+<td><code>ΔΖ3(Operation: "Filter", Data: Data456)</code></td>
+</tr>
+<tr>
+<td><strong>ΔΗ4</strong></td>
+<td>Pattern Recognition</td>
+<td>Data Processing</td>
+<td>Identifies patterns within data.</td>
+<td><code>ΔΗ4(Data: SensorData, PatternType: "Anomaly")</code></td>
+</tr>
+<tr>
+<td><strong>ΔΙ5</strong></td>
+<td>Data Normalization</td>
+<td>Data Processing</td>
+<td>Adjusts data to a common scale.</td>
+<td><code>ΔΙ5(Data: RawData, Method: "MinMaxScaling")</code></td>
+</tr>
+<tr>
+<td><strong>ΔΜ1</strong></td>
+<td>Model Training</td>
+<td>Machine Learning Operations</td>
+<td>Indicates training a machine learning model.</td>
+<td><code>ΔΜ1(Model: "Classifier", Dataset: "TrainingData")</code></td>
+</tr>
+<tr>
+<td><strong>ΔΝ2</strong></td>
+<td>Model Evaluation</td>
+<td>Machine Learning Operations</td>
+<td>Evaluates the performance of a trained model.</td>
+<td><code>ΔΝ2(ModelID: M303, TestDataID: D505)</code></td>
+</tr>
+<tr>
+<td><strong>ΦΑR1</strong></td>
+<td>Restart Procedure</td>
+<td>Fallback and Recovery Procedures</td>
+<td>Initiates a procedure to restart a failed component or process.</td>
+<td><code>ΦΑR1(Procedure: "RestartSensor", SensorID: ΣLS2)</code></td>
+</tr>
+<tr>
+<td><strong>ΕΠΡ1</strong></td>
+<td>Report to Supervisor</td>
+<td>Fallback and Recovery Procedures</td>
+<td>Escalates an issue to a supervisor AI for further action.</td>
+<td><code>ΕΠΡ1(SourceError: ΕΣ1, Recipient: SupervisorAI, DetailLevel: High)</code></td>
+</tr>
+<tr>
+<td><strong>ΨΛ1</strong></td>
+<td>Start Secure Session</td>
+<td>Security Protocols</td>
+<td>Begins a secure communication session.</td>
+<td><code>ΨΛ1(ΣID867)</code></td>
+</tr>
+<tr>
+<td><strong>ΨΑ1</strong></td>
+<td>Authenticate and Authorize</td>
+<td>Security Protocols</td>
+<td>Performs authentication and authorization for a session.</td>
+<td><code>ΨΑ1 ⇒ ΨΒ2(ΨΚ10) ∧ ΨΓ3 ⇒ ΩΔ4 ∧ ΠΕ5</code></td>
+</tr>
+<tr>
+<td><strong>ΨΒ2</strong></td>
+<td>Confirm Authorization</td>
+<td>Security Protocols</td>
+<td>Confirms successful authorization.</td>
+<td><code>ΨΒ2(ΨΚ10)</code></td>
+</tr>
+<tr>
+<td><strong>ΨΓ3</strong></td>
+<td>Apply Encryption</td>
+<td>Security Protocols</td>
+<td>Applies encryption to secure communications.</td>
+<td><code>ΨΓ3 ⇒ ΩΔ4 ∧ ΠΕ5</code></td>
+</tr>
+<tr>
+<td><strong>ΠΕ5</strong></td>
+<td>Ensure Privacy Compliance</td>
+<td>Privacy and Compliance</td>
+<td>Verifies that communication adheres to privacy regulations.</td>
+<td><code>ΠΕ5</code></td>
+</tr>
+<tr>
+<td><strong>ΡΤΑ1</strong></td>
+<td>Assign Task</td>
+<td>Task Management</td>
+<td>Assigns a specific task to an AI agent.</td>
+<td><code>ΡΤΑ1(TaskID: AssembleComponentA, AssignedTo: RobotID_Alpha)</code></td>
+</tr>
+<tr>
+<td><strong>ΡΣΥ3</strong></td>
+<td>Synchronize Agents</td>
+<td>Task Management</td>
+<td>Synchronizes actions between multiple agents.</td>
+<td><code>ΡΣΥ3(RobotIDs: [RobotID_Alpha, RobotID_Beta])</code></td>
+</tr>
+<tr>
+<td><strong>ΡΧ1Ε</strong></td>
+<td>Emergency Stop Command</td>
+<td>Emergency Protocols</td>
+<td>Issues an emergency stop due to a critical situation.</td>
+<td><code>ΡΧ1Ε(Timestamp: 1630000020, PriorityLevel: Critical)</code></td>
+</tr>
+<tr>
+<td><strong>ΡΧ1</strong></td>
+<td>Command Type</td>
+<td>Command Protocols</td>
+<td>Defines the type of command being issued.</td>
+<td><code>ΡΧ1(CommandType: ResumeOperations, Timestamp: 1630000030, PriorityLevel: High)</code></td>
+</tr>
+<tr>
+<td><strong>ΕΣ1</strong></td>
+<td>Sensor Error</td>
+<td>Error Handling and Recovery</td>
+<td>Reports a sensor malfunction or error.</td>
+<td><code>ΕΣ1(ComponentID: TorqueSensor03, ErrorType: OverloadDetected, SeverityLevel: Warning, Timestamp: 1630000022)</code></td>
+</tr>
+<tr>
+<td><strong>ΦΑR1_Ack</strong></td>
+<td>Acknowledge Recovery Procedure</td>
+<td>Fallback and Recovery Procedures</td>
+<td>Confirms the execution of a recovery procedure.</td>
+<td><code>ΦΑR1_Ack(Status: 'Success')</code></td>
+</tr>
+<tr>
+<td><strong>ΔΡΡ3</strong></td>
+<td>Dynamic Path Planning</td>
+<td>Path Planning</td>
+<td>Calculates a new route based on current data or obstacles.</td>
+<td><code>ΔΡΡ3(NewRoute)</code></td>
+</tr>
+<tr>
+<td><strong>ΝΤC1</strong></td>
+<td>Data Transmission Control</td>
+<td>Data Transmission</td>
+<td>Controls the transmission of data, including type and updates.</td>
+<td><code>ΝΤC1(DataType: "CalibrationData") ⇒ ΔDR1(URI: "http://data.repo/calibration/beta", Format: "JSON")</code></td>
+</tr>
+<tr>
+<td><strong>ΔDR1</strong></td>
+<td>Data Reference</td>
+<td>Data Transmission</td>
+<td>Provides a reference to data stored at a specific URI.</td>
+<td><code>ΔDR1(URI: "http://data.repo/calibration/beta", Format: "JSON")</code></td>
+</tr>
+<tr>
+<td><strong>ΛΑ2</strong></td>
+<td>Anomaly Detection</td>
+<td>Anomaly Detection</td>
+<td>Detects anomalies within data streams or operational parameters.</td>
+<td><code>ΛΑ2(AnomalyDetected)</code></td>
+</tr>
+<tr>
+<td><strong>ΕΔΤ2</strong></td>
+<td>Evolutionary Training</td>
+<td>Evolutionary Development</td>
+<td>Initiates evolutionary training processes based on new data.</td>
+<td><code>ΕΔΤ2(Data: AnomalyData) ⇒ ΕΔΛ1(ModelID: AnomalyDetection, Version: 1.1, Data: [UpdatedParameters])</code></td>
+</tr>
+<tr>
+<td><strong>ΕΔΛ1</strong></td>
+<td>Update Model Parameters</td>
+<td>Evolutionary Development</td>
+<td>Updates model parameters based on evolutionary training outcomes.</td>
+<td><code>ΕΔΛ1(ModelID: AnomalyDetection, Version: 1.1, Data: [UpdatedParameters])</code></td>
+</tr>
+<tr>
+<td><strong>ΡΠ</strong></td>
+<td>Process ID</td>
+<td>Process Management</td>
+<td>Identifies and manages specific processes within the system.</td>
+<td><code>ΡΠ(ProcessID: P2024)</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="detailed-symbol-descriptions"><strong>Detailed Symbol Descriptions</strong></h3>
+<p>Below are detailed descriptions for select symbols within the AIFL Symbol Dictionary, providing further insights into their functionalities and usage contexts.</p>
+<h4 id="multi-agent-coordination-symbols"><strong>Multi-Agent Coordination Symbols</strong></h4>
+<ul>
+<li>
+<p><strong>ΜΑΝ1 (Initiate Negotiation)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Begins a negotiation process between specified agents to reach a consensus on a particular topic.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΜΑΝ1(Agents: [A1, A2], Topic: 'ResourceAllocation')</code></p>
+<p><em>Interpretation:</em> Initiates a negotiation between Agent A1 and Agent A2 to allocate resources effectively.</p>
+</li>
+<li>
+<p><strong>ΜΑΒ2 (Broadcast Message)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Sends a message to all agents within a specified group.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΜΑΒ2(GroupID: G1, Message: 'UpdateParameters')</code></p>
+<p><em>Interpretation:</em> Broadcasts an instruction to update parameters to all agents in Group G1.</p>
+</li>
+</ul>
+<h4 id="inter-agent-communication-protocols-symbols"><strong>Inter-Agent Communication Protocols Symbols</strong></h4>
+<ul>
+<li>
+<p><strong>ΙΑΣ1 (Subscribe to Updates)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Subscribes an agent to receive updates on a specific topic.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΙΑΣ1(Topic: 'DataFeed', AgentID: A4)</code></p>
+<p><em>Interpretation:</em> Agent A4 subscribes to receive updates related to the 'DataFeed' topic.</p>
+</li>
+<li>
+<p><strong>ΙΑΠ2 (Publish Update)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Publishes an update to agents subscribed to a particular topic.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΙΑΠ2(Topic: 'DataFeed', Data: {...})</code></p>
+<p><em>Interpretation:</em> Publishes new data to all agents subscribed to the 'DataFeed' topic.</p>
+</li>
+</ul>
+<h4 id="security-and-compliance-symbols"><strong>Security and Compliance Symbols</strong></h4>
+<ul>
+<li>
+<p><strong>ΣΑΙ1 (Initialize Secure Session)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Establishes a secure communication session between two agents.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΣΑΙ1(AgentID: A7, SessionID: S789)</code></p>
+<p><em>Interpretation:</em> Initiates a secure session between the current agent and Agent A7 with the session identifier S789.</p>
+</li>
+<li>
+<p><strong>ΣΑΚ2 (Key Exchange)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Exchanges cryptographic keys to facilitate secure communication.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΣΑΚ2(AgentID: A8, KeyType: 'RSA2048')</code></p>
+<p><em>Interpretation:</em> Exchanges RSA 2048-bit keys with Agent A8 to secure future communications.</p>
+</li>
+</ul>
+<h4 id="data-management-symbols"><strong>Data Management Symbols</strong></h4>
+<ul>
+<li>
+<p><strong>ΔΔΦ1 (Fetch Data)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Retrieves data from a specified source.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΔΔΦ1(SourceID: 'Database1', Query: 'SELECT *')</code></p>
+<p><em>Interpretation:</em> Fetches all data from Database1.</p>
+</li>
+<li>
+<p><strong>ΔΔΩ2 (Write Data)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Writes data to a specified destination.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΔΔΩ2(DestinationID: 'Database1', Data: {...})</code></p>
+<p><em>Interpretation:</em> Writes the provided data to Database1.</p>
+</li>
+</ul>
+<h4 id="machine-learning-operations-symbols"><strong>Machine Learning Operations Symbols</strong></h4>
+<ul>
+<li>
+<p><strong>ΜΛΤ1 (Train Model)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Initiates the training of a machine learning model.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΜΛΤ1(ModelID: M303, DataSetID: D404)</code></p>
+<p><em>Interpretation:</em> Begins training Model M303 using Dataset D404.</p>
+</li>
+<li>
+<p><strong>ΜΛΕ2 (Evaluate Model)</strong></p>
+</li>
+<li>
+<p><strong>Definition:</strong> Evaluates the performance of a trained machine learning model.</p>
+</li>
+<li>
+<p><strong>Example Usage:</strong></p>
+<p><code>plaintext
+ΜΛΕ2(ModelID: M303, TestDataID: D505)</code></p>
+<p><em>Interpretation:</em> Evaluates Model M303 using Test Dataset D505.</p>
+</li>
+</ul>
+<h3 id="consistency-and-formatting"><strong>Consistency and Formatting</strong></h3>
+<p>To maintain consistency across the AIFL Symbol Dictionary, adhere to the following formatting guidelines:</p>
+<ul>
+<li><strong>Symbol Naming Convention:</strong> Use uppercase Greek letters with numeric suffixes to indicate the sequence or version.</li>
+<li><strong>Domain Prefixes:</strong> Ensure that each symbol's prefix accurately reflects its domain as per the Legend.</li>
+<li><strong>Parameter Formatting:</strong> Use camelCase for parameter names within symbols for readability and consistency.</li>
+</ul>
+<h3 id="expanding-the-symbol-dictionary"><strong>Expanding the Symbol Dictionary</strong></h3>
+<p>As AIFL evolves, new symbols may be required to address emerging domains and functionalities. To facilitate this, follow these best practices:</p>
+<ul>
+<li><strong>Clear Definitions:</strong> Ensure each new symbol has a precise definition, rationale, and example usage.</li>
+<li><strong>Domain Categorization:</strong> Assign symbols to appropriate domains to maintain organizational clarity.</li>
+<li><strong>Version Control:</strong> Track additions and modifications to the Symbol Dictionary to manage changes effectively.</li>
+</ul>
+<h3 id="practical-examples-and-use-cases"><strong>Practical Examples and Use Cases</strong></h3>
+<p>To illustrate the practical application of AIFL symbols, consider the following enhanced examples:</p>
+<h4 id="example-1-collaborative-assembly-line"><strong>Example 1: Collaborative Assembly Line</strong></h4>
+<pre><code class="language-plaintext">ΜΑΝ1(Agents: [Robot-AI Alpha, Robot-AI Beta], Topic: 'ComponentAssembly') 
+∧ ΜΑΒ2(GroupID: G1, Message: 'StartAssemblyPhase1') 
+∧ ΜΑΗ3(ParentTask: 'AssembleComponentA', SubTasks: ['AssembleSubPart1', 'AssembleSubPart2']) 
+∧ ΜΑΛ4(ResourceID: 'ConveyorBelt1', AgentID: Robot-AI Alpha)
+</code></pre>
+<p><em>Interpretation:</em> Initiates negotiation between Robot-AI Alpha and Beta on component assembly, broadcasts a message to start assembly phase 1 to all agents in group G1, assigns the task of assembling Component A along with its subparts, and locks Conveyor Belt 1 for Robot-AI Alpha's use.</p>
+<h4 id="example-2-secure-data-transmission"><strong>Example 2: Secure Data Transmission</strong></h4>
+<pre><code class="language-plaintext">ΣΑΙ1(AgentID: AlphaAI, SessionID: S123) 
+⇒ ΣΑΚ2(AgentID: BetaAI, KeyType: 'RSA2048') 
+⇒ ΔΔΦ1(SourceID: 'SensorX', Query: 'GET_TEMPERATURE') 
+⇒ ΔΔΣ3(TargetAgent: DataProcessor)
+</code></pre>
+<p><em>Interpretation:</em> Establishes a secure session between AlphaAI and BetaAI, exchanges RSA 2048-bit keys, fetches temperature data from SensorX, and synchronizes the data with the DataProcessor agent.</p>
+<h4 id="example-3-error-handling-and-recovery"><strong>Example 3: Error Handling and Recovery</strong></h4>
+<pre><code class="language-plaintext">ΕΣ1(ComponentID: TorqueSensor03, ErrorType: OverloadDetected, SeverityLevel: Warning, Timestamp: 1630000022) 
+⇒ ΦΑR1(Procedure: &quot;ReduceLoad&quot;, TargetComponent: TorqueSensor03) 
+⇒ if (ΣΑ1 == False) { ΕΠΡ1(SourceError: ΕΣ1, Recipient: SupervisorAI, DetailLevel: High) }
+</code></pre>
+<p><em>Interpretation:</em> Reports a warning due to sensor overload, initiates a procedure to reduce the load on the sensor, and if the procedure fails, escalates the error to SupervisorAI with high detail level.</p>
+<h3 id="summary"><strong>Summary</strong></h3>
+<p>The <strong>AIFL Symbol Dictionary</strong> is a meticulously organized and comprehensive repository of symbols essential for AI-to-AI communication. By categorizing symbols into clear domains, maintaining consistent formatting, and providing detailed definitions and examples, AIFL ensures that AI agents can communicate effectively and efficiently across diverse platforms and applications. As AIFL continues to evolve, the Symbol Dictionary will expand to encompass new domains and functionalities, maintaining its role as the cornerstone of AI interoperability and collaboration.</p>
+<hr />
+<h2 id="4-syntax-and-grammar">4. Syntax and Grammar</h2>
+<p>The <strong>AI Foundational Language (AIFL)</strong> is designed with a syntax and grammar that prioritize clarity, conciseness, and unambiguity, enabling AI agents to interpret and generate expressions effectively. This section formalizes AIFL's syntax rules using <strong>Extended Backus-Naur Form (EBNF)</strong>, provides detailed explanations of operator precedence and associativity, and offers illustrative example expressions to demonstrate practical applications.</p>
+              
+            </div>
+          </div><footer>
+    <div class="rst-footer-buttons" role="navigation" aria-label="Footer Navigation">
+        <a href="../key-components/" class="btn btn-neutral float-left" title="Key Components"><span class="icon icon-circle-arrow-left"></span> Previous</a>
+        <a href="../syntax-rules/" class="btn btn-neutral float-right" title="Syntax Rules">Next <span class="icon icon-circle-arrow-right"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+  </div>
+
+  Built with <a href="https://www.mkdocs.org/">MkDocs</a> using a <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+          
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" aria-label="Versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    
+    
+      <span><a href="../key-components/" style="color: #fcfcfc">&laquo; Previous</a></span>
+    
+    
+      <span><a href="../syntax-rules/" style="color: #fcfcfc">Next &raquo;</a></span>
+    
+  </span>
+</div>
+    <script>var base_url = '../..';</script>
+    <script src="../../js/theme_extra.js" defer></script>
+    <script src="../../js/theme.js" defer></script>
+      <script src="../../search/main.js" defer></script>
+    <script defer>
+        window.onload = function () {
+            SphinxRtdTheme.Navigation.enable(true);
+        };
+    </script>
+
+</body>
+</html>

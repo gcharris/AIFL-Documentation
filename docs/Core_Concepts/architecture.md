@@ -139,4 +139,4 @@ graph TD
 - Explore [Key Components](key-components.md) for detailed component information
 - Review the [Symbol Dictionary](symbol-dictionary.md) for language specifications
 - Check [Integration Guides](../Integration_Guides/Swarm_API_Integration.md) for platform integration
-- Follow [Installation Guide](../Getting_Started/installation.md) for setup instructions
+- Follow [Installation Guide](../Developer_Guide/getting_started.md) for setup instructions
